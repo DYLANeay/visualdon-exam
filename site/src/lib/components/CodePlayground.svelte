@@ -95,19 +95,21 @@
 
   <div class="grid md:grid-cols-2">
     <div bind:this={editeur} class="min-h-40 border-border max-md:border-b md:border-r"></div>
-    <!-- {#key} : recrée l'iframe à chaque exécution — la mise à jour de srcdoc
+    <!-- Conteneur relatif : l'iframe en absolu épouse toute la hauteur de la
+         cellule (un height:100% direct ne se résout pas dans une rangée auto).
+         {#key} : recrée l'iframe à chaque exécution, la mise à jour de srcdoc
          sur une iframe existante n'est pas fiable (navigation parfois ignorée). -->
-    {#key iframeSrc}
-      {#if iframeSrc}
-        <iframe
-          title="Aperçu du code"
-          sandbox="allow-scripts"
-          srcdoc={iframeSrc}
-          class="min-h-40 w-full bg-surface"
-        ></iframe>
-      {:else}
-        <div class="min-h-40 w-full bg-surface"></div>
-      {/if}
-    {/key}
+    <div class="relative min-h-40 bg-surface">
+      {#key iframeSrc}
+        {#if iframeSrc}
+          <iframe
+            title="Aperçu du code"
+            sandbox="allow-scripts"
+            srcdoc={iframeSrc}
+            class="absolute inset-0 h-full w-full"
+          ></iframe>
+        {/if}
+      {/key}
+    </div>
   </div>
 </div>
