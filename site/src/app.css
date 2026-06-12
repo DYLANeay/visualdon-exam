@@ -96,3 +96,37 @@ body {
 .prose-vd--inline p {
   @apply my-0 inline;
 }
+
+/* Impression (formulaire A4) : on retire l'interface, on garde le contenu en
+   noir sur blanc, compact, pour la page « L'essentiel ». */
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  :root {
+    --vd-bg: #fff;
+    --vd-fg: #000;
+    --vd-fg-strong: #000;
+    --vd-muted: #333;
+    --vd-faint: #555;
+    --vd-border: #ccc;
+    --vd-accent-fg: #000;
+    --vd-accent-surface: #fff;
+  }
+  body {
+    font-size: 11px;
+  }
+  main {
+    padding: 0 !important;
+  }
+  section {
+    padding-top: 0 !important;
+  }
+  /* Deux colonnes pour densifier l'antisèche A4 */
+  .print-cols {
+    column-count: 2;
+    column-gap: 1.5rem;
+  }
+}

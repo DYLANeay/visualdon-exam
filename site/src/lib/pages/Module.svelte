@@ -2,6 +2,7 @@
   import { modules } from '../data/modules.js'
   import { contenuModule } from '../content/index.js'
   import { questionsModule } from '../quiz/index.js'
+  import { podcastModule } from '../data/podcasts.js'
   import Markdown from '../components/Markdown.svelte'
   import CodeBlock from '../components/CodeBlock.svelte'
 
@@ -10,6 +11,7 @@
   const meta = $derived(modules.find((m) => m.id === id))
   const contenu = $derived(contenuModule(id))
   const nbQuestions = $derived(questionsModule(id).length)
+  const podcast = $derived(podcastModule(id))
 </script>
 
 <article class="mx-auto max-w-3xl py-12">
@@ -91,6 +93,21 @@
     >
       <span class="font-medium">Tester mes connaissances</span>
       <span class="text-sm opacity-80">{nbQuestions} questions →</span>
+    </a>
+  {/if}
+
+  {#if podcast?.disponible}
+    <a
+      href="#/podcasts"
+      class="mt-4 flex items-center gap-3 rounded-lg border border-border px-5 py-4 transition-colors hover:border-accentfg"
+    >
+      <span class="grid size-9 shrink-0 place-items-center rounded-full bg-accentsurface text-accentfg">
+        <svg class="size-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </span>
+      <span>
+        <span class="block font-medium text-fg-strong">Écouter le podcast</span>
+        <span class="block text-sm text-muted">Réviser ce module à l’oreille</span>
+      </span>
     </a>
   {/if}
 </article>

@@ -20,13 +20,13 @@
     </div>
     <button
       onclick={() => window.print()}
-      class="shrink-0 rounded-md border border-border px-3 py-1.5 text-sm text-muted transition-colors hover:border-accentfg hover:text-accentfg"
+      class="no-print shrink-0 rounded-md border border-border px-3 py-1.5 text-sm text-muted transition-colors hover:border-accentfg hover:text-accentfg"
     >
       Imprimer
     </button>
   </div>
 
-  <div class="mt-10 space-y-10">
+  <div class="print-cols mt-10 space-y-10">
     {#each fiches as { meta, contenu }}
       <section class="break-inside-avoid">
         <h2 class="flex items-baseline gap-2 border-b border-border pb-2">

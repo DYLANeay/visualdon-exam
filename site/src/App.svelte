@@ -30,14 +30,22 @@
     { path: '/profil', label: 'Profil' },
   ]
 
+  let menuOuvert = $state(false)
+  // Referme le menu mobile à chaque changement de page.
+  $effect(() => {
+    $route
+    menuOuvert = false
+  })
 </script>
 
 <header class="border-b border-border">
-  <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
+  <div class="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-4">
     <a href="#/" class="font-semibold tracking-tight text-fg-strong">
       VisualDon<span class="text-accentfg">·</span>Révisions
     </a>
-    <nav class="flex items-center gap-5 text-sm">
+
+    <!-- Nav complète (desktop) -->
+    <nav class="hidden items-center gap-5 text-sm md:flex">
       {#each nav as item}
         <a
           href={'#' + item.path}
@@ -53,7 +61,44 @@
       </span>
       <ThemeToggle />
     </nav>
+
+    <!-- Compact (mobile) -->
+    <div class="flex items-center gap-2 md:hidden">
+      <span class="rounded-full bg-accentsurface px-2.5 py-0.5 font-mono text-xs text-accentfg">
+        {$progress.xp} XP
+      </span>
+      <ThemeToggle />
+      <button
+        onclick={() => (menuOuvert = !menuOuvert)}
+        aria-label="Menu"
+        class="grid size-8 place-items-center rounded-md text-muted hover:bg-surface hover:text-fg-strong"
+      >
+        <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          {#if menuOuvert}
+            <path d="M6 6l12 12M18 6L6 18" />
+          {:else}
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          {/if}
+        </svg>
+      </button>
+    </div>
   </div>
+
+  <!-- Menu déroulant mobile -->
+  {#if menuOuvert}
+    <nav class="border-t border-border md:hidden">
+      {#each nav as item}
+        <a
+          href={'#' + item.path}
+          class={`block border-b border-border px-4 py-3 text-sm ${
+            $route.startsWith(item.path) ? 'font-medium text-accentfg' : 'text-fg'
+          }`}
+        >
+          {item.label}
+        </a>
+      {/each}
+    </nav>
+  {/if}
 </header>
 
 <main class="px-4">
