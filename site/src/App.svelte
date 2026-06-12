@@ -9,6 +9,7 @@
   import Examen from './lib/pages/Examen.svelte'
   import Flashcards from './lib/pages/Flashcards.svelte'
   import Profil from './lib/pages/Profil.svelte'
+  import Podcasts from './lib/pages/Podcasts.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
 
@@ -25,6 +26,7 @@
     { path: '/essentiel', label: 'L’essentiel' },
     { path: '/examen', label: 'Examen blanc' },
     { path: '/flashcards', label: 'Flashcards' },
+    { path: '/podcasts', label: 'Podcasts' },
     { path: '/profil', label: 'Profil' },
   ]
 
@@ -69,6 +71,8 @@
     <Examen />
   {:else if $route === '/flashcards'}
     <Flashcards />
+  {:else if $route === '/podcasts'}
+    <Podcasts />
   {:else if $route === '/profil'}
     <Profil />
   {:else}

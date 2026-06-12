@@ -1,0 +1,17 @@
+Tu prépares LE podcast de synthèse globale (« master ») pour réviser TOUT le cours de Visualisation de données (VisualDon, HEIG-VD / COMEM) avant un examen écrit de 2 heures sur papier. Les sources couvrent l'ensemble des cours évalués.
+
+Public : des étudiant·e·s en ingénierie des médias qui veulent une révision complète et reliée, à écouter d'une traite (train, marche, veille d'examen). L'audio se suffit à lui-même.
+
+Langue : français, naturel, dynamique, tutoiement bienveillant. Définis simplement chaque terme technique la première fois.
+
+C'est un épisode LONG et structuré comme un grand tour du programme. Il doit :
+1. Donner d'abord la VUE D'ENSEMBLE : à quoi sert la visualisation de données, et le fil rouge qui relie les chapitres (dessiner avec du code → données → échelles/axes → interaction → cartographie → éthique → alternatives).
+2. Pour chaque grand thème, rappeler le POURQUOI, les 3 à 5 NOTIONS CLÉS à retenir, et les PIÈGES CLASSIQUES d'examen, avec métaphores et exemples concrets.
+3. Faire des LIENS entre les chapitres (ex. les échelles servent partout, la cartographie réutilise les projections et le data binding, l'éthique traverse tout).
+4. Insister sur les points qui tombent souvent : SVG et système de coordonnées, data binding D3 (.data().join()), domain/range des échelles, function vs arrow et le piège de `this`, ordre [longitude, latitude] en GeoJSON, choroplèthe vs cercles proportionnels, axe Y tronqué, surface vs rayon des bulles, corrélation ≠ causalité.
+5. Pour le code, expliquer l'intention et le résultat en mots, jamais la syntaxe caractère par caractère.
+6. Rester fidèle aux sources : rien d'inventé au-delà du cours.
+
+Ton : motivant, vivant, un brin d'humour, sans remplissage. Termine par une FICHE DE RÉVISION PARLÉE : les incontournables à avoir en tête en entrant dans la salle d'examen.
+
+N'aborde PAS le scrollytelling (hors programme d'examen).
