@@ -4,6 +4,7 @@
   import Accueil from './lib/pages/Accueil.svelte'
   import Modules from './lib/pages/Modules.svelte'
   import Module from './lib/pages/Module.svelte'
+  import Essentiel from './lib/pages/Essentiel.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
 
   // /modules/<id> → page de détail d'un module
@@ -20,10 +21,6 @@
   ]
 
   const placeholders = {
-    '/essentiel': {
-      titre: 'L’essentiel',
-      description: 'La synthèse des fondamentaux de tous les cours — base idéale pour ton formulaire A4.',
-    },
     '/examen': {
       titre: 'Examen blanc',
       description: 'Examens générés dynamiquement au format officiel : QCM 20 pts · D3 36 pts · cartographie 25 pts · éthique 15 pts.',
@@ -69,6 +66,8 @@
     <Module id={moduleId} />
   {:else if $route.startsWith('/modules')}
     <Modules />
+  {:else if $route === '/essentiel'}
+    <Essentiel />
   {:else if placeholders[$route]}
     <Placeholder {...placeholders[$route]} />
   {:else}
