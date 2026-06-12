@@ -1,7 +1,7 @@
 <script>
   import { modules } from '../data/modules.js'
   import { questionsModule, melanger } from '../quiz/index.js'
-  import { progress, addXp } from '../stores/progress.js'
+  import { progress, addXp, verifierBadgesModules } from '../stores/progress.js'
   import QuizCard from '../components/QuizCard.svelte'
 
   let { id } = $props()
@@ -37,6 +37,7 @@
           },
         },
       }))
+      verifierBadgesModules()
     }
   })
 </script>

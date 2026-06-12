@@ -8,6 +8,7 @@
   import Quiz from './lib/pages/Quiz.svelte'
   import Examen from './lib/pages/Examen.svelte'
   import Flashcards from './lib/pages/Flashcards.svelte'
+  import Profil from './lib/pages/Profil.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
 
@@ -27,12 +28,6 @@
     { path: '/profil', label: 'Profil' },
   ]
 
-  const placeholders = {
-    '/profil': {
-      titre: 'Profil',
-      description: 'XP, badges, streak et export de ta progression.',
-    },
-  }
 </script>
 
 <header class="border-b border-border">
@@ -74,8 +69,8 @@
     <Examen />
   {:else if $route === '/flashcards'}
     <Flashcards />
-  {:else if placeholders[$route]}
-    <Placeholder {...placeholders[$route]} />
+  {:else if $route === '/profil'}
+    <Profil />
   {:else}
     <Placeholder titre="Page introuvable" description="Ce chemin ne mène nulle part. Retourne à l’accueil !" />
   {/if}
