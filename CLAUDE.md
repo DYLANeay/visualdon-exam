@@ -53,6 +53,9 @@ Site web de révision gamifié pour l'examen de visualisation de données :
   cours (hors cours 11).
 - Une importance particulière est donnée à l'**examen type** et aux **exercices
   préparatoires** (`revisions/`) : ce sont les références les plus proches de l'examen réel.
+- **Design** : archi clair, propre et élégant, **sans fioritures**. Fond clair, espace
+  blanc généreux, palette sobre (neutres + une couleur d'accent), gamification discrète.
+  Le site doit lui-même être un exemple de bonnes pratiques de visualisation.
 
 ## Contenu source
 

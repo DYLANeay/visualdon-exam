@@ -16,10 +16,24 @@ Cours couverts : 01 à 12, **sauf le 11 (Scrollytelling, non évalué)**.
 | Framework | **Svelte 5 + Vite** | Léger, réactif, excellent duo avec D3, peu de boilerplate |
 | Visualisation | **D3.js v7** | La lib du cours — le site est aussi une démo de dataviz |
 | Live coding | **CodeMirror 6 + iframe sandbox** | Éditeur léger, exécution isolée avec D3 préchargé |
-| Styles | CSS vanilla (custom properties) ou Tailwind si besoin | Rester simple |
+| Styles | **Tailwind CSS 4** | Design épuré et cohérent (spacing/typo systématiques), rapide à itérer |
 | Persistance | **localStorage** (+ export/import JSON) | Zéro backend, déploiement statique |
 | Déploiement | **GitHub Pages** (build statique Vite) | Gratuit, push sur `main` = déploiement |
 | Génération de contenu | **Hybride : banque JSON + templates paramétrés**, enrichie hors-ligne via opencode / Claude Code | Site statique et fiable, pas de clé API exposée, questions relues avant intégration |
+
+## Direction artistique
+
+**Archi clair, propre et élégant, sans fioritures.** Concrètement :
+
+- Fond clair, beaucoup d'espace blanc, hiérarchie typographique nette (une seule famille
+  de caractères soignée + une mono pour le code).
+- Palette sobre : neutres + **une** couleur d'accent (et les couleurs sémantiques
+  juste/faux). Pas de dégradés ni d'ombres lourdes.
+- La gamification reste discrète : XP, badges et streak sont des touches élégantes
+  (petites pastilles, micro-animations brèves), pas un casino.
+- Les visualisations D3 sont les vedettes : le chrome de l'interface s'efface devant
+  le contenu. Lisibilité avant tout — le site doit lui-même être un exemple de bonnes
+  pratiques dataviz (cours 10 oblige).
 
 ## Architecture
 
