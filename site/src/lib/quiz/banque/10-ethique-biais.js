@@ -1,0 +1,203 @@
+export default [
+  // --- QCM ---
+  {
+    id: '10-qcm-1',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Un bar chart montre l\'évolution des abonnés d\'un réseau social. L\'axe Y commence à 950 000 au lieu de 0. Quel est le problème principal ?',
+    options: [
+      'Le graphique est illisible car les valeurs sont trop proches',
+      'Les différences entre les barres sont **visuellement exagérées**, donnant l\'impression d\'une croissance explosive',
+      'L\'axe Y doit toujours commencer à la valeur minimale des données',
+      'Il n\'y a aucun problème : rogner l\'axe est une pratique standard',
+    ],
+    correct: 1,
+    explication:
+      'Couper l\'axe Y sur un bar chart exagère visuellement les différences. Une variation de 2 % peut *paraître* doubler la hauteur des barres. Sur un bar chart, l\'axe Y doit commencer à 0. Sur un graphique en ligne, rogner peut être acceptable à condition de l\'indiquer explicitement.',
+  },
+  {
+    id: '10-qcm-2',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Une visualisation compare les budgets de santé de différents pays en **valeurs absolues** (milliards de dollars). Les États-Unis apparaissent de loin en tête. Quel biais est-il présent ?',
+    options: [
+      'Un biais de corrélation : on confond budget et efficacité',
+      'Un biais de représentation : l\'axe Y n\'est pas à 0',
+      'Un biais de comparaison : il faudrait normaliser les valeurs (ex. par habitant ou en % du PIB) pour comparer équitablement',
+      'Aucun biais : les valeurs absolues sont toujours la méthode correcte',
+    ],
+    correct: 2,
+    explication:
+      'Comparer des pays en valeurs absolues sans normalisation revient à comparer des pommes et des poires. Un pays peuplé aura toujours un budget absolu plus élevé. Il faut rapporter les valeurs **par habitant** ou **en pourcentage du PIB** pour une comparaison juste.',
+  },
+  {
+    id: '10-qcm-3',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Un graphique à bulles encode trois variables : X, Y et taille de la bulle. Le designer encode la taille via le **rayon** de la bulle plutôt que sa **surface**. Quel est le problème ?',
+    options: [
+      'Il n\'y a aucun problème : rayon et surface encodent la même information',
+      'La bulle de rayon 2 paraît **4 fois plus grande** qu\'une bulle de rayon 1, alors que la valeur n\'est que le double — la surface croît en r², pas en r',
+      'Le rayon est plus précis à lire que la surface',
+      'Ce problème n\'existe que pour les graphiques en camembert',
+    ],
+    correct: 1,
+    explication:
+      'L\'œil perçoit la **surface** des formes, pas le rayon. Si rayon = 2× plus grand, la surface = 4× plus grande (S = πr²). Encoder par le rayon surestime visuellement les grandes valeurs. Il faut encoder via la surface : `r = Math.sqrt(valeur)`.',
+  },
+  {
+    id: '10-qcm-4',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Un chercheur veut montrer la **corrélation** entre le revenu médian et l\'espérance de vie pour 150 pays. Quel type de graphique conseiller ?',
+    options: [
+      'Un bar chart trié par revenu médian',
+      'Un scatterplot (nuage de points) avec une droite de régression',
+      'Un graphique en ligne avec deux axes Y',
+      'Un camembert avec 150 parts, une par pays',
+    ],
+    correct: 1,
+    explication:
+      'Le **scatterplot** est l\'outil canonique pour visualiser une corrélation entre deux variables quantitatives. Chaque pays = un point, axe X = revenu, axe Y = espérance de vie. On peut ajouter une droite de régression et encoder une 3e variable (ex. continent) par la couleur.',
+  },
+  {
+    id: '10-qcm-5',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Le **Quartet d\'Anscombe** (1973) illustre quelle leçon fondamentale ?',
+    options: [
+      'Quatre algorithmes de tri différents produisent toujours le même résultat',
+      'Quatre datasets aux statistiques résumées **identiques** (même moyenne, variance, corrélation) ont des formes visuellement **radicalement différentes** → toujours visualiser avant de conclure',
+      'Il faut toujours calculer la moyenne et la variance avant de visualiser',
+      'Les statistiques descriptives sont suffisantes pour décrire un dataset',
+    ],
+    correct: 1,
+    explication:
+      'Le Quartet d\'Anscombe montre que des statistiques résumées identiques peuvent cacher des réalités totalement différentes (une droite, une courbe, un outlier…). **Leçon :** visualise avant de conclure, ne te fie pas aux seuls chiffres résumés.',
+  },
+  {
+    id: '10-qcm-6',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Concernant le **daltonisme** et le choix des couleurs, quelle affirmation est correcte ?',
+    options: [
+      'Le daltonisme touche ~0,5 % des hommes et ~8 % des femmes',
+      'Il suffit d\'éviter le rouge pur pour être accessible',
+      'Environ **8 % des hommes** sont daltoniens ; il ne faut pas utiliser **uniquement** le rouge/vert pour encoder une différence',
+      'Les palettes arc-en-ciel (rainbow) sont recommandées car elles contiennent toutes les couleurs',
+    ],
+    correct: 2,
+    explication:
+      'Le daltonisme touche **~8 % des hommes** et ~0,5 % des femmes. La confusion rouge/vert est la plus fréquente. Solution : utiliser le contraste clair/foncé, des formes ou textures en complément. Les palettes arc-en-ciel sont à éviter (confusion perceptive). Outils de test : Coblis, Spectrum.',
+  },
+  {
+    id: '10-qcm-7',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'L\'algorithme **COMPAS**, analysé par ProPublica en 2016, est un exemple canonique de biais algorithmique. Quel était le biais principal mis en évidence ?',
+    options: [
+      'L\'algorithme favorisait les personnes âgées par rapport aux jeunes',
+      'Le taux de **faux positifs** (prédiction erronée de récidive) était **2× plus élevé** pour les personnes racisées',
+      'L\'algorithme ne fonctionnait que pour les délits financiers',
+      'COMPAS était uniquement utilisé en Europe, non aux États-Unis',
+    ],
+    correct: 1,
+    explication:
+      'L\'enquête ProPublica (2016) sur 7 000 détenu·e·s a montré que COMPAS (système de prédiction de récidive) avait un taux de **faux positifs 2× plus élevé** pour les personnes racisées, et un taux de faux négatifs 2× plus élevé pour les personnes non racisées. Exemple d\'algorithme entraîné sur des données historiquement biaisées.',
+  },
+  {
+    id: '10-qcm-8',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Un graphique de ventes **cumulées** d\'une entreprise monte constamment depuis 3 ans. L\'entreprise l\'utilise pour montrer sa "croissance". Quel est le piège ?',
+    options: [
+      'Les valeurs cumulées sont toujours incorrectes',
+      'Un graphique cumulé **monte toujours**, même si les ventes mensuelles s\'effondrent — il masque la tendance réelle sous-jacente',
+      'Il faudrait utiliser un axe logarithmique',
+      'Il n\'y a aucun piège : la croissance cumulée est la bonne mesure',
+    ],
+    correct: 1,
+    explication:
+      'Un graphique cumulé additionne les valeurs : même si les ventes s\'effondrent, la courbe cumulative continue de monter (elle ne peut que croître ou stagner). Apple a utilisé cette technique pour ses ventes d\'iPad en 2013. Toujours montrer les valeurs **brutes** en parallèle.',
+  },
+  {
+    id: '10-qcm-9',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Quelle est la différence fondamentale entre un **biais dans les données** et un **biais dans la représentation visuelle** ?',
+    options: [
+      'Il n\'y a aucune différence : les deux correspondent à des erreurs de calcul',
+      'Le biais dans les données vient de la **collecte/production** (qui collecte, qui est absent·e) ; le biais de représentation vient des **choix graphiques** (axe tronqué, encodage trompeur)',
+      'Le biais de représentation est toujours intentionnel, le biais de données toujours accidentel',
+      'Seul le biais de représentation est problématique pour la visualisation',
+    ],
+    correct: 1,
+    explication:
+      'D\'Ignazio & Klein (*Data Feminism*) distinguent les deux : le **biais dans les données** naît de la collecte (données manquantes, populations absentes, objectifs des financeurs). Le **biais de représentation** naît des choix graphiques (axe tronqué, cherry-picking, encodage par rayon). Les deux s\'amplifient mutuellement.',
+  },
+  {
+    id: '10-qcm-10',
+    module: '10-ethique-biais',
+    type: 'qcm',
+    partie: 'ethique',
+    points: 2,
+    question: 'Un auteur compare deux algorithmes sur 5 jeux de données. L\'algo A gagne sur 4 d\'entre eux, mais l\'auteur met en avant uniquement le jeu de données où l\'algo B gagne. Ce biais s\'appelle :',
+    options: [
+      'Biais de confirmation algorithmique',
+      '**Cherry-picking** (sélection sélective des données)',
+      'Biais de corrélation',
+      'Double axe Y',
+    ],
+    correct: 1,
+    explication:
+      'Le **cherry-picking** consiste à sélectionner uniquement les données qui soutiennent la conclusion souhaitée, en ignorant les données contradictoires. C\'est un biais éditorial conscient ou inconscient. Correction : montrer l\'ensemble des jeux de données, indiquer la méthode de sélection.',
+  },
+
+  // --- Questions ouvertes ---
+  {
+    id: '10-ouvert-1',
+    module: '10-ethique-biais',
+    type: 'ouvert',
+    partie: 'ethique',
+    points: 3,
+    question: 'Qu\'est-ce que le principe **"corrélation ≠ causalité"** ? Donnez un exemple concret tiré du cours et expliquez comment visualiser une corrélation sans induire en erreur.',
+    corrige: [
+      'Deux variables qui varient ensemble ne prouvent aucun lien de cause à effet — un facteur tiers peut expliquer les deux.',
+      'Exemple du cours : consommation de chocolat par habitant et nombre de prix Nobel → la richesse nationale explique probablement les deux variables.',
+      'Pour ne pas induire en erreur : nommer explicitement les limites de l\'analyse, indiquer qu\'il s\'agit d\'une corrélation (pas d\'une causalité), chercher un mécanisme explicatif plausible.',
+      'Bonus : le site tylervigen.com recense des centaines de "spurious correlations" pour illustrer ce danger.',
+    ],
+  },
+  {
+    id: '10-ouvert-2',
+    module: '10-ethique-biais',
+    type: 'ouvert',
+    partie: 'ethique',
+    points: 3,
+    question: 'Selon D\'Ignazio & Klein (*Data Feminism*, 2020), les données ne sont jamais neutres. Quelles sont les trois questions essentielles à se poser avant de publier une visualisation ? Expliquez ce que chacune révèle.',
+    corrige: [
+      '**Qui collecte ?** → Les données reflètent les priorités des financeurs (ex. statistiques coloniales conçues pour administrer, pas pour émanciper).',
+      '**Qui est compté·e ?** → Les populations marginalisées sont souvent absentes (ex. les sans-abri ne rentrent pas dans les recensements classiques).',
+      '**Qui est absent·e ?** → L\'absence de données est elle-même une donnée (ex. pas de statistiques ethniques en Suisse).',
+      'Si les données sont biaisées, la visualisation amplifie ces biais — présenter des données non-représentatives comme universelles est un choix éditorial à assumer ou corriger.',
+    ],
+  },
+]

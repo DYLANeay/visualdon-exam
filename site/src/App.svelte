@@ -6,6 +6,7 @@
   import Module from './lib/pages/Module.svelte'
   import Essentiel from './lib/pages/Essentiel.svelte'
   import Quiz from './lib/pages/Quiz.svelte'
+  import Examen from './lib/pages/Examen.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
 
@@ -26,10 +27,6 @@
   ]
 
   const placeholders = {
-    '/examen': {
-      titre: 'Examen blanc',
-      description: 'Examens générés dynamiquement au format officiel : QCM 20 pts · D3 36 pts · cartographie 25 pts · éthique 15 pts.',
-    },
     '/flashcards': {
       titre: 'Flashcards',
       description: 'Révision par répétition espacée : les cartes dues remontent automatiquement.',
@@ -76,6 +73,8 @@
     <Modules />
   {:else if $route === '/essentiel'}
     <Essentiel />
+  {:else if $route === '/examen'}
+    <Examen />
   {:else if placeholders[$route]}
     <Placeholder {...placeholders[$route]} />
   {:else}
