@@ -7,6 +7,7 @@
   import Essentiel from './lib/pages/Essentiel.svelte'
   import Quiz from './lib/pages/Quiz.svelte'
   import Examen from './lib/pages/Examen.svelte'
+  import Flashcards from './lib/pages/Flashcards.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
 
@@ -27,10 +28,6 @@
   ]
 
   const placeholders = {
-    '/flashcards': {
-      titre: 'Flashcards',
-      description: 'Révision par répétition espacée : les cartes dues remontent automatiquement.',
-    },
     '/profil': {
       titre: 'Profil',
       description: 'XP, badges, streak et export de ta progression.',
@@ -75,6 +72,8 @@
     <Essentiel />
   {:else if $route === '/examen'}
     <Examen />
+  {:else if $route === '/flashcards'}
+    <Flashcards />
   {:else if placeholders[$route]}
     <Placeholder {...placeholders[$route]} />
   {:else}
