@@ -3,7 +3,13 @@
   import { progress } from './lib/stores/progress.js'
   import Accueil from './lib/pages/Accueil.svelte'
   import Modules from './lib/pages/Modules.svelte'
+  import Module from './lib/pages/Module.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
+
+  // /modules/<id> → page de détail d'un module
+  const moduleId = $derived(
+    $route.startsWith('/modules/') ? $route.slice('/modules/'.length) : null,
+  )
 
   const nav = [
     { path: '/modules', label: 'Modules' },
@@ -59,6 +65,8 @@
 <main class="px-4">
   {#if $route === '/'}
     <Accueil />
+  {:else if moduleId}
+    <Module id={moduleId} />
   {:else if $route.startsWith('/modules')}
     <Modules />
   {:else if placeholders[$route]}

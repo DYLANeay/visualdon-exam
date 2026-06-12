@@ -19,3 +19,26 @@ html {
 body {
   @apply bg-white font-sans text-neutral-800 antialiased;
 }
+
+/* Rendu du contenu markdown des modules */
+.prose-vd p {
+  @apply my-3 leading-relaxed;
+}
+.prose-vd ul {
+  @apply my-3 list-disc space-y-1 pl-5;
+}
+.prose-vd ol {
+  @apply my-3 list-decimal space-y-1 pl-5;
+}
+.prose-vd code {
+  @apply rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm text-accent-700;
+}
+.prose-vd strong {
+  @apply font-semibold text-neutral-900;
+}
+.prose-vd a {
+  @apply text-accent-600 underline underline-offset-2;
+}
+.prose-vd--inline p {
+  @apply my-0 inline;
+}
