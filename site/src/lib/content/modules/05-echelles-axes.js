@@ -26,13 +26,23 @@ Tu donnes une donnée à la fonction, elle te rend une position. \`scale(minData
         editable: true,
         source: `import { scaleLinear } from 'd3-scale'
 
+// Une échelle qui mappe [0, 100] vers des pixels [20, 340]
 const x = scaleLinear()
-  .domain([0, 100])   // données
-  .range([0, 800])    // pixels
+  .domain([0, 100])
+  .range([20, 340])
 
-x(0)   // 0
-x(50)  // 400
-x(100) // 800`,
+const data = [0, 25, 50, 75, 100]
+
+// Chaque donnée devient une position grâce à l'échelle
+svg.selectAll('circle')
+  .data(data)
+  .join('circle')
+  .attr('cx', d => x(d))
+  .attr('cy', 110)
+  .attr('r', 12)
+  .attr('fill', 'steelblue')
+
+// 👉 Change le range en [20, 200] puis clique Exécuter`,
       },
     },
     {
@@ -50,15 +60,29 @@ Mémo : *linéaire/temps = continu vers continu ; band/ordinal = catégories ; q
       code: {
         langage: 'js',
         editable: true,
-        source: `import { scaleBand } from 'd3-scale'
+        source: `import { scaleBand, scaleLinear } from 'd3-scale'
 
-const x = scaleBand()
-  .domain(['A', 'B', 'C', 'D'])
-  .range([0, 800])
-  .padding(0.1)
+const data = [
+  { cat: 'A', val: 30 },
+  { cat: 'B', val: 80 },
+  { cat: 'C', val: 45 },
+  { cat: 'D', val: 60 },
+]
 
-x('A')         // position de la barre A
-x.bandwidth()  // largeur de chaque barre`,
+// scaleBand répartit les catégories en bandes égales
+const x = scaleBand().domain(data.map(d => d.cat)).range([20, 340]).padding(0.2)
+const y = scaleLinear().domain([0, 100]).range([200, 20])
+
+svg.selectAll('rect')
+  .data(data)
+  .join('rect')
+  .attr('x', d => x(d.cat))
+  .attr('y', d => y(d.val))
+  .attr('width', x.bandwidth())   // largeur d'une barre
+  .attr('height', d => 200 - y(d.val))
+  .attr('fill', '#2563eb')
+
+// 👉 Augmente .padding(0.6) : les barres rétrécissent !`,
       },
     },
     {
@@ -70,14 +94,17 @@ x.bandwidth()  // largeur de chaque barre`,
       code: {
         langage: 'js',
         editable: true,
-        source: `import { axisBottom, axisLeft } from 'd3-axis'
+        source: `import { scaleLinear } from 'd3-scale'
+import { axisBottom } from 'd3-axis'
 
-svg.append('g')
-  .attr('transform', \`translate(0, \${height})\`)
-  .call(axisBottom(xScale))
+const x = scaleLinear().domain([0, 100]).range([30, 330])
 
+// Un axe se génère depuis une échelle, dessiné dans un <g>
 svg.append('g')
-  .call(axisLeft(yScale))`,
+  .attr('transform', 'translate(0, 110)')
+  .call(axisBottom(x))
+
+// 👉 Change le domain en [0, 1000] et observe les graduations`,
       },
     },
     {
