@@ -34,6 +34,10 @@ Cours couverts : 01 à 12, **sauf le 11 (Scrollytelling, non évalué)**.
 - Les visualisations D3 sont les vedettes : le chrome de l'interface s'efface devant
   le contenu. Lisibilité avant tout — le site doit lui-même être un exemple de bonnes
   pratiques dataviz (cours 10 oblige).
+- **Dark mode** : suit la préférence système par défaut, avec un toggle discret dans le
+  header (choix persisté en localStorage). Même sobriété que le mode clair : fond
+  sombre neutre, le même accent, contrastes soignés — y compris dans les
+  visualisations D3 et l'éditeur de code (thème CodeMirror assorti).
 
 ## Architecture
 

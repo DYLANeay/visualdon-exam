@@ -60,6 +60,8 @@ Site web de révision gamifié pour l'examen de visualisation de données :
 - **Design** : archi clair, propre et élégant, **sans fioritures**. Fond clair, espace
   blanc généreux, palette sobre (neutres + une couleur d'accent), gamification discrète.
   Le site doit lui-même être un exemple de bonnes pratiques de visualisation.
+  **Dark mode** : préférence système par défaut + toggle persisté, même sobriété
+  (couvre aussi les visualisations D3 et l'éditeur de code).
 
 ## Contenu source
 
