@@ -11,29 +11,29 @@
 </script>
 
 <article class="mx-auto max-w-3xl py-12">
-  <a href="#/modules" class="text-sm text-neutral-400 hover:text-neutral-900">
+  <a href="#/modules" class="text-sm text-faint hover:text-fg-strong">
     ← Tous les modules
   </a>
 
   {#if meta}
-    <p class="mt-6 font-mono text-sm text-accent-600">
+    <p class="mt-6 font-mono text-sm text-accentfg">
       Cours {String(meta.numero).padStart(2, '0')}
     </p>
-    <h1 class="mt-1 text-3xl font-semibold tracking-tight text-neutral-900">
+    <h1 class="mt-1 text-3xl font-semibold tracking-tight text-fg-strong">
       {meta.titre}
     </h1>
   {/if}
 
   {#if contenu}
     {#if contenu.accroche}
-      <p class="mt-4 text-lg text-neutral-500">
+      <p class="mt-4 text-lg text-muted">
         <Markdown source={contenu.accroche} inline />
       </p>
     {/if}
 
     {#each contenu.sections ?? [] as section}
       <section class="mt-10">
-        <h2 class="text-xl font-semibold text-neutral-900">{section.titre}</h2>
+        <h2 class="text-xl font-semibold text-fg-strong">{section.titre}</h2>
         {#if section.corps}
           <Markdown source={section.corps} />
         {/if}
@@ -44,14 +44,14 @@
     {/each}
 
     {#if contenu.essentiel?.length}
-      <section class="mt-12 rounded-lg border border-accent-100 bg-accent-50 p-5">
-        <h2 class="text-sm font-semibold tracking-wide text-accent-700 uppercase">
+      <section class="mt-12 rounded-lg border border-accentborder bg-accentsurface p-5">
+        <h2 class="text-sm font-semibold tracking-wide text-accentfg uppercase">
           L’essentiel
         </h2>
         <ul class="mt-3 space-y-2">
           {#each contenu.essentiel as point}
-            <li class="flex gap-2 text-sm text-neutral-700">
-              <span class="text-accent-500">▸</span>
+            <li class="flex gap-2 text-sm text-fg">
+              <span class="text-accentfg">▸</span>
               <span><Markdown source={point} inline /></span>
             </li>
           {/each}
@@ -60,14 +60,14 @@
     {/if}
 
     {#if contenu.pieges?.length}
-      <section class="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-5">
-        <h2 class="text-sm font-semibold tracking-wide text-amber-700 uppercase">
+      <section class="mt-6 rounded-lg border border-warnborder bg-warnsurface p-5">
+        <h2 class="text-sm font-semibold tracking-wide text-warnfg uppercase">
           Pièges classiques
         </h2>
         <ul class="mt-3 space-y-2">
           {#each contenu.pieges as piege}
-            <li class="flex gap-2 text-sm text-neutral-700">
-              <span class="text-amber-500">⚠</span>
+            <li class="flex gap-2 text-sm text-fg">
+              <span class="text-warnfg">⚠</span>
               <span><Markdown source={piege} inline /></span>
             </li>
           {/each}
@@ -76,7 +76,7 @@
     {/if}
   {:else}
     <p
-      class="mt-10 rounded-lg border border-dashed border-neutral-300 p-8 text-center text-sm text-neutral-400"
+      class="mt-10 rounded-lg border border-dashed border-border p-8 text-center text-sm text-faint"
     >
       Contenu de ce module en cours de rédaction.
     </p>

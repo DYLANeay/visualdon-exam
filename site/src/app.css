@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* Active le dark mode via une classe .dark sur <html> (toggle + préférence système). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
@@ -7,9 +10,60 @@
   /* Accent unique : un bleu profond, sobre */
   --color-accent-50: #eff6ff;
   --color-accent-100: #dbeafe;
+  --color-accent-400: #60a5fa;
   --color-accent-500: #3b82f6;
   --color-accent-600: #2563eb;
   --color-accent-700: #1d4ed8;
+
+  /* Tokens sémantiques → résolus au runtime selon le thème (voir :root / .dark).
+     On les utilise comme couleurs Tailwind : bg-bg, text-fg, border-border… */
+  --color-bg: var(--vd-bg);
+  --color-surface: var(--vd-surface);
+  --color-fg: var(--vd-fg);
+  --color-fg-strong: var(--vd-fg-strong);
+  --color-muted: var(--vd-muted);
+  --color-faint: var(--vd-faint);
+  --color-border: var(--vd-border);
+  --color-accentfg: var(--vd-accent-fg);
+  --color-accentsurface: var(--vd-accent-surface);
+  --color-accentborder: var(--vd-accent-border);
+  --color-warnfg: var(--vd-warn-fg);
+  --color-warnsurface: var(--vd-warn-surface);
+  --color-warnborder: var(--vd-warn-border);
+}
+
+/* Thème clair (défaut) */
+:root {
+  --vd-bg: #ffffff;
+  --vd-surface: #fafafa;
+  --vd-fg: #404040;
+  --vd-fg-strong: #171717;
+  --vd-muted: #737373;
+  --vd-faint: #a3a3a3;
+  --vd-border: #e5e5e5;
+  --vd-accent-fg: #2563eb;
+  --vd-accent-surface: #eff6ff;
+  --vd-accent-border: #dbeafe;
+  --vd-warn-fg: #b45309;
+  --vd-warn-surface: #fffbeb;
+  --vd-warn-border: #fde68a;
+}
+
+/* Thème sombre */
+.dark {
+  --vd-bg: #0a0a0a;
+  --vd-surface: #171717;
+  --vd-fg: #d4d4d4;
+  --vd-fg-strong: #fafafa;
+  --vd-muted: #a3a3a3;
+  --vd-faint: #737373;
+  --vd-border: #292929;
+  --vd-accent-fg: #60a5fa;
+  --vd-accent-surface: rgba(37, 99, 235, 0.12);
+  --vd-accent-border: rgba(96, 165, 250, 0.25);
+  --vd-warn-fg: #fbbf24;
+  --vd-warn-surface: rgba(180, 83, 9, 0.12);
+  --vd-warn-border: rgba(251, 191, 36, 0.25);
 }
 
 html {
@@ -17,7 +71,7 @@ html {
 }
 
 body {
-  @apply bg-white font-sans text-neutral-800 antialiased;
+  @apply bg-bg font-sans text-fg antialiased;
 }
 
 /* Rendu du contenu markdown des modules */
@@ -31,13 +85,13 @@ body {
   @apply my-3 list-decimal space-y-1 pl-5;
 }
 .prose-vd code {
-  @apply rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-sm text-accent-700;
+  @apply rounded bg-surface px-1.5 py-0.5 font-mono text-sm text-accentfg;
 }
 .prose-vd strong {
-  @apply font-semibold text-neutral-900;
+  @apply font-semibold text-fg-strong;
 }
 .prose-vd a {
-  @apply text-accent-600 underline underline-offset-2;
+  @apply text-accentfg underline underline-offset-2;
 }
 .prose-vd--inline p {
   @apply my-0 inline;

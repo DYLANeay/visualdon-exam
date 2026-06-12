@@ -6,6 +6,7 @@
   import Module from './lib/pages/Module.svelte'
   import Essentiel from './lib/pages/Essentiel.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
+  import ThemeToggle from './lib/components/ThemeToggle.svelte'
 
   // /modules/<id> → page de détail d'un module
   const moduleId = $derived(
@@ -36,25 +37,26 @@
   }
 </script>
 
-<header class="border-b border-neutral-100">
+<header class="border-b border-border">
   <div class="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
-    <a href="#/" class="font-semibold tracking-tight text-neutral-900">
-      VisualDon<span class="text-accent-600">·</span>Révisions
+    <a href="#/" class="font-semibold tracking-tight text-fg-strong">
+      VisualDon<span class="text-accentfg">·</span>Révisions
     </a>
     <nav class="flex items-center gap-5 text-sm">
       {#each nav as item}
         <a
           href={'#' + item.path}
           class={$route.startsWith(item.path)
-            ? 'font-medium text-accent-600'
-            : 'text-neutral-500 transition-colors hover:text-neutral-900'}
+            ? 'font-medium text-accentfg'
+            : 'text-muted transition-colors hover:text-fg-strong'}
         >
           {item.label}
         </a>
       {/each}
-      <span class="rounded-full bg-accent-50 px-2.5 py-0.5 font-mono text-xs text-accent-700">
+      <span class="rounded-full bg-accentsurface px-2.5 py-0.5 font-mono text-xs text-accentfg">
         {$progress.xp} XP
       </span>
+      <ThemeToggle />
     </nav>
   </div>
 </header>
@@ -75,6 +77,6 @@
   {/if}
 </main>
 
-<footer class="mt-16 border-t border-neutral-100 py-8 text-center text-xs text-neutral-400">
+<footer class="mt-16 border-t border-border py-8 text-center text-xs text-faint">
   VisualDon · HEIG-VD / COMEM · Examen : 2 h sur papier, formulaire A4 r/v autorisé
 </footer>
