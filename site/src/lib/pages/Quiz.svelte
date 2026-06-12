@@ -42,7 +42,7 @@
   })
 </script>
 
-<section class="mx-auto max-w-3xl py-12">
+<section class="mx-auto max-w-4xl py-12">
   <a href={`#/modules/${id}`} class="text-sm text-faint hover:text-fg-strong">
     ← {meta?.titre ?? 'Module'}
   </a>

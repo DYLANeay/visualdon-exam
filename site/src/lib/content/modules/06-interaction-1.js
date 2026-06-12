@@ -15,15 +15,16 @@ La magie : tu n'as qu'à ajouter \`.transition()\` avant tes \`.attr()\`, et le 
       code: {
         langage: 'js',
         editable: true,
-        source: `import { transition } from 'd3-transition'
+        source: `// Créer un cercle de départ
+const circle = svg.append('circle')
+  .attr('cx', 180).attr('cy', 110)
+  .attr('r', 20).attr('fill', '#3b82f6')
 
-// Sans transition — changement instantané (le cercle "saute")
-circle.attr('r', 40)
-
-// Avec transition — changement animé (le cercle "grossit")
+// Avec transition — le cercle grossit et change de couleur
 circle
   .transition()
-  .attr('r', 40)
+  .duration(800)
+  .attr('r', 60)
   .attr('fill', '#E92528')`,
       },
     },
@@ -40,19 +41,18 @@ Trop court = on ne remarque pas l'animation. Trop long = l'utilisateur s'impatie
       code: {
         langage: 'js',
         editable: true,
-        source: `// Transition de 1 seconde
+        source: `// Créer un cercle
+const circle = svg.append('circle')
+  .attr('cx', 100).attr('cy', 110)
+  .attr('r', 20).attr('fill', '#3b82f6')
+
+// 1 seconde : on voit clairement l'animation
 circle
   .transition()
-  .duration(1000)  // 1000ms = 1 seconde
+  .duration(1000)
+  .attr('cx', 260)
   .attr('r', 50)
-  .attr('fill', '#E92528')
-
-// Les barres d'un bar chart mettent 650ms à se mettre à jour
-bars
-  .transition()
-  .duration(650)
-  .attr('y', d => yScale(d.value))
-  .attr('height', d => height - yScale(d.value))`,
+  .attr('fill', '#E92528')`,
       },
     },
     {
@@ -71,13 +71,17 @@ Pour des données, \`easeCubic\` est presque toujours le bon choix. \`easeBounce
       code: {
         langage: 'js',
         editable: true,
-        source: `import { easeBounce, easeElastic, easeCubic, easeLinear } from 'd3-ease'
+        source: `// Crée un cercle en haut, puis le fait tomber avec un rebond
+const circle = svg.append('circle')
+  .attr('cx', 180).attr('cy', 30)
+  .attr('r', 25).attr('fill', '#3b82f6')
 
+// Essaie: easeBounce, easeElastic, easeCubic, easeLinear
 circle
   .transition()
-  .duration(1000)
-  .ease(easeBounce)   // essaie aussi: easeElastic, easeCubic, easeLinear
-  .attr('cy', 400)`,
+  .duration(1200)
+  .ease(d3.easeBounce)
+  .attr('cy', 180)`,
       },
     },
     {
@@ -90,16 +94,22 @@ Résultat : au lieu que toutes les barres bougent simultanément, elles défilen
       code: {
         langage: 'js',
         editable: true,
-        source: `// Chaque barre démarre 100ms après la précédente
-bars
-  .transition()
-  .duration(650)
-  .delay((d, i) => i * 100)   // d = donnée, i = index (0, 1, 2, ...)
-  .attr('y', d => yScale(d.value))
-  .attr('height', d => height - yScale(d.value))
+        source: `const donnees = [80, 130, 60, 110, 90, 150, 45]
+const W = 320, H = 200, pad = 10
 
-// Résultat : barre 0 démarre à 0ms, barre 1 à 100ms,
-// barre 2 à 200ms, etc. → effet "vague" de gauche à droite`,
+const barW = (W - pad * 2) / donnees.length - 4
+
+// Créer les barres depuis le bas (hauteur 0)
+const barres = svg.selectAll('rect').data(donnees).join('rect')
+  .attr('x', (d, i) => pad + i * (barW + 4))
+  .attr('y', H).attr('height', 0)
+  .attr('width', barW).attr('fill', '#3b82f6').attr('rx', 3)
+
+// Animer en cascade : chaque barre démarre 100ms après la précédente
+barres.transition().duration(650)
+  .delay((d, i) => i * 100)
+  .attr('y', d => H - d)
+  .attr('height', d => d)`,
       },
     },
   ],

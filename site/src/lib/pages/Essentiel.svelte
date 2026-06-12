@@ -9,7 +9,7 @@
     .filter((f) => f.contenu)
 </script>
 
-<section class="mx-auto max-w-3xl py-12">
+<section class="mx-auto max-w-4xl py-12">
   <div class="flex items-start justify-between gap-4">
     <div>
       <h1 class="text-2xl font-semibold text-fg-strong">L’essentiel</h1>

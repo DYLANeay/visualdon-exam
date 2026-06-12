@@ -10,7 +10,7 @@
   ]
 </script>
 
-<section class="mx-auto max-w-3xl py-16 text-center">
+<section class="mx-auto max-w-4xl py-16 text-center">
   <h1 class="text-4xl font-semibold tracking-tight text-fg-strong">
     Révise VisualDon, <span class="text-accentfg">sans stress</span>.
   </h1>

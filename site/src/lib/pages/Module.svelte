@@ -14,7 +14,7 @@
   const podcast = $derived(podcastModule(id))
 </script>
 
-<article class="mx-auto max-w-3xl py-12">
+<article class="mx-auto max-w-4xl py-12">
   <a href="#/modules" class="text-sm text-faint hover:text-fg-strong">
     ← Tous les modules
   </a>

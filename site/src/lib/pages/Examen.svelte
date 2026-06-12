@@ -71,7 +71,7 @@
   onDestroy(() => clearInterval(timer))
 </script>
 
-<section class="mx-auto max-w-3xl py-12">
+<section class="mx-auto max-w-4xl py-12">
   {#if !demarre}
     <h1 class="text-2xl font-semibold text-fg-strong">Examen blanc</h1>
     <p class="mt-2 text-muted">

@@ -18,25 +18,28 @@ La transformation contient trois propriétés :
       code: {
         langage: 'js',
         editable: true,
-        source: `import { zoom } from 'd3-zoom'
-
-// Le groupe <g> qui contient tous les éléments visuels
+        source: `// Groupe contenant les éléments (zoom appliqué ici)
 const g = svg.append('g')
 
-// Créer le comportement de zoom
-const zoomBehavior = zoom()
-  .on('zoom', (event) => {
-    // Appliquer la transformation au groupe
-    g.attr('transform', event.transform)
+// Dessiner 20 cercles aléatoires
+for (let i = 0; i < 20; i++) {
+  g.append('circle')
+    .attr('cx', 20 + Math.random() * 320)
+    .attr('cy', 20 + Math.random() * 180)
+    .attr('r', 6 + Math.random() * 14)
+    .attr('fill', '#3b82f6').attr('opacity', 0.7)
+}
 
-    // event.transform contient { x, y, k }
-    console.log('x:', event.transform.x.toFixed(1))
-    console.log('y:', event.transform.y.toFixed(1))
+// Ajouter le comportement zoom + pan
+const zoomBehavior = d3.zoom()
+  .scaleExtent([0.5, 6])
+  .on('zoom', (event) => {
+    g.attr('transform', event.transform)
     console.log('k:', event.transform.k.toFixed(2))
   })
 
-// Attacher le zoom au SVG (capture scroll + drag)
-svg.call(zoomBehavior)`,
+svg.call(zoomBehavior)
+console.log('Scroll pour zoomer, glisser pour se déplacer')`,
       },
     },
     {
@@ -111,25 +114,31 @@ Le pattern typique : un tableau d'étapes (années, mois…), un index \`step\` 
       code: {
         langage: 'js',
         editable: true,
-        source: `const years = [1990, 1995, 2000, 2005, 2010, 2015, 2020]
+        source: `// Données par année (valeurs fictives pour 4 catégories)
+const donnees = {
+  2000: [40, 80, 55, 70],
+  2005: [60, 50, 90, 45],
+  2010: [90, 70, 40, 85],
+  2015: [75, 95, 65, 55],
+  2020: [50, 60, 80, 100],
+}
+const years = Object.keys(donnees)
+const W = 320, H = 190, barW = 55
+
+// Barres initiales (année 2000)
+const barres = svg.selectAll('rect').data(donnees[years[0]]).join('rect')
+  .attr('x', (d, i) => 20 + i * (barW + 10))
+  .attr('y', d => H - d).attr('height', d => d)
+  .attr('width', barW).attr('fill', '#3b82f6').attr('rx', 3)
+
 let step = 0
-
-// Démarrer l'animation : une mise à jour toutes les secondes
-const intervalId = setInterval(() => {
-  step = (step + 1) % years.length  // boucle sur les années
-
-  // Mettre à jour les barres avec les données de la nouvelle année
-  bars
-    .data(dataByYear[years[step]])
-    .transition()
-    .duration(700)
-    .attr('y', d => yScale(d))
-    .attr('height', d => innerHeight - yScale(d))
-
-}, 1000)  // toutes les 1000ms = 1 seconde
-
-// Arrêter l'animation (ex. bouton Pause)
-clearInterval(intervalId)`,
+setInterval(() => {
+  step = (step + 1) % years.length
+  console.log('Année :', years[step])
+  barres.data(donnees[years[step]])
+    .transition().duration(700)
+    .attr('y', d => H - d).attr('height', d => d)
+}, 1200)`,
       },
     },
   ],

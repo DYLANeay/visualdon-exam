@@ -38,25 +38,27 @@
   })
 </script>
 
-<header class="border-b border-border">
-  <div class="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-4">
-    <a href="#/" class="font-semibold tracking-tight text-fg-strong">
-      VisualDon<span class="text-accentfg">·</span>Révisions
+<header class="sticky top-0 z-50 border-b border-border bg-bg/80 backdrop-blur-sm">
+  <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-6 py-3.5">
+    <a href="#/" class="flex items-center gap-1.5 text-sm font-semibold tracking-tight text-fg-strong">
+      <span class="grid size-6 place-items-center rounded bg-accentfg text-white text-xs font-bold">V</span>
+      <span>VisualDon<span class="text-accentfg font-normal">·</span>Révisions</span>
     </a>
 
     <!-- Nav complète (desktop) -->
-    <nav class="hidden items-center gap-5 text-sm md:flex">
+    <nav class="hidden items-center gap-1 text-sm md:flex">
       {#each nav as item}
         <a
           href={'#' + item.path}
           class={$route.startsWith(item.path)
-            ? 'font-medium text-accentfg'
-            : 'text-muted transition-colors hover:text-fg-strong'}
+            ? 'rounded-md px-3 py-1.5 font-medium text-accentfg bg-accentsurface'
+            : 'rounded-md px-3 py-1.5 text-muted transition-colors hover:bg-surface hover:text-fg-strong'}
         >
           {item.label}
         </a>
       {/each}
-      <span class="rounded-full bg-accentsurface px-2.5 py-0.5 font-mono text-xs text-accentfg">
+      <div class="mx-2 h-4 w-px bg-border"></div>
+      <span class="rounded-full bg-accentsurface px-2.5 py-1 font-mono text-xs font-medium text-accentfg">
         {$progress.xp} XP
       </span>
       <ThemeToggle />
@@ -64,7 +66,7 @@
 
     <!-- Compact (mobile) -->
     <div class="flex items-center gap-2 md:hidden">
-      <span class="rounded-full bg-accentsurface px-2.5 py-0.5 font-mono text-xs text-accentfg">
+      <span class="rounded-full bg-accentsurface px-2.5 py-1 font-mono text-xs font-medium text-accentfg">
         {$progress.xp} XP
       </span>
       <ThemeToggle />
@@ -86,12 +88,12 @@
 
   <!-- Menu déroulant mobile -->
   {#if menuOuvert}
-    <nav class="border-t border-border md:hidden">
+    <nav class="border-t border-border bg-bg md:hidden">
       {#each nav as item}
         <a
           href={'#' + item.path}
-          class={`block border-b border-border px-4 py-3 text-sm ${
-            $route.startsWith(item.path) ? 'font-medium text-accentfg' : 'text-fg'
+          class={`block border-b border-border px-6 py-3 text-sm ${
+            $route.startsWith(item.path) ? 'font-medium text-accentfg bg-accentsurface' : 'text-fg hover:bg-surface'
           }`}
         >
           {item.label}
@@ -101,7 +103,7 @@
   {/if}
 </header>
 
-<main class="px-4">
+<main class="mx-auto max-w-5xl px-6">
   {#if $route === '/'}
     <Accueil />
   {:else if quizId}
@@ -125,6 +127,6 @@
   {/if}
 </main>
 
-<footer class="mt-16 border-t border-border py-8 text-center text-xs text-faint">
+<footer class="mt-20 border-t border-border py-8 text-center text-xs text-faint">
   VisualDon · HEIG-VD / COMEM · Examen : 2 h sur papier, formulaire A4 r/v autorisé
 </footer>
