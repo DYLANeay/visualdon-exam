@@ -1,6 +1,7 @@
 <script>
   import { modules } from '../data/modules.js'
   import { contenuModule } from '../content/index.js'
+  import { questionsModule } from '../quiz/index.js'
   import Markdown from '../components/Markdown.svelte'
   import CodeBlock from '../components/CodeBlock.svelte'
 
@@ -8,6 +9,7 @@
 
   const meta = $derived(modules.find((m) => m.id === id))
   const contenu = $derived(contenuModule(id))
+  const nbQuestions = $derived(questionsModule(id).length)
 </script>
 
 <article class="mx-auto max-w-3xl py-12">
@@ -80,5 +82,15 @@
     >
       Contenu de ce module en cours de rédaction.
     </p>
+  {/if}
+
+  {#if nbQuestions > 0}
+    <a
+      href={`#/quiz/${id}`}
+      class="mt-12 flex items-center justify-between rounded-lg bg-accentfg px-5 py-4 text-white transition-opacity hover:opacity-90"
+    >
+      <span class="font-medium">Tester mes connaissances</span>
+      <span class="text-sm opacity-80">{nbQuestions} questions →</span>
+    </a>
   {/if}
 </article>

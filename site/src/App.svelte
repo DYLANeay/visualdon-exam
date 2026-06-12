@@ -5,12 +5,16 @@
   import Modules from './lib/pages/Modules.svelte'
   import Module from './lib/pages/Module.svelte'
   import Essentiel from './lib/pages/Essentiel.svelte'
+  import Quiz from './lib/pages/Quiz.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
 
-  // /modules/<id> → page de détail d'un module
+  // /modules/<id> → détail ; /quiz/<id> → quiz du module
   const moduleId = $derived(
     $route.startsWith('/modules/') ? $route.slice('/modules/'.length) : null,
+  )
+  const quizId = $derived(
+    $route.startsWith('/quiz/') ? $route.slice('/quiz/'.length) : null,
   )
 
   const nav = [
@@ -64,6 +68,8 @@
 <main class="px-4">
   {#if $route === '/'}
     <Accueil />
+  {:else if quizId}
+    <Quiz id={quizId} />
   {:else if moduleId}
     <Module id={moduleId} />
   {:else if $route.startsWith('/modules')}
