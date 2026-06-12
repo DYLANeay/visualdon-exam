@@ -1,0 +1,19 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -e '.tool_input.command // \"\" | test(\"git commit\") and (test(\"Co-Authored-By: Claude\"; \"i\") or test(\"Generated with .*Claude Code\"; \"i\"))' >/dev/null && echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"permissionDecision\":\"deny\",\"permissionDecisionReason\":\"Commit bloqué : accréditation Claude détectée (Co-Authored-By / Generated with Claude Code). Refais le commit sans accréditation.\"}}' || true"
+          }
+        ]
+      }
+    ]
+  }
+}
