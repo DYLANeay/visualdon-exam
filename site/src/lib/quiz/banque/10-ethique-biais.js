@@ -43,7 +43,7 @@ export default [
     question: 'Un graphique à bulles encode trois variables : X, Y et taille de la bulle. Le designer encode la taille via le **rayon** de la bulle plutôt que sa **surface**. Quel est le problème ?',
     options: [
       'Il n\'y a aucun problème : rayon et surface encodent la même information',
-      'La bulle de rayon 2 paraît **4 fois plus grande** qu\'une bulle de rayon 1, alors que la valeur n\'est que le double — la surface croît en r², pas en r',
+      'La bulle de rayon 2 paraît **4 fois plus grande** qu\'une bulle de rayon 1, alors que la valeur n\'est que le double - la surface croît en r², pas en r',
       'Le rayon est plus précis à lire que la surface',
       'Ce problème n\'existe que pour les graphiques en camembert',
     ],
@@ -128,7 +128,7 @@ export default [
     question: 'Un graphique de ventes **cumulées** d\'une entreprise monte constamment depuis 3 ans. L\'entreprise l\'utilise pour montrer sa "croissance". Quel est le piège ?',
     options: [
       'Les valeurs cumulées sont toujours incorrectes',
-      'Un graphique cumulé **monte toujours**, même si les ventes mensuelles s\'effondrent — il masque la tendance réelle sous-jacente',
+      'Un graphique cumulé **monte toujours**, même si les ventes mensuelles s\'effondrent - il masque la tendance réelle sous-jacente',
       'Il faudrait utiliser un axe logarithmique',
       'Il n\'y a aucun piège : la croissance cumulée est la bonne mesure',
     ],
@@ -180,7 +180,7 @@ export default [
     points: 3,
     question: 'Qu\'est-ce que le principe **"corrélation ≠ causalité"** ? Donnez un exemple concret tiré du cours et expliquez comment visualiser une corrélation sans induire en erreur.',
     corrige: [
-      'Deux variables qui varient ensemble ne prouvent aucun lien de cause à effet — un facteur tiers peut expliquer les deux.',
+      'Deux variables qui varient ensemble ne prouvent aucun lien de cause à effet - un facteur tiers peut expliquer les deux.',
       'Exemple du cours : consommation de chocolat par habitant et nombre de prix Nobel → la richesse nationale explique probablement les deux variables.',
       'Pour ne pas induire en erreur : nommer explicitement les limites de l\'analyse, indiquer qu\'il s\'agit d\'une corrélation (pas d\'une causalité), chercher un mécanisme explicatif plausible.',
       'Bonus : le site tylervigen.com recense des centaines de "spurious correlations" pour illustrer ce danger.',
@@ -197,7 +197,7 @@ export default [
       '**Qui collecte ?** → Les données reflètent les priorités des financeurs (ex. statistiques coloniales conçues pour administrer, pas pour émanciper).',
       '**Qui est compté·e ?** → Les populations marginalisées sont souvent absentes (ex. les sans-abri ne rentrent pas dans les recensements classiques).',
       '**Qui est absent·e ?** → L\'absence de données est elle-même une donnée (ex. pas de statistiques ethniques en Suisse).',
-      'Si les données sont biaisées, la visualisation amplifie ces biais — présenter des données non-représentatives comme universelles est un choix éditorial à assumer ou corriger.',
+      'Si les données sont biaisées, la visualisation amplifie ces biais - présenter des données non-représentatives comme universelles est un choix éditorial à assumer ou corriger.',
     ],
   },
 ]

@@ -14,7 +14,7 @@ export default [
     ],
     correct: 2,
     explication:
-      'Mercator est une projection **conforme** : elle préserve les **angles** locaux, ce qui rend les lignes droites équivalentes à des caps constants — idéal pour la navigation. En revanche, les **surfaces sont fortement déformées** : le Groenland semble aussi grand que l\'Afrique alors qu\'il est 14 fois plus petit.',
+      'Mercator est une projection **conforme** : elle préserve les **angles** locaux, ce qui rend les lignes droites équivalentes à des caps constants - idéal pour la navigation. En revanche, les **surfaces sont fortement déformées** : le Groenland semble aussi grand que l\'Afrique alors qu\'il est 14 fois plus petit.',
   },
   {
     id: '08-qcm-2',
@@ -24,14 +24,14 @@ export default [
     points: 2,
     question: 'Un journaliste veut visualiser la **densité de population mondiale par pays**. Quelle projection est la plus appropriée ?',
     options: [
-      'Mercator — car les angles sont préservés',
-      'Equal-Area (équivalente) — car les surfaces sont préservées',
-      'Orthographique — car elle montre le globe en 3D',
-      'Conique conforme — adaptée aux cartes de navigation',
+      'Mercator - car les angles sont préservés',
+      'Equal-Area (équivalente) - car les surfaces sont préservées',
+      'Orthographique - car elle montre le globe en 3D',
+      'Conique conforme - adaptée aux cartes de navigation',
     ],
     correct: 1,
     explication:
-      'Pour comparer des densités, il faut que les **surfaces soient proportionnelles à la réalité** — sinon les grands pays semblent plus importants qu\'ils ne le sont. Une projection **Equal-Area (équivalente)** est donc obligatoire.',
+      'Pour comparer des densités, il faut que les **surfaces soient proportionnelles à la réalité** - sinon les grands pays semblent plus importants qu\'ils ne le sont. Une projection **Equal-Area (équivalente)** est donc obligatoire.',
   },
   {
     id: '08-qcm-3',
@@ -98,7 +98,7 @@ export default [
     question: 'Qu\'est-ce qu\'une projection cartographique ? Pourquoi toute représentation plane de la Terre implique-t-elle des distorsions ?',
     corrige: [
       'Une projection est une transformation mathématique qui permet de représenter la surface **sphérique** (ou ellipsoïdale) de la Terre sur un **plan** 2D.',
-      'La Terre est une surface non développable (on ne peut pas l\'aplatir sans la couper ou la déformer) — toute projection introduit donc des distorsions.',
+      'La Terre est une surface non développable (on ne peut pas l\'aplatir sans la couper ou la déformer) - toute projection introduit donc des distorsions.',
       'On choisit ce qu\'on préserve : les **angles** (conforme, ex. Mercator), les **surfaces** (équivalente, ex. Equal-Area), ou un compromis esthétique (ex. Natural Earth).',
     ],
   },
@@ -113,7 +113,7 @@ export default [
       '**Choroplèthe** : chaque canton est coloré selon la valeur du taux (dégradé de couleur). Simple, lisible, idéale pour les variables de taux/densité.',
       '**Carte à bulles** : un cercle dont la taille est proportionnelle au taux est centré sur chaque canton. Plus honnête pour des comptages absolus, mais moins intuitive pour des taux.',
       'Pour un **taux** (valeur normalisée, comparable entre grandes et petites zones), la **choroplèthe est recommandée** : la taille du canton n\'influence pas la perception de la valeur.',
-      'Attention : pour des valeurs absolues (nombre total de chômeurs), la choroplèthe biaise en faveur des grands cantons — préférer alors les bulles.',
+      'Attention : pour des valeurs absolues (nombre total de chômeurs), la choroplèthe biaise en faveur des grands cantons - préférer alors les bulles.',
     ],
   },
 ]

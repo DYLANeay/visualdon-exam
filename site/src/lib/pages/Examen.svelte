@@ -1,7 +1,6 @@
 <script>
   import { onDestroy } from 'svelte'
   import { genererExamen } from '../quiz/index.js'
-  import { addXp, awardBadge } from '../stores/progress.js'
   import QuizCard from '../components/QuizCard.svelte'
 
   let examen = $state(null)
@@ -62,10 +61,6 @@
   function terminer() {
     clearInterval(timer)
     termine = true
-    const note = pointsMax ? pointsObtenus / pointsMax : 0
-    addXp(Math.round(note * 100))
-    awardBadge('premier-examen')
-    if (note === 1) awardBadge('examen-parfait')
   }
 
   onDestroy(() => clearInterval(timer))
@@ -78,10 +73,10 @@
       Un examen généré au format officiel, différent à chaque fois :
     </p>
     <ul class="mt-4 space-y-1 text-sm text-fg">
-      <li>▸ <strong>Partie 1 · QCM</strong> — 10 questions (20 pts)</li>
-      <li>▸ <strong>Partie 2 · D3.js</strong> — 18 affirmations (36 pts)</li>
-      <li>▸ <strong>Partie 3 · Cartographie</strong> — (25 pts)</li>
-      <li>▸ <strong>Partie 4 · Éthique et biais</strong> — (15 pts)</li>
+      <li>▸ <strong>Partie 1 · QCM</strong> - 10 questions (20 pts)</li>
+      <li>▸ <strong>Partie 2 · D3.js</strong> - 18 affirmations (36 pts)</li>
+      <li>▸ <strong>Partie 3 · Cartographie</strong> - (25 pts)</li>
+      <li>▸ <strong>Partie 4 · Éthique et biais</strong> - (15 pts)</li>
     </ul>
     <p class="mt-4 text-sm text-faint">Durée indicative : 2 h, comme le vrai examen.</p>
     <button
@@ -113,7 +108,7 @@
       <div class="mb-8 rounded-lg border border-accentborder bg-accentsurface p-6 text-center">
         <p class="text-3xl font-bold text-fg-strong">{pointsObtenus} / {pointsMax}</p>
         <p class="mt-1 text-muted">
-          {Math.round((pointsObtenus / pointsMax) * 100)} % — {pointsObtenus / pointsMax >= 0.5 ? 'au-dessus de la moyenne 👍' : 'continue à réviser, tu vas y arriver !'}
+          {Math.round((pointsObtenus / pointsMax) * 100)} % - {pointsObtenus / pointsMax >= 0.5 ? 'au-dessus de la moyenne 👍' : 'continue à réviser, tu vas y arriver !'}
         </p>
         <button
           onclick={lancer}

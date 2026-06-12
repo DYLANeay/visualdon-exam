@@ -65,7 +65,7 @@ export default [
     ],
     correct: 1,
     explication:
-      '**Vega-Lite** permet de décrire une visualisation en **JSON pur** (données, encodage, rendu) — zéro JavaScript requis pour un graphique standard. Il existe un éditeur interactif en ligne. Attention : ne pas confondre Vega (grammaire complète) et Vega-Lite (version simplifiée qui compile vers Vega).',
+      '**Vega-Lite** permet de décrire une visualisation en **JSON pur** (données, encodage, rendu) - zéro JavaScript requis pour un graphique standard. Il existe un éditeur interactif en ligne. Attention : ne pas confondre Vega (grammaire complète) et Vega-Lite (version simplifiée qui compile vers Vega).',
   },
   {
     id: '12-qcm-5',

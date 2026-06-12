@@ -2,7 +2,7 @@ export default {
   id: '12-alternatives',
   titre: 'Alternatives à D3.js',
   accroche:
-    `D3 c'est la boîte à outils du chirurgien : puissant, précis, mais pas toujours le bon outil. Ce cours te donne la **carte de l'écosystème** pour choisir intelligemment — et comprendre pourquoi maîtriser D3 te rend meilleur·e avec *tous* les autres outils.`,
+    `D3 c'est la boîte à outils du chirurgien : puissant, précis, mais pas toujours le bon outil. Ce cours te donne la **carte de l'écosystème** pour choisir intelligemment - et comprendre pourquoi maîtriser D3 te rend meilleur·e avec *tous* les autres outils.`,
 
   sections: [
     {
@@ -22,7 +22,7 @@ export default {
 - **Canvas** : raster, performant pour des milliers de formes, pas d'éléments DOM individuels.
 - **WebGL** : GPU, des *millions* de points en temps réel, mais complexité élevée.
 
-D3 est la référence et la fondation sur laquelle d'autres outils sont construits — mais ce n'est pas toujours le bon choix.`,
+D3 est la référence et la fondation sur laquelle d'autres outils sont construits - mais ce n'est pas toujours le bon choix.`,
     },
     {
       titre: 'Observable Plot et Chart.js : les alternatives haut niveau',
@@ -38,7 +38,7 @@ D3 est la référence et la fondation sur laquelle d'autres outils sont construi
       code: {
         langage: 'js',
         editable: true,
-        source: `// Observable Plot — API déclarative
+        source: `// Observable Plot - API déclarative
 import * as Plot from '@observablehq/plot'
 
 Plot.plot({
@@ -50,7 +50,7 @@ Plot.plot({
 
 // ---
 
-// Chart.js — configuration par objet
+// Chart.js - configuration par objet
 import { Chart } from 'chart.js/auto'
 
 new Chart(document.getElementById('myChart'), {
@@ -71,7 +71,7 @@ new Chart(document.getElementById('myChart'), {
     },
     {
       titre: 'Vega / Vega-Lite : la grammaire déclarative',
-      corps: `**Vega-Lite** pousse encore plus loin la séparation entre données, encodage et rendu. La visualisation est décrite en **JSON pur** — zéro JavaScript nécessaire pour un graphique standard.
+      corps: `**Vega-Lite** pousse encore plus loin la séparation entre données, encodage et rendu. La visualisation est décrite en **JSON pur** - zéro JavaScript nécessaire pour un graphique standard.
 
 - Séparation complète : données, transformations, encodage, rendu
 - Éditeur interactif en ligne (Vega Editor)
@@ -99,25 +99,25 @@ new Chart(document.getElementById('myChart'), {
       titre: 'Au-delà des graphiques 2D : p5.js, three.js, Deck.gl',
       corps: `Quand la visualisation devient de l'**art génératif** ou de la **donnée immersive**, d'autres outils entrent en jeu.
 
-**p5.js** — creative coding, Canvas, art génératif :
+**p5.js** - creative coding, Canvas, art génératif :
 - Héritier de Processing (Java)
 - Mode immédiat : redessine tout à chaque frame (\`draw()\`)
 - Idéal pour les visualisations artistiques, expérimentales, pédagogiques
 - Grande communauté, beaucoup de tutoriels
 
-**three.js** — graphiques 3D, WebGL :
+**three.js** - graphiques 3D, WebGL :
 - Scènes, caméras, lumières, matériaux dans le navigateur
 - Courbe d'apprentissage significative
 - Cas d'usage en visualisation : globes interactifs, nuages de points 3D, terrain géospatial en relief, visualisations architecturales
 
-**Deck.gl** — données massives, WebGL2, focus géospatial :
+**Deck.gl** - données massives, WebGL2, focus géospatial :
 - Développé par Uber / OpenJS Foundation
 - Rendu de *millions* de points en temps réel
 - Couches : \`ScatterplotLayer\`, \`ArcLayer\`, \`HexagonLayer\`, \`HeatmapLayer\`, \`TripsLayer\`
 - S'intègre à MapLibre GL JS
 - Quand l'utiliser : datasets >100 000 points, visualisations géospatiales complexes
 
-**roughViz.js** — style "dessin à la main" :
+**roughViz.js** - style "dessin à la main" :
 - Construit sur rough.js + D3
 - Esthétique croquis/sketch
 - Idéal pour des présentations informelles ou pédagogiques
@@ -154,7 +154,7 @@ new roughViz.Bar({
 **Principe :** D3 calcule, le framework affiche.
 - Le **framework** gère le DOM, la réactivité et les transitions
 - **D3** gère les données : échelles, générateurs, formats, projections
-- Plus besoin de \`d3.select()\` ni \`.join()\` — le template JSX/Svelte s'en charge
+- Plus besoin de \`d3.select()\` ni \`.join()\` - le template JSX/Svelte s'en charge
 
 **Pourquoi D3 reste utile même si tu n'utilises pas son DOM ?** Parce que \`d3-scale\`, \`d3-shape\`, \`d3-format\`, \`d3-geo\` sont des modules indépendants, utilisables dans n'importe quel contexte.
 
@@ -187,7 +187,7 @@ La vraie question n'est pas *"quel est le meilleur outil ?"* mais *"quelle expé
     `Chart.js utilise **Canvas** (pas SVG) : impossible d'accéder aux éléments individuels via le DOM. Pas d'événements sur chaque barre comme avec D3.`,
     `**Observable Plot** n'est pas D3 : il cache la complexité. Si tu as besoin de contrôle fin (animation custom, layout non standard), reviens à D3.`,
     `Ne pas confondre **Vega** (grammaire complète) et **Vega-Lite** (version simplifiée). Vega-Lite compile vers Vega, pas l'inverse.`,
-    `**p5.js** redessine tout à chaque frame (\`draw()\`) — pas adapté aux interfaces web classiques avec DOM. C'est du mode immédiat, pas du mode retenu.`,
+    `**p5.js** redessine tout à chaque frame (\`draw()\`) - pas adapté aux interfaces web classiques avec DOM. C'est du mode immédiat, pas du mode retenu.`,
   ],
 
   patterns: [

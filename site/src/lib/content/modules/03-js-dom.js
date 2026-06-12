@@ -2,7 +2,7 @@ export default {
   id: "03-js-dom",
   titre: "JavaScript et manipulation DOM",
   accroche:
-    "Le SVG est dans le DOM — et D3.js est l'**interprète** qui relie tes données à chaque forme. Apprendre D3, c'est apprendre à parler aux éléments de ta page.",
+    "Le SVG est dans le DOM - et D3.js est l'**interprète** qui relie tes données à chaque forme. Apprendre D3, c'est apprendre à parler aux éléments de ta page.",
 
   sections: [
     {
@@ -26,7 +26,7 @@ document
                 └── <text />
 \`\`\`
 
-Quand D3 crée un cercle, il ajoute littéralement un \`<circle>\` dans cet arbre — et le navigateur l'affiche immédiatement.`,
+Quand D3 crée un cercle, il ajoute littéralement un \`<circle>\` dans cet arbre - et le navigateur l'affiche immédiatement.`,
     },
     {
       titre: "D3.js : Data-Driven Documents",
@@ -46,7 +46,7 @@ npm install d3-selection
 import { select, selectAll } from 'd3-selection'
 \`\`\`
 
-D3 va bien au-delà de la sélection — voici les modules clés pour la suite du cours :
+D3 va bien au-delà de la sélection - voici les modules clés pour la suite du cours :
 
 | Module | Rôle | Cours |
 |--------|------|-------|
@@ -95,7 +95,7 @@ select('svg')
     },
     {
       titre: "Gérer les événements",
-      corps: `D3 simplifie aussi l'écoute des événements avec \`.on()\` — équivalent de \`addEventListener\`.
+      corps: `D3 simplifie aussi l'écoute des événements avec \`.on()\` - équivalent de \`addEventListener\`.
 
 **Point crucial** : dans le callback, utilise \`function(event)\` (et non une arrow function \`=>\`) si tu veux accéder à l'élément via \`select(this)\`. Avec une arrow function, \`this\` ne pointe plus sur l'élément DOM.
 
@@ -144,13 +144,13 @@ select('circle')
 | Créer un élément SVG | \`createElementNS(NS, 'circle')\` puis \`appendChild\` | \`.append('circle')\` |
 | Écouter un événement | \`el.addEventListener('click', fn)\` | \`.on('click', fn)\` |
 
-La grande force de D3 n'est pas seulement la concision — c'est le **chaînage** et surtout la **liaison données–DOM** (join) que l'on verra dans les modules suivants.`,
+La grande force de D3 n'est pas seulement la concision - c'est le **chaînage** et surtout la **liaison données–DOM** (join) que l'on verra dans les modules suivants.`,
     },
   ],
 
   essentiel: [
-    "Le **DOM** est l'arbre d'objets que le navigateur construit depuis le HTML — SVG inclus — et que JS peut modifier à la volée.",
-    "**D3.js** lie des données à des éléments du DOM. Module de base : `d3-selection` — `select` (1 élément) et `selectAll` (N éléments).",
+    "Le **DOM** est l'arbre d'objets que le navigateur construit depuis le HTML - SVG inclus - et que JS peut modifier à la volée.",
+    "**D3.js** lie des données à des éléments du DOM. Module de base : `d3-selection` - `select` (1 élément) et `selectAll` (N éléments).",
     "**Method chaining** : chaque méthode D3 retourne la sélection → on enchaîne `.attr()`, `.style()`, `.text()`, `.append()`, `.on()`.",
     "Équivalences clés : `querySelector` → `select` · `setAttribute` → `.attr()` · `addEventListener` → `.on()`.",
     "Pour créer un élément SVG en vanilla JS il faut `createElementNS` ; D3 `.append()` gère le namespace automatiquement.",
@@ -159,8 +159,8 @@ La grande force de D3 n'est pas seulement la concision — c'est le **chaînage*
 
   pieges: [
     "Utiliser une **arrow function** dans `.on()` casse `select(this)` : `this` ne pointe plus sur l'élément DOM mais sur le contexte extérieur.",
-    "En vanilla JS, créer un élément SVG avec `document.createElement` (sans namespace) produit un élément HTML invalide — il faut `createElementNS(\"http://www.w3.org/2000/svg\", \"circle\")`.",
-    "`select` et `selectAll` prennent des **sélecteurs CSS** (chaîne de caractères) — pas des éléments DOM directement.",
+    "En vanilla JS, créer un élément SVG avec `document.createElement` (sans namespace) produit un élément HTML invalide - il faut `createElementNS(\"http://www.w3.org/2000/svg\", \"circle\")`.",
+    "`select` et `selectAll` prennent des **sélecteurs CSS** (chaîne de caractères) - pas des éléments DOM directement.",
   ],
 
   patterns: [

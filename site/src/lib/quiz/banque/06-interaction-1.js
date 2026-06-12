@@ -14,7 +14,7 @@ export default [
     ],
     correct: 1,
     explication:
-      'Par défaut, une transition D3 dure **250ms** — assez court pour être réactif sans être instantané.',
+      'Par défaut, une transition D3 dure **250ms** - assez court pour être réactif sans être instantané.',
   },
   {
     id: '06-qcm-2',
@@ -48,7 +48,7 @@ export default [
     ],
     correct: 2,
     explication:
-      'Pour une cascade, `.delay()` doit recevoir un **callback** `(d, i)` — `d` est la donnée, `i` l\'index. `.delay(80)` ferait démarrer tous les éléments au même moment, avec 80ms de retard global.',
+      'Pour une cascade, `.delay()` doit recevoir un **callback** `(d, i)` - `d` est la donnée, `i` l\'index. `.delay(80)` ferait démarrer tous les éléments au même moment, avec 80ms de retard global.',
   },
   {
     id: '06-qcm-4',
@@ -76,7 +76,7 @@ export default [
     question: 'Appeler `.attr("fill", "orange")` **avant** `.transition()` applique le changement de couleur instantanément, puis D3 anime vers l\'état final.',
     reponse: false,
     explication:
-      'Faux : mettre `.attr()` **avant** `.transition()` change l\'état **immédiatement** sans aucune animation — il n\'y a plus rien à interpoler. Pour animer, `.transition()` doit précéder les `.attr()` cibles.',
+      'Faux : mettre `.attr()` **avant** `.transition()` change l\'état **immédiatement** sans aucune animation - il n\'y a plus rien à interpoler. Pour animer, `.transition()` doit précéder les `.attr()` cibles.',
   },
   {
     id: '06-vf-2',

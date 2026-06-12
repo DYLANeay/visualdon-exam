@@ -49,12 +49,12 @@ svg.selectAll('circle')
       titre: 'Le bon type d’échelle pour la bonne donnée',
       corps: `D3 offre une échelle par situation. À l’examen, sache **les distinguer** :
 
-- **scaleLinear** — données numériques continues (positions, tailles, axes).
-- **scaleTime** — dates et temps (séries temporelles).
-- **scaleBand** — catégories pour les **bar charts** : découpe le range en bandes égales. \`x.bandwidth()\` donne la largeur d’une barre, \`.padding()\` l’espace entre elles.
-- **scaleOrdinal** — catégories → valeurs discrètes (ex. une couleur par catégorie).
-- **scaleQuantize** — continu → quelques catégories de taille égale (cartes choroplèthes).
-- **scaleThreshold** — continu → catégories selon des **seuils** que tu choisis.
+- **scaleLinear** - données numériques continues (positions, tailles, axes).
+- **scaleTime** - dates et temps (séries temporelles).
+- **scaleBand** - catégories pour les **bar charts** : découpe le range en bandes égales. \`x.bandwidth()\` donne la largeur d’une barre, \`.padding()\` l’espace entre elles.
+- **scaleOrdinal** - catégories → valeurs discrètes (ex. une couleur par catégorie).
+- **scaleQuantize** - continu → quelques catégories de taille égale (cartes choroplèthes).
+- **scaleThreshold** - continu → catégories selon des **seuils** que tu choisis.
 
 Mémo : *linéaire/temps = continu vers continu ; band/ordinal = catégories ; quantize/threshold = continu découpé en paliers.*`,
       code: {
@@ -139,6 +139,6 @@ const svg = d3.select('#chart').append('svg')
   pieges: [
     'L’axe Y du SVG pointe vers le **bas** (Y=0 en haut) : le `range` du yScale est donc **inversé**, `[height, 0]`, pour que les grandes valeurs soient en haut.',
     'Augmenter le `.padding()` d’un `scaleBand` rend les barres **plus fines** (plus d’espace entre elles), pas plus larges.',
-    'Ne pas confondre `domain` (valeurs des données) et `range` (pixels) — les inverser retourne ou écrase la visualisation.',
+    'Ne pas confondre `domain` (valeurs des données) et `range` (pixels) - les inverser retourne ou écrase la visualisation.',
   ],
 }

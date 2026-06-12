@@ -1,7 +1,7 @@
 <script>
   import { modules } from '../data/modules.js'
   import { questionsModule, melanger } from '../quiz/index.js'
-  import { progress, addXp, verifierBadgesModules } from '../stores/progress.js'
+  import { progress } from '../stores/progress.js'
   import QuizCard from '../components/QuizCard.svelte'
 
   let { id } = $props()
@@ -10,7 +10,7 @@
   const questions = $derived(melanger(questionsModule(id)))
 
   let resultats = $state({}) // id question → bool
-  let xpAttribue = $state(false)
+  let enregistre = $state(false)
 
   const total = $derived(questions.length)
   const repondus = $derived(Object.keys(resultats).length)
@@ -19,13 +19,12 @@
 
   function noter(q, correct) {
     resultats[q.id] = correct
-    if (correct) addXp(10)
   }
 
   // Marque le module maîtrisé quand le quiz est réussi (≥ 70%).
   $effect(() => {
-    if (fini && !xpAttribue) {
-      xpAttribue = true
+    if (fini && !enregistre) {
+      enregistre = true
       const ratio = justes / total
       progress.update((p) => ({
         ...p,
@@ -37,7 +36,6 @@
           },
         },
       }))
-      verifierBadgesModules()
     }
   })
 </script>
@@ -46,7 +44,7 @@
   <a href={`#/modules/${id}`} class="text-sm text-faint hover:text-fg-strong">
     ← {meta?.titre ?? 'Module'}
   </a>
-  <h1 class="mt-4 text-2xl font-semibold text-fg-strong">Quiz — {meta?.titre}</h1>
+  <h1 class="mt-4 text-2xl font-semibold text-fg-strong">Quiz - {meta?.titre}</h1>
 
   {#if total === 0}
     <p class="mt-8 rounded-lg border border-dashed border-border p-8 text-center text-sm text-faint">

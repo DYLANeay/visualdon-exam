@@ -32,7 +32,7 @@ export default [
     ],
     correct: 1,
     explication:
-      '`d3.extent()` retourne `[min, max]` sous forme de tableau — ici `[1, 8]`. C\'est directement utilisable pour `.domain()` d\'une échelle D3.',
+      '`d3.extent()` retourne `[min, max]` sous forme de tableau - ici `[1, 8]`. C\'est directement utilisable pour `.domain()` d\'une échelle D3.',
   },
   {
     id: '04-qcm-3',
@@ -83,11 +83,11 @@ export default [
       'Le JSON ne peut pas être chargé avec D3',
       'Le CSV préserve les types (nombres, booléens), le JSON retourne tout en strings',
       'Le JSON préserve les types nativement ; le CSV retourne tout en chaînes de caractères',
-      'Il n\'y a aucune différence — D3 convertit automatiquement les deux',
+      'Il n\'y a aucune différence - D3 convertit automatiquement les deux',
     ],
     correct: 2,
     explication:
-      'Le **JSON** est un format JavaScript natif qui préserve les types (nombres, booléens, tableaux, objets). Le **CSV** est du texte brut — `d3.csv()` retourne toutes les valeurs comme des **chaînes**, il faut donc les convertir avec `+d.valeur`.',
+      'Le **JSON** est un format JavaScript natif qui préserve les types (nombres, booléens, tableaux, objets). Le **CSV** est du texte brut - `d3.csv()` retourne toutes les valeurs comme des **chaînes**, il faut donc les convertir avec `+d.valeur`.',
   },
 
   // --- Vrai / Faux ---
@@ -100,7 +100,7 @@ export default [
     question: 'Sans le `+` devant `d.trajets` lors d\'un parsing CSV, les trajets seraient additionnés comme des chaînes (`"100" + "200" = "100200"`).',
     reponse: true,
     explication:
-      'Vrai. Sans conversion, `d3.csv()` retourne des chaînes. L\'opérateur `+` entre deux chaînes effectue une **concaténation** et non une addition — `"100" + "200" = "100200"`. Il faut impérativement convertir avec `+d.trajets` ou `Number(d.trajets)`.',
+      'Vrai. Sans conversion, `d3.csv()` retourne des chaînes. L\'opérateur `+` entre deux chaînes effectue une **concaténation** et non une addition - `"100" + "200" = "100200"`. Il faut impérativement convertir avec `+d.trajets` ou `Number(d.trajets)`.',
   },
   {
     id: '04-vf-2',
@@ -119,7 +119,7 @@ export default [
     type: 'vrai-faux',
     partie: 'd3',
     points: 2,
-    question: 'Dans le cycle D3, la phase **Enter** correspond aux données qui n\'ont pas d\'élément DOM associé — D3 doit **créer** ces éléments.',
+    question: 'Dans le cycle D3, la phase **Enter** correspond aux données qui n\'ont pas d\'élément DOM associé - D3 doit **créer** ces éléments.',
     reponse: true,
     explication:
       'Vrai. Le cycle Enter / Update / Exit fonctionne ainsi : **Enter** = nouvelles données sans élément DOM → créer. **Update** = données avec élément existant → modifier. **Exit** = éléments sans donnée → supprimer.',
@@ -133,6 +133,6 @@ export default [
     question: '`d3.extent(data, d => d.population)` est directement utilisable pour alimenter `.domain()` d\'une échelle, sans modification.',
     reponse: true,
     explication:
-      'Vrai. `d3.extent()` retourne `[min, max]` — exactement le format attendu par `.domain([min, max])`. C\'est pour ça qu\'on l\'utilise : `yScale.domain(d3.extent(data, d => d.pop))` ou `yScale.domain([0, d3.max(data, d => d.pop)])`.',
+      'Vrai. `d3.extent()` retourne `[min, max]` - exactement le format attendu par `.domain([min, max])`. C\'est pour ça qu\'on l\'utilise : `yScale.domain(d3.extent(data, d => d.pop))` ou `yScale.domain([0, d3.max(data, d => d.pop)])`.',
   },
 ]

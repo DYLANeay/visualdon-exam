@@ -96,7 +96,7 @@ export default [
     question: 'Les données sont objectives et neutres par nature : elles reflètent la réalité telle qu\'elle est, sans intervention humaine.',
     reponse: false,
     explication:
-      'Faux. Comme le dit Bowker : *"Les données ne sont jamais brutes. Elles sont toujours déjà cuisinées."* Giorgia Lupi (Data Humanism) rappelle que les données portent la trace de ceux qui les ont collectées — elles ne sont jamais neutres.',
+      'Faux. Comme le dit Bowker : *"Les données ne sont jamais brutes. Elles sont toujours déjà cuisinées."* Giorgia Lupi (Data Humanism) rappelle que les données portent la trace de ceux qui les ont collectées - elles ne sont jamais neutres.',
   },
   {
     id: '01-vf-2',
@@ -118,6 +118,6 @@ export default [
     question: 'John Snow a prouvé la transmission du choléra par l\'eau grâce à une **cartographie** des cas à Londres en 1854.',
     reponse: true,
     explication:
-      'Vrai. John Snow a cartographié les cas de choléra et constaté leur concentration autour d\'une pompe à eau, prouvant ainsi la transmission hydrique — donnant naissance à l\'épidémiologie moderne.',
+      'Vrai. John Snow a cartographié les cas de choléra et constaté leur concentration autour d\'une pompe à eau, prouvant ainsi la transmission hydrique - donnant naissance à l\'épidémiologie moderne.',
   },
 ]

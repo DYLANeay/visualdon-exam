@@ -1,4 +1,4 @@
-// Les 11 modules évalués (le cours 11 — Scrollytelling — n'est pas à l'examen).
+// Les 11 modules évalués (le cours 11 - Scrollytelling - n'est pas à l'examen).
 export const modules = [
   { id: '01-introduction', numero: 1, titre: 'Introduction', resume: 'Pourquoi visualiser ? Histoire, sémiologie graphique, forme et fonction.' },
   { id: '02-dessiner-avec-du-code', numero: 2, titre: 'Dessiner avec du code', resume: 'SVG, Canvas, systèmes de coordonnées.' },

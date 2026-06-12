@@ -2,20 +2,20 @@ export default {
   id: '04-donnees',
   titre: 'Données',
   accroche:
-    'Avant de dessiner quoi que ce soit, il faut **comprendre ses données** : leur type, leur format, et comment les charger. Les données, c\'est la matière première — tout le reste n\'est que mise en forme.',
+    'Avant de dessiner quoi que ce soit, il faut **comprendre ses données** : leur type, leur format, et comment les charger. Les données, c\'est la matière première - tout le reste n\'est que mise en forme.',
 
   sections: [
     {
       titre: 'Types de données : qualitative vs quantitative',
       corps: `Toutes les données ne sont pas égales devant la visualisation. Il existe deux grandes familles :
 
-**Qualitative** : décrit une *qualité*, une catégorie — tu ne peux pas faire de moyenne dessus.
+**Qualitative** : décrit une *qualité*, une catégorie - tu ne peux pas faire de moyenne dessus.
 - **Nominale** : pas d'ordre naturel (ex. couleurs, pays, prénoms)
-- **Ordinale** : ordre naturel mais intervalles non constants (ex. S, M, L, XL — la différence entre S et M n'est pas la même qu'entre L et XL)
+- **Ordinale** : ordre naturel mais intervalles non constants (ex. S, M, L, XL - la différence entre S et M n'est pas la même qu'entre L et XL)
 - **Binaire** : seulement deux valeurs (oui/non, vrai/faux)
 
-**Quantitative** : mesure une *quantité*, un nombre — tu peux calculer des moyennes, des sommes, etc.
-- **Discrète** : valeurs entières (ex. nombre d'élèves dans une classe — tu ne peux pas avoir 2,7 élèves)
+**Quantitative** : mesure une *quantité*, un nombre - tu peux calculer des moyennes, des sommes, etc.
+- **Discrète** : valeurs entières (ex. nombre d'élèves dans une classe - tu ne peux pas avoir 2,7 élèves)
 - **Continue** : valeurs réelles (ex. température, poids, distance)
 
 Pourquoi c'est important ? Parce que le **type de donnée dicte le type d'échelle** (et donc le type de graphique). Tu n'utilises pas \`scaleBand\` pour des températures, ni \`scaleLinear\` pour des catégories.`,
@@ -24,13 +24,13 @@ Pourquoi c'est important ? Parce que le **type de donnée dicte le type d'échel
       titre: 'Formats de données : CSV, JSON, TSV, XML',
       corps: `Les données vivent dans des fichiers. Voici les formats que tu croiseras le plus souvent :
 
-**CSV** (Comma-Separated Values) — format texte, une ligne par enregistrement, valeurs séparées par des virgules. La première ligne = les noms de colonnes. Simple, universel, compatible Excel et Google Sheets. En D3 : \`d3.csv()\` retourne un **tableau d'objets**.
+**CSV** (Comma-Separated Values) - format texte, une ligne par enregistrement, valeurs séparées par des virgules. La première ligne = les noms de colonnes. Simple, universel, compatible Excel et Google Sheets. En D3 : \`d3.csv()\` retourne un **tableau d'objets**.
 
-**JSON** (JavaScript Object Notation) — format texte structuré, nativement JavaScript. Les **types sont préservés** (nombres, booléens, tableaux, objets imbriqués). Format standard pour les APIs web. En D3 : \`d3.json()\` retourne l'objet parsé directement.
+**JSON** (JavaScript Object Notation) - format texte structuré, nativement JavaScript. Les **types sont préservés** (nombres, booléens, tableaux, objets imbriqués). Format standard pour les APIs web. En D3 : \`d3.json()\` retourne l'objet parsé directement.
 
-**TSV** (Tab-Separated Values) — comme le CSV mais le séparateur est une **tabulation** (\`\\t\`). Utile quand les données contiennent elles-mêmes des virgules. En D3 : \`d3.tsv()\`, syntaxe identique à \`d3.csv()\`.
+**TSV** (Tab-Separated Values) - comme le CSV mais le séparateur est une **tabulation** (\`\\t\`). Utile quand les données contiennent elles-mêmes des virgules. En D3 : \`d3.tsv()\`, syntaxe identique à \`d3.csv()\`.
 
-**XML** (eXtensible Markup Language) — format de balisage, verbeux mais très expressif (comme du HTML pour les données). Utilisé dans certains exports OpenData et GIS. Rarement utilisé directement en D3 (\`d3.xml()\` pour les cas particuliers).
+**XML** (eXtensible Markup Language) - format de balisage, verbeux mais très expressif (comme du HTML pour les données). Utilisé dans certains exports OpenData et GIS. Rarement utilisé directement en D3 (\`d3.xml()\` pour les cas particuliers).
 
 > **Mémo rapide** : CSV/TSV = tableaux de données simples · JSON = structures complexes/imbriquées · XML = cas spéciaux OpenData`,
     },
@@ -54,7 +54,7 @@ const villes = await csv('data/cities.csv', d => ({
 }))
 // [{ city: "Zurich", population: 421878, area: 87.88 }, ...]
 
-// Charger du JSON — types déjà préservés, pas besoin de convertir
+// Charger du JSON - types déjà préservés, pas besoin de convertir
 const data = await json('data/cities.json')
 // [{ city: "Zurich", population: 421878 }, ...]`,
       },
@@ -93,11 +93,11 @@ const data = await csv('data/cities.csv', d => ({
       corps: `Une fois les données chargées, il faut souvent les **transformer**, les **filtrer** ou en extraire des statistiques. Deux outils complémentaires :
 
 **d3-array** : fonctions statistiques optimisées, travaillent avec des **accesseurs** :
-- \`max(data, d => d.pop)\` — valeur maximale
-- \`min(data, d => d.pop)\` — valeur minimale
-- \`sum(data, d => d.pop)\` — somme
-- \`mean(data, d => d.pop)\` — moyenne arithmétique
-- \`extent(data, d => d.pop)\` — retourne \`[min, max]\` d'un coup (pratique pour \`.domain()\`)
+- \`max(data, d => d.pop)\` - valeur maximale
+- \`min(data, d => d.pop)\` - valeur minimale
+- \`sum(data, d => d.pop)\` - somme
+- \`mean(data, d => d.pop)\` - moyenne arithmétique
+- \`extent(data, d => d.pop)\` - retourne \`[min, max]\` d'un coup (pratique pour \`.domain()\`)
 
 **Méthodes JS natives** (elles retournent un *nouveau* tableau sans muter l'original, sauf \`sort\`) :
 - \`Array.map(fn)\` : transformer chaque élément
@@ -105,7 +105,7 @@ const data = await csv('data/cities.csv', d => ({
 - \`Array.reduce(fn, init)\` : agréger en une seule valeur
 - \`Array.includes(val)\` : vérifier si une valeur est présente
 - \`Array.forEach(fn)\` : itérer pour les effets de bord (ne retourne rien)
-- \`Array.sort(fn)\` : trier **en place** (⚠ mutation — utiliser \`[...data].sort(...)\` pour éviter ça)`,
+- \`Array.sort(fn)\` : trier **en place** (⚠ mutation - utiliser \`[...data].sort(...)\` pour éviter ça)`,
       code: {
         langage: 'js',
         editable: true,
@@ -134,7 +134,7 @@ const tries = [...cities].sort((a, b) => b.population - a.population)`,
     },
     {
       titre: 'Data binding : .data().join()',
-      corps: `C'est **le cœur de D3** : lier un tableau de données à des éléments du DOM. Pense-y comme un mariage organisé — D3 regarde combien de données tu as, combien d'éléments DOM existent, et fait correspondre les deux.
+      corps: `C'est **le cœur de D3** : lier un tableau de données à des éléments du DOM. Pense-y comme un mariage organisé - D3 regarde combien de données tu as, combien d'éléments DOM existent, et fait correspondre les deux.
 
 Le pattern \`selectAll → data → join\` en trois étapes :
 1. \`selectAll('circle')\` : sélectionne les éléments cibles (vide ou non)
@@ -146,7 +146,7 @@ Quand les données changent, D3 distingue trois situations (le cycle **Enter / U
 - **Update** : données avec un élément existant → **modifier** les attributs
 - **Exit** : éléments sans donnée correspondante → **supprimer**
 
-Dans la version simple (\`.join('circle')\`), D3 gère tout automatiquement. La version longue (\`.join(enter, update, exit)\`) te donne le contrôle total — utile pour des animations différenciées à l'entrée et à la sortie.`,
+Dans la version simple (\`.join('circle')\`), D3 gère tout automatiquement. La version longue (\`.join(enter, update, exit)\`) te donne le contrôle total - utile pour des animations différenciées à l'entrée et à la sortie.`,
       code: {
         langage: 'js',
         editable: true,
@@ -176,19 +176,19 @@ select('svg').selectAll('circle').data(data)
   ],
 
   essentiel: [
-    'Types de données : **qualitative** (nominale, ordinale, binaire) vs **quantitative** (discrète, continue) — le type dicte l\'échelle à utiliser.',
+    'Types de données : **qualitative** (nominale, ordinale, binaire) vs **quantitative** (discrète, continue) - le type dicte l\'échelle à utiliser.',
     'CSV = tout en **chaînes** → convertir avec `+d.valeur` dans l\'accesseur. JSON = types **préservés** (nombres, booléens).',
-    '`extent(data, accessor)` retourne `[min, max]` — parfait pour alimenter `.domain()` d\'une échelle.',
-    'Data binding : `selectAll` → `.data(array)` → `.join(\'element\')` — D3 crée/modifie/supprime les éléments DOM automatiquement.',
+    '`extent(data, accessor)` retourne `[min, max]` - parfait pour alimenter `.domain()` d\'une échelle.',
+    'Data binding : `selectAll` → `.data(array)` → `.join(\'element\')` - D3 crée/modifie/supprime les éléments DOM automatiquement.',
     'Cycle **Enter / Update / Exit** : Enter = créer, Update = modifier, Exit = supprimer. `.join(\'circle\')` gère les 3 cas automatiquement.',
-    '`Array.sort()` mute le tableau en place — utiliser `[...data].sort(...)` pour éviter les effets de bord.',
+    '`Array.sort()` mute le tableau en place - utiliser `[...data].sort(...)` pour éviter les effets de bord.',
   ],
 
   pieges: [
-    '`d3.csv()` retourne **toutes les valeurs comme chaînes** — oublier de convertir avec `+d.population` donne un tri alphabétique ("10" < "9") et des calculs faux.',
-    '`Array.sort()` **modifie le tableau original** — si le tableau doit rester intact, travailler sur une copie : `[...data].sort((a, b) => a.pop - b.pop)`.',
-    '`forEach` ne retourne rien (contrairement à `map`) — utiliser `map` quand on veut un nouveau tableau transformé, `forEach` seulement pour les effets de bord.',
-    'Ne pas confondre `extent` (retourne `[min, max]`) et `max`/`min` séparément — `extent` est directement utilisable pour `.domain([...extent])`.',
+    '`d3.csv()` retourne **toutes les valeurs comme chaînes** - oublier de convertir avec `+d.population` donne un tri alphabétique ("10" < "9") et des calculs faux.',
+    '`Array.sort()` **modifie le tableau original** - si le tableau doit rester intact, travailler sur une copie : `[...data].sort((a, b) => a.pop - b.pop)`.',
+    '`forEach` ne retourne rien (contrairement à `map`) - utiliser `map` quand on veut un nouveau tableau transformé, `forEach` seulement pour les effets de bord.',
+    'Ne pas confondre `extent` (retourne `[min, max]`) et `max`/`min` séparément - `extent` est directement utilisable pour `.domain([...extent])`.',
   ],
 
   patterns: [

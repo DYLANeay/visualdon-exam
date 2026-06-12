@@ -34,7 +34,7 @@ export default [
     ],
     correct: 1,
     explication:
-      'Avec une arrow function `(event, d) =>`, `this` hérite du contexte lexical extérieur (souvent `window` ou `undefined`). Avec `function(event, d)`, `this` pointe sur **l\'élément DOM** qui a déclenché l\'événement — indispensable pour `d3.select(this)`.',
+      'Avec une arrow function `(event, d) =>`, `this` hérite du contexte lexical extérieur (souvent `window` ou `undefined`). Avec `function(event, d)`, `this` pointe sur **l\'élément DOM** qui a déclenché l\'événement - indispensable pour `d3.select(this)`.',
   },
   {
     id: '03-qcm-3',
@@ -70,7 +70,7 @@ export default [
     ],
     correct: 2,
     explication:
-      'D3 `.append("circle")` gère automatiquement le namespace SVG. En vanilla JS, il faudrait utiliser `document.createElementNS("http://www.w3.org/2000/svg", "circle")` — `document.createElement("circle")` crée un élément HTML invalide.',
+      'D3 `.append("circle")` gère automatiquement le namespace SVG. En vanilla JS, il faudrait utiliser `document.createElementNS("http://www.w3.org/2000/svg", "circle")` - `document.createElement("circle")` crée un élément HTML invalide.',
   },
   {
     id: '03-qcm-5',
@@ -97,7 +97,7 @@ export default [
     type: 'vrai-faux',
     partie: 'd3',
     points: 2,
-    question: 'Le SVG est dans le DOM — on peut donc le manipuler avec D3.js exactement comme du HTML classique.',
+    question: 'Le SVG est dans le DOM - on peut donc le manipuler avec D3.js exactement comme du HTML classique.',
     reponse: true,
     explication:
       'Vrai. Le SVG est intégré directement dans le DOM HTML. D3 peut donc sélectionner, modifier et créer des éléments SVG avec les mêmes méthodes (`select`, `.attr()`, `.style()`, `.append()`) que pour le HTML.',
@@ -111,7 +111,7 @@ export default [
     question: 'Utiliser une arrow function dans `.on("click", (event, d) => { d3.select(this)... })` permet d\'accéder à l\'élément cliqué via `this`.',
     reponse: false,
     explication:
-      'Faux. Avec une arrow function, `this` ne pointe **pas** sur l\'élément DOM — il hérite du contexte lexical extérieur. Pour utiliser `d3.select(this)`, il faut obligatoirement utiliser `function(event, d) { ... }`.',
+      'Faux. Avec une arrow function, `this` ne pointe **pas** sur l\'élément DOM - il hérite du contexte lexical extérieur. Pour utiliser `d3.select(this)`, il faut obligatoirement utiliser `function(event, d) { ... }`.',
   },
   {
     id: '03-vf-3',
@@ -130,7 +130,7 @@ export default [
     type: 'vrai-faux',
     partie: 'd3',
     points: 2,
-    question: 'D3 `.append("circle")` gère automatiquement le namespace SVG — pas besoin d\'utiliser `createElementNS`.',
+    question: 'D3 `.append("circle")` gère automatiquement le namespace SVG - pas besoin d\'utiliser `createElementNS`.',
     reponse: true,
     explication:
       'Vrai. D3 détecte le contexte parent (SVG ou HTML) et utilise automatiquement le bon namespace. En vanilla JS, créer un `<circle>` SVG nécessite `document.createElementNS("http://www.w3.org/2000/svg", "circle")`.',

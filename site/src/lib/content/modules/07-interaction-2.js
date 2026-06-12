@@ -108,7 +108,7 @@ btnReset.on('click', () => {
 
 \`setInterval(fn, ms)\` exécute une fonction à **intervalles réguliers** exprimés en millisecondes. À chaque tick, on met à jour les données, puis on ré-anime les éléments visuels avec une transition D3.
 
-\`clearInterval(id)\` arrête l'animation — indispensable pour le bouton "Pause" ou pour éviter les fuites mémoire.
+\`clearInterval(id)\` arrête l'animation - indispensable pour le bouton "Pause" ou pour éviter les fuites mémoire.
 
 Le pattern typique : un tableau d'étapes (années, mois…), un index \`step\` qui avance, et une mise à jour du graphique à chaque intervalle.`,
       code: {
@@ -145,15 +145,15 @@ setInterval(() => {
 
   essentiel: [
     '`d3-zoom` : créer un zoom avec `zoom().on(\'zoom\', fn)` et l\'attacher au SVG avec `svg.call(zoomBehavior)`.',
-    '`event.transform` contient `{ x, y, k }` — appliquer au groupe `<g>` : `g.attr(\'transform\', event.transform)`.',
+    '`event.transform` contient `{ x, y, k }` - appliquer au groupe `<g>` : `g.attr(\'transform\', event.transform)`.',
     '`.scaleExtent([min, max])` limite le zoom · `.translateExtent([[0,0],[w,h]])` limite le déplacement.',
-    'Zoom programmatique : `.scaleBy`, `.scaleTo`, `.translateBy`, `.transform(zoomIdentity)` — combiner avec `.transition()` pour animer.',
+    'Zoom programmatique : `.scaleBy`, `.scaleTo`, `.translateBy`, `.transform(zoomIdentity)` - combiner avec `.transition()` pour animer.',
     '`setInterval(fn, ms)` : exécuter une fonction à intervalles réguliers · `clearInterval(id)` pour arrêter.',
   ],
 
   pieges: [
-    'Appliquer la transformation de zoom **directement sur le SVG** au lieu du groupe `<g>` — ça décale aussi les axes. Toujours appliquer `event.transform` au groupe contenant les éléments visuels, pas au SVG entier.',
-    'Oublier \`clearInterval(id)\` après avoir stoppé une animation laisse l\'intervalle tourner en arrière-plan — **fuite mémoire** et comportements bizarres si tu relances.',
+    'Appliquer la transformation de zoom **directement sur le SVG** au lieu du groupe `<g>` - ça décale aussi les axes. Toujours appliquer `event.transform` au groupe contenant les éléments visuels, pas au SVG entier.',
+    'Oublier \`clearInterval(id)\` après avoir stoppé une animation laisse l\'intervalle tourner en arrière-plan - **fuite mémoire** et comportements bizarres si tu relances.',
     'Sans `.scaleExtent([1, ...])` le zoom peut se retrouver en dessous de 1 (dézoom) et retourner la visualisation ou la réduire à rien.',
   ],
 

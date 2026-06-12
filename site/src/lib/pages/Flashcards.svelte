@@ -4,7 +4,6 @@
   import { toutesLesCartes, cartesModule } from '../flashcards/index.js'
   import { cartesEtat, majCarte } from '../stores/cards.js'
   import { reviser, estDue, ETAT_INITIAL } from '../flashcards/sm2.js'
-  import { addXp } from '../stores/progress.js'
   import { melanger } from '../quiz/index.js'
   import Markdown from '../components/Markdown.svelte'
 
@@ -50,7 +49,6 @@
     const etat = get(cartesEtat)[c.id] ?? ETAT_INITIAL
     const suivant = reviser(etat, q)
     majCarte(c.id, suivant)
-    if (q >= 4) addXp(2)
     faites += 1
     // Si "Encore", on remet la carte plus loin dans la file de session.
     if (q < 3) file = [...file, c]

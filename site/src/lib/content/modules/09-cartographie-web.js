@@ -2,7 +2,7 @@ export default {
   id: '09-cartographie-web',
   titre: 'Cartographie web',
   accroche:
-    'Des coordonnées GPS à un beau `<path>` SVG ou une carte vectorielle interactive : ce cours est le **couteau suisse** du cartographe web. GeoJSON, d3-geo, MapLibre, Deck.gl — tu sais maintenant quel outil sortir selon la mission.',
+    'Des coordonnées GPS à un beau `<path>` SVG ou une carte vectorielle interactive : ce cours est le **couteau suisse** du cartographe web. GeoJSON, d3-geo, MapLibre, Deck.gl - tu sais maintenant quel outil sortir selon la mission.',
 
   sections: [
     {
@@ -10,13 +10,13 @@ export default {
       corps: `GeoJSON est le format de référence pour les données géographiques sur le web (RFC 7946). Sa structure est simple : un objet JSON avec un **type** de géométrie et des **coordonnées**.
 
 **Types de géométries à connaître :**
-- \`Point\` — un lieu précis (une ville, un marqueur)
-- \`LineString\` — un chemin, une route, une rivière
-- \`Polygon\` — une zone fermée (un canton, un bâtiment)
-- \`MultiPolygon\` — plusieurs zones (la France avec ses îles)
-- \`FeatureCollection\` — tableau de \`Feature\`, le conteneur habituel
+- \`Point\` - un lieu précis (une ville, un marqueur)
+- \`LineString\` - un chemin, une route, une rivière
+- \`Polygon\` - une zone fermée (un canton, un bâtiment)
+- \`MultiPolygon\` - plusieurs zones (la France avec ses îles)
+- \`FeatureCollection\` - tableau de \`Feature\`, le conteneur habituel
 
-**⚠️ Piège classique de l'examen :** l'ordre des coordonnées dans GeoJSON est **\`[longitude, latitude]\`** — c'est l'inverse de ce qu'on dit en français ("latitude, longitude"). Pense à Google Maps : tu lis "46.78, 6.64" (lat, lon) mais en GeoJSON tu écris \`[6.64, 46.78]\` (lon, lat).`,
+**⚠️ Piège classique de l'examen :** l'ordre des coordonnées dans GeoJSON est **\`[longitude, latitude]\`** - c'est l'inverse de ce qu'on dit en français ("latitude, longitude"). Pense à Google Maps : tu lis "46.78, 6.64" (lat, lon) mais en GeoJSON tu écris \`[6.64, 46.78]\` (lon, lat).`,
       code: {
         langage: 'js',
         editable: false,
@@ -58,7 +58,7 @@ export default {
 - **OpenStreetMap** : la "Wikipedia des cartes", collaborative, libre (ODbL). Accès via Overpass Turbo pour des requêtes ciblées ou Geofabrik pour des extractions régionales.
 - **Natural Earth** : données vectorielles mondiales libres, parfaites pour les cartes à petite échelle.
 - **Swisstopo / opendata.swiss** : données suisses officielles.
-- **Nominatim** : géocodage (adresse → coordonnées) et géocodage inverse — basé sur OSM, gratuit, limite 1 req/seconde.`,
+- **Nominatim** : géocodage (adresse → coordonnées) et géocodage inverse - basé sur OSM, gratuit, limite 1 req/seconde.`,
     },
     {
       titre: 'd3-geo : cartes SVG personnalisées',
@@ -70,14 +70,14 @@ Le flux de travail est simple : **GeoJSON → projection → geoPath → \`<path
 2. **geoPath** : générateur qui transforme chaque feature GeoJSON en chaîne SVG \`d="..."\`.
 
 **Projections disponibles :**
-- \`d3.geoEqualEarth()\` — surfaces préservées, compromis visuel agréable ← recommandée en cours
-- \`d3.geoMercator()\` — angles préservés, surfaces déformées
-- \`d3.geoOrthographic()\` — vue globe 3D
-- \`d3.geoConicConformal()\` — projection suisse (CH1903+)
+- \`d3.geoEqualEarth()\` - surfaces préservées, compromis visuel agréable ← recommandée en cours
+- \`d3.geoMercator()\` - angles préservés, surfaces déformées
+- \`d3.geoOrthographic()\` - vue globe 3D
+- \`d3.geoConicConformal()\` - projection suisse (CH1903+)
 
 **Ajustement de la projection :**
-- \`.fitExtent([[left, top], [right, bottom]], geojson)\` — cadrage automatique avec marges
-- \`.fitSize([width, height], geojson)\` — cadrage automatique sans marges
+- \`.fitExtent([[left, top], [right, bottom]], geojson)\` - cadrage automatique avec marges
+- \`.fitSize([width, height], geojson)\` - cadrage automatique sans marges
 - Manuel : \`.scale()\`, \`.translate()\`, \`.center()\``,
       code: {
         langage: 'js',
@@ -156,14 +156,14 @@ map.on('load', async () => {
       titre: 'MapLibre : expressions, interactivité et Deck.gl',
       corps: `**Expressions MapLibre** : les propriétés visuelles (couleur, opacité, taille) peuvent être liées dynamiquement aux données via des expressions JSON :
 
-- \`['get', 'population']\` — lire une propriété de la feature
-- \`['interpolate', ['linear'], ['get', 'population'], 1000000, '#fadadb', 85000000, '#7a0c0e']\` — choroplète continue
-- \`['match', ...]\` — correspondance par catégorie
-- \`['feature-state', 'hover']\` — état dynamique pour le hover
+- \`['get', 'population']\` - lire une propriété de la feature
+- \`['interpolate', ['linear'], ['get', 'population'], 1000000, '#fadadb', 85000000, '#7a0c0e']\` - choroplète continue
+- \`['match', ...]\` - correspondance par catégorie
+- \`['feature-state', 'hover']\` - état dynamique pour le hover
 
 **Animations de caméra :**
-- \`map.flyTo({ center, zoom, pitch, bearing, duration })\` — animation type "vol"
-- \`map.easeTo({ pitch, bearing, duration })\` — transition linéaire douce
+- \`map.flyTo({ center, zoom, pitch, bearing, duration })\` - animation type "vol"
+- \`map.easeTo({ pitch, bearing, duration })\` - transition linéaire douce
 - \`pitch\` (0–85°) = inclinaison pour la vue 3D · \`bearing\` = rotation
 
 **Deck.gl** : bibliothèque WebGL haute performance (développée par Uber/OpenJS Foundation) pour les **données massives**. S'intègre à MapLibre via \`MapboxOverlay\`. Couches disponibles : \`HexagonLayer\` (densité en hexagones 3D), \`ArcLayer\` (flux), \`ScatterplotLayer\` (millions de points), \`HeatmapLayer\`, \`TripsLayer\` (animation temporelle).
@@ -190,10 +190,10 @@ map.on('load', async () => {
   ],
 
   pieges: [
-    `**Ordre des coordonnées GeoJSON** : c'est \`[longitude, latitude]\` — l'inverse de l'usage courant en français. \`[6.64, 46.78]\` = Yverdon, pas \`[46.78, 6.64]\`.`,
-    `Sans \`import \'maplibre-gl/dist/maplibre-gl.css\'\`, la carte MapLibre ne s'affiche pas correctement — le CSS est **obligatoire**.`,
+    `**Ordre des coordonnées GeoJSON** : c'est \`[longitude, latitude]\` - l'inverse de l'usage courant en français. \`[6.64, 46.78]\` = Yverdon, pas \`[46.78, 6.64]\`.`,
+    `Sans \`import \'maplibre-gl/dist/maplibre-gl.css\'\`, la carte MapLibre ne s'affiche pas correctement - le CSS est **obligatoire**.`,
     `Le container HTML de MapLibre **doit avoir une hauteur explicite** (ex. \`height: 500px\`) sinon la carte reste invisible.`,
-    `Toujours envelopper \`addSource\` et \`addLayer\` dans \`map.on(\'load\', () => { ... })\` — les appeler avant le chargement provoque une erreur silencieuse.`,
+    `Toujours envelopper \`addSource\` et \`addLayer\` dans \`map.on(\'load\', () => { ... })\` - les appeler avant le chargement provoque une erreur silencieuse.`,
   ],
 
   patterns: [

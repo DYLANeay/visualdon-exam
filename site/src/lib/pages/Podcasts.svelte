@@ -9,7 +9,7 @@
 <section class="mx-auto max-w-2xl py-12">
   <h1 class="text-2xl font-semibold text-fg-strong">Podcasts</h1>
   <p class="mt-2 text-muted">
-    Des épisodes de révision générés à partir du cours, à écouter partout — la lecture
+    Des épisodes de révision générés à partir du cours, à écouter partout - la lecture
     continue même écran verrouillé.
   </p>
 

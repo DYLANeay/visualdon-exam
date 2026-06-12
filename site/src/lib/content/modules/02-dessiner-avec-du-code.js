@@ -2,36 +2,36 @@ export default {
   id: "02-dessiner-avec-du-code",
   titre: "Dessiner avec du code",
   accroche:
-    "Avant les ordinateurs, la dataviz se dessinait à la main. Aujourd'hui on code — mais la question reste la même : **quelle forme donner à cette donnée ?**",
+    "Avant les ordinateurs, la dataviz se dessinait à la main. Aujourd'hui on code - mais la question reste la même : **quelle forme donner à cette donnée ?**",
 
   sections: [
     {
       titre: "La main comme point de départ",
-      corps: `La visualisation de données a été inventée bien avant les ordinateurs. Nightingale, Du Bois, Tufte, Minard — tous dessinaient à la main. Et aujourd'hui encore, des artistes comme **Giorgia Lupi**, **Federica Fragapane** ou **Mona Chalabi** (The Guardian) travaillent au crayon.
+      corps: `La visualisation de données a été inventée bien avant les ordinateurs. Nightingale, Du Bois, Tufte, Minard - tous dessinaient à la main. Et aujourd'hui encore, des artistes comme **Giorgia Lupi**, **Federica Fragapane** ou **Mona Chalabi** (The Guardian) travaillent au crayon.
 
 Pourquoi cette insistance sur la main dans un cours de code ?
 
 **Dessiner à la main force à penser** : quelles variables ? quel encodage visuel ? quelle échelle ? C'est une décision, pas un clic.
 
-L'esquisse rapide (30 secondes) permet d'**itérer sans coût** — effacer un crayon coûte moins cher que refactorer du code. La main révèle les **décisions implicites** que le code cache : axes, proportions, hiérarchie.
+L'esquisse rapide (30 secondes) permet d'**itérer sans coût** - effacer un crayon coûte moins cher que refactorer du code. La main révèle les **décisions implicites** que le code cache : axes, proportions, hiérarchie.
 
 Edward Tufte : *"Above all else show the data."*
 
-**Règle d'or** : avant d'écrire du code, pose-toi — crayon en main — *quelle forme devrait prendre cette donnée ?*`,
+**Règle d'or** : avant d'écrire du code, pose-toi - crayon en main - *quelle forme devrait prendre cette donnée ?*`,
     },
     {
       titre: "SVG : le vectoriel dans le navigateur",
-      corps: `**SVG** (Scalable Vector Graphics) est un format d'image vectoriel intégré directement dans le HTML. Contrairement au PNG ou JPG (images matricielles, grilles de pixels fixes), SVG décrit des **formes mathématiques** — courbes, rayons, points.
+      corps: `**SVG** (Scalable Vector Graphics) est un format d'image vectoriel intégré directement dans le HTML. Contrairement au PNG ou JPG (images matricielles, grilles de pixels fixes), SVG décrit des **formes mathématiques** - courbes, rayons, points.
 
 **Vectoriel vs Matriciel** :
 - **Matriciel** (PNG, JPG, Canvas) : grille de pixels. Zoomer → pixelisation visible.
 - **Vectoriel** (SVG) : formes recalculées à la volée. Zoomer → **toujours net**.
 - SVG est **résolution-indépendant** : parfait pour écrans Retina, exports PDF, impressions.
 
-**Le système de coordonnées SVG** — important à retenir :
+**Le système de coordonnées SVG** - important à retenir :
 - L'origine \`(0, 0)\` est en **haut à gauche**
 - \`x\` croît vers la **droite**, \`y\` croît vers le **bas**
-- C'est l'inverse du repère mathématique scolaire — pense à une page imprimée, pas à un graphe de maths.
+- C'est l'inverse du repère mathématique scolaire - pense à une page imprimée, pas à un graphe de maths.
 - SVG et Canvas partagent ce même repère.`,
       code: {
         langage: "svg",
@@ -59,19 +59,19 @@ Edward Tufte : *"Above all else show the data."*
     {
       titre: "SVG : styles, chemins et groupes",
       corps: `**Attributs de style** communs :
-- \`fill\` — couleur de remplissage (\`fill="none"\` pour contour seul)
-- \`stroke\` — couleur du contour
-- \`stroke-width\` — épaisseur du contour
-- \`opacity\` — transparence globale (0–1)
-- \`fill-opacity\` — transparence du remplissage seulement
-- \`stroke-dasharray\` — contour en tirets
+- \`fill\` - couleur de remplissage (\`fill="none"\` pour contour seul)
+- \`stroke\` - couleur du contour
+- \`stroke-width\` - épaisseur du contour
+- \`opacity\` - transparence globale (0–1)
+- \`fill-opacity\` - transparence du remplissage seulement
+- \`stroke-dasharray\` - contour en tirets
 
-**L'élément \`<path>\`** est le plus puissant de SVG — D3.js l'utilise pour les arcs, courbes et formes complexes. Il se pilote avec des commandes :
-- \`M x y\` — **Move to** : déplace le curseur sans tracer
-- \`L x y\` — **Line to** : trace une ligne droite
-- \`H x\` — **Horizontal line**
-- \`V y\` — **Vertical line**
-- \`Z\` — **Close path** : ferme le chemin vers le départ
+**L'élément \`<path>\`** est le plus puissant de SVG - D3.js l'utilise pour les arcs, courbes et formes complexes. Il se pilote avec des commandes :
+- \`M x y\` - **Move to** : déplace le curseur sans tracer
+- \`L x y\` - **Line to** : trace une ligne droite
+- \`H x\` - **Horizontal line**
+- \`V y\` - **Vertical line**
+- \`Z\` - **Close path** : ferme le chemin vers le départ
 
 **Les groupes \`<g>\`** regroupent des éléments. Les attributs et transformations s'héritent. Les transformations disponibles : \`translate(x, y)\`, \`rotate(deg)\`, \`scale(factor)\`.`,
       code: {
@@ -100,7 +100,7 @@ Edward Tufte : *"Above all else show the data."*
     },
     {
       titre: "HTML Canvas : le mode impératif",
-      corps: `**Canvas** est une alternative à SVG : au lieu de déclarer des formes dans le DOM, on **donne des instructions** à un contexte 2D — comme peindre sur une toile.
+      corps: `**Canvas** est une alternative à SVG : au lieu de déclarer des formes dans le DOM, on **donne des instructions** à un contexte 2D - comme peindre sur une toile.
 
 Différences clés avec SVG :
 - Les formes **ne restent pas dans le DOM** : une fois dessinées, ce ne sont que des pixels.
@@ -158,7 +158,7 @@ ctx.fill()`,
     "SVG = **vectoriel déclaratif** dans le DOM : formes scalables, interactives, modifiables par JS/CSS.",
     "Système de coordonnées SVG : origine **(0,0) en haut à gauche**, x → droite, y → **bas** (inverse du repère mathématique).",
     "Formes SVG de base : `<rect>`, `<circle>`, `<line>`, `<polygon>`, `<path>`. Groupes : `<g>` avec héritage des attributs et `transform`.",
-    "`<path>` : commandes `M` (move), `L` (line), `H` (horizontal), `V` (vertical), `Z` (close) — utilisé par D3 pour arcs et courbes.",
+    "`<path>` : commandes `M` (move), `L` (line), `H` (horizontal), `V` (vertical), `Z` (close) - utilisé par D3 pour arcs et courbes.",
     "Canvas = **bitmap impératif** hors DOM : performant pour > 10 000 éléments, mais pas d'interactivité native.",
     "Choix du cours : **SVG + D3.js** pour la liaison données–DOM et l'interactivité.",
   ],
@@ -167,7 +167,7 @@ ctx.fill()`,
     "L'axe Y du SVG pointe vers le **bas** : y=0 est en haut. Un rectangle `y=10` est près du haut, pas du bas.",
     "Confondre SVG (déclaratif, DOM) et Canvas (impératif, pixels) : une forme Canvas ne peut pas être sélectionnée ou écoutée directement.",
     "Oublier `beginPath()` en Canvas : sans lui, les anciens chemins se cumulent et le rendu est faux.",
-    "`fill=\"none\"` en SVG donne un contour seul (pas de remplissage) — `fill` par défaut est **noir**, pas transparent.",
+    "`fill=\"none\"` en SVG donne un contour seul (pas de remplissage) - `fill` par défaut est **noir**, pas transparent.",
   ],
 
   patterns: [

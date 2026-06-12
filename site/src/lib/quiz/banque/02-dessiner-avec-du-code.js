@@ -34,7 +34,7 @@ export default [
     ],
     correct: 1,
     explication:
-      'L\'origine SVG est en **haut à gauche**. L\'axe Y pointe vers le **bas** — c\'est l\'inverse du repère mathématique classique. Un élément avec `y=10` est donc près du haut, pas du bas.',
+      'L\'origine SVG est en **haut à gauche**. L\'axe Y pointe vers le **bas** - c\'est l\'inverse du repère mathématique classique. Un élément avec `y=10` est donc près du haut, pas du bas.',
   },
   {
     id: '02-qcm-3',
@@ -85,7 +85,7 @@ export default [
     ],
     correct: 2,
     explication:
-      'Canvas est conseillé pour les **grands volumes** (> 10 000 éléments) et les **animations haute fréquence** car il est très performant — les formes ne sont que des pixels et le navigateur n\'a pas à gérer un DOM lourd.',
+      'Canvas est conseillé pour les **grands volumes** (> 10 000 éléments) et les **animations haute fréquence** car il est très performant - les formes ne sont que des pixels et le navigateur n\'a pas à gérer un DOM lourd.',
   },
 
   // --- Vrai / Faux ---
@@ -131,6 +131,6 @@ export default [
     question: 'SVG et Canvas partagent le **même système de coordonnées** : origine en haut à gauche, Y croissant vers le bas.',
     reponse: true,
     explication:
-      'Vrai. SVG et Canvas utilisent tous les deux un repère avec l\'origine **(0,0) en haut à gauche** et l\'axe Y qui pointe vers le bas — à l\'inverse du repère mathématique scolaire.',
+      'Vrai. SVG et Canvas utilisent tous les deux un repère avec l\'origine **(0,0) en haut à gauche** et l\'axe Y qui pointe vers le bas - à l\'inverse du repère mathématique scolaire.',
   },
 ]

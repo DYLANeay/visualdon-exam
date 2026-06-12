@@ -7,7 +7,7 @@ export default {
   sections: [
     {
       titre: 'Qu\'est-ce qu\'une transition ?',
-      corps: `Une **transition** est une interpolation animée entre deux états. Sans transition, un changement d'attribut est instantané — l'élément saute brutalement d'un état à l'autre. Avec une transition, D3 calcule automatiquement toutes les valeurs intermédiaires et anime le passage en douceur.
+      corps: `Une **transition** est une interpolation animée entre deux états. Sans transition, un changement d'attribut est instantané - l'élément saute brutalement d'un état à l'autre. Avec une transition, D3 calcule automatiquement toutes les valeurs intermédiaires et anime le passage en douceur.
 
 D3 sait interpoler les nombres, les couleurs, les positions, les transformations SVG… presque tout ce qui peut changer visuellement.
 
@@ -20,7 +20,7 @@ const circle = svg.append('circle')
   .attr('cx', 180).attr('cy', 110)
   .attr('r', 20).attr('fill', '#3b82f6')
 
-// Avec transition — le cercle grossit et change de couleur
+// Avec transition - le cercle grossit et change de couleur
 circle
   .transition()
   .duration(800)
@@ -30,7 +30,7 @@ circle
     },
     {
       titre: 'Durée : .duration()',
-      corps: `Par défaut, une transition dure **250ms** — assez court pour être réactif. On peut modifier cette durée avec \`.duration()\`, exprimée en **millisecondes**.
+      corps: `Par défaut, une transition dure **250ms** - assez court pour être réactif. On peut modifier cette durée avec \`.duration()\`, exprimée en **millisecondes**.
 
 Quelques repères pratiques :
 - **150–300ms** : transitions rapides, réponses à des interactions (hover, clic)
@@ -57,15 +57,15 @@ circle
     },
     {
       titre: 'Easing : l\'accélération de la transition',
-      corps: `L'**easing** contrôle *comment* la valeur change au fil du temps — est-ce qu'elle accélère, décélère, rebondit ?
+      corps: `L'**easing** contrôle *comment* la valeur change au fil du temps - est-ce qu'elle accélère, décélère, rebondit ?
 
 Sans easing, une transition est mécanique et plate. Avec le bon easing, elle devient naturelle et vivante. Pense à la différence entre une porte qui s'ouvre à vitesse constante (bizarre) et une porte qui ralentit avant de s'arrêter (naturel).
 
 Les easings disponibles dans \`d3-ease\` :
-- \`easeLinear\` — vitesse constante (effet mécanique)
-- \`easeCubic\` — accélération puis décélération douce (**défaut** de D3)
-- \`easeBounce\` — effet de rebond à l'arrivée (physique)
-- \`easeElastic\` — effet élastique, dépasse puis revient
+- \`easeLinear\` - vitesse constante (effet mécanique)
+- \`easeCubic\` - accélération puis décélération douce (**défaut** de D3)
+- \`easeBounce\` - effet de rebond à l'arrivée (physique)
+- \`easeElastic\` - effet élastique, dépasse puis revient
 
 Pour des données, \`easeCubic\` est presque toujours le bon choix. \`easeBounce\` et \`easeElastic\` pour les animations ludiques.`,
       code: {
@@ -86,7 +86,7 @@ circle
     },
     {
       titre: 'Délai : .delay() et animations en cascade',
-      corps: `Le **délai** (\`.delay()\`) décale le *début* de la transition — idéal pour créer des **animations en cascade** où chaque élément démarre un peu après le précédent.
+      corps: `Le **délai** (\`.delay()\`) décale le *début* de la transition - idéal pour créer des **animations en cascade** où chaque élément démarre un peu après le précédent.
 
 La clé : passer une **fonction** à \`.delay()\` plutôt qu'une valeur fixe. Cette fonction reçoit la donnée \`d\` et l'index \`i\`, ce qui permet de calculer un délai différent par élément.
 
@@ -115,17 +115,17 @@ barres.transition().duration(650)
   ],
 
   essentiel: [
-    '`.transition()` transforme un changement instantané en animation fluide — il suffit de l\'insérer avant `.attr()`.',
+    '`.transition()` transforme un changement instantané en animation fluide - il suffit de l\'insérer avant `.attr()`.',
     '`.duration(ms)` : durée de la transition en millisecondes (défaut : **250ms**).',
     '`.ease(fn)` contrôle l\'accélération : `easeCubic` (défaut, doux), `easeBounce` (rebond), `easeElastic` (élastique), `easeLinear` (constant).',
-    '`.delay((d, i) => i * 100)` : délai différent par élément grâce à un **callback** — crée des animations en cascade.',
-    'L\'ordre de la chaîne compte : `.transition().duration(800).ease(fn).attr(...)` — toujours `transition()` en premier.',
+    '`.delay((d, i) => i * 100)` : délai différent par élément grâce à un **callback** - crée des animations en cascade.',
+    'L\'ordre de la chaîne compte : `.transition().duration(800).ease(fn).attr(...)` - toujours `transition()` en premier.',
   ],
 
   pieges: [
-    'Mettre `.attr()` **avant** `.transition()` change l\'état immédiatement puis anime vers rien — toujours placer `.transition()` avant les attributs à animer.',
-    'Passer une **valeur fixe** à `.delay(500)` fait démarrer *tous* les éléments simultanément après 500ms — pour la cascade, utiliser un **callback** : `.delay((d, i) => i * 100)`.',
-    'Ne pas chaîner plusieurs `.transition()` sur le même élément sans \`selection.interrupt()\` — les transitions s\'accumulent et se chevauchent de façon imprévisible.',
+    'Mettre `.attr()` **avant** `.transition()` change l\'état immédiatement puis anime vers rien - toujours placer `.transition()` avant les attributs à animer.',
+    'Passer une **valeur fixe** à `.delay(500)` fait démarrer *tous* les éléments simultanément après 500ms - pour la cascade, utiliser un **callback** : `.delay((d, i) => i * 100)`.',
+    'Ne pas chaîner plusieurs `.transition()` sur le même élément sans \`selection.interrupt()\` - les transitions s\'accumulent et se chevauchent de façon imprévisible.',
   ],
 
   patterns: [

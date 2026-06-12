@@ -4,7 +4,7 @@ import { tousLesContenus } from '../content/index.js'
 // Les flashcards sont dérivées de deux sources, déjà fidèles au cours :
 //  1. La banque de quiz (format question/réponse).
 //  2. Les points « essentiel » de chaque module (recto = indice, verso = la notion).
-// Chaque carte : { id, module, recto, verso } — recto/verso en markdown inline.
+// Chaque carte : { id, module, recto, verso } - recto/verso en markdown inline.
 
 function depuisQuiz() {
   return toutesLesQuestions().map((q) => {
@@ -27,7 +27,7 @@ function depuisEssentiel() {
       cartes.push({
         id: `fc-${c.id}-ess-${i}`,
         module: c.id,
-        recto: `**${c.titre}** — quelle notion clé ?`,
+        recto: `**${c.titre}** - quelle notion clé ?`,
         verso: point,
       })
     })

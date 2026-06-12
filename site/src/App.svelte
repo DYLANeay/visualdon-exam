@@ -1,6 +1,5 @@
 <script>
   import { route } from './lib/router.js'
-  import { progress } from './lib/stores/progress.js'
   import Accueil from './lib/pages/Accueil.svelte'
   import Modules from './lib/pages/Modules.svelte'
   import Module from './lib/pages/Module.svelte'
@@ -8,7 +7,6 @@
   import Quiz from './lib/pages/Quiz.svelte'
   import Examen from './lib/pages/Examen.svelte'
   import Flashcards from './lib/pages/Flashcards.svelte'
-  import Profil from './lib/pages/Profil.svelte'
   import Podcasts from './lib/pages/Podcasts.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
@@ -27,7 +25,6 @@
     { path: '/examen', label: 'Examen blanc' },
     { path: '/flashcards', label: 'Flashcards' },
     { path: '/podcasts', label: 'Podcasts' },
-    { path: '/profil', label: 'Profil' },
   ]
 
   let menuOuvert = $state(false)
@@ -58,17 +55,11 @@
         </a>
       {/each}
       <div class="mx-2 h-4 w-px bg-border"></div>
-      <span class="rounded-full bg-accentsurface px-2.5 py-1 font-mono text-xs font-medium text-accentfg">
-        {$progress.xp} XP
-      </span>
       <ThemeToggle />
     </nav>
 
     <!-- Compact (mobile) -->
     <div class="flex items-center gap-2 md:hidden">
-      <span class="rounded-full bg-accentsurface px-2.5 py-1 font-mono text-xs font-medium text-accentfg">
-        {$progress.xp} XP
-      </span>
       <ThemeToggle />
       <button
         onclick={() => (menuOuvert = !menuOuvert)}
@@ -120,8 +111,6 @@
     <Flashcards />
   {:else if $route === '/podcasts'}
     <Podcasts />
-  {:else if $route === '/profil'}
-    <Profil />
   {:else}
     <Placeholder titre="Page introuvable" description="Ce chemin ne mène nulle part. Retourne à l’accueil !" />
   {/if}

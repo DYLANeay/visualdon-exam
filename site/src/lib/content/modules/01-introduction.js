@@ -20,33 +20,33 @@ La visualisation permet de :
       titre: "Pourquoi visualiser ? Trois grandes fonctions",
       corps: `L'histoire de la dataviz est peuplée de héros qui ont changé le monde avec un seul graphique. Trois usages fondamentaux :
 
-**Explorer — trouver les tendances**
+**Explorer - trouver les tendances**
 Florence Nightingale (1858) invente le diagramme en rose (coxcomb) pour montrer les causes de mortalité dans l'armée britannique. Son graphique convainc le gouvernement de réformer l'hygiène militaire : les décès par maladie s'effondrent.
 
-**Analyser — tester une hypothèse**
+**Analyser - tester une hypothèse**
 John Snow (1854) cartographie les cas de choléra à Londres. La concentration des points autour d'une seule pompe à eau prouve que la maladie se transmet par l'eau, pas par l'air. Naissance de l'épidémiologie moderne.
 
-**Présenter — raconter une histoire**
-Charles Joseph Minard (1869) encode **6 variables** sur une seule image : la campagne de Russie de Napoléon — géographie, direction, effectifs, température, dates, rivières. Edward Tufte la considère comme la meilleure visualisation statistique jamais créée.`,
+**Présenter - raconter une histoire**
+Charles Joseph Minard (1869) encode **6 variables** sur une seule image : la campagne de Russie de Napoléon - géographie, direction, effectifs, température, dates, rivières. Edward Tufte la considère comme la meilleure visualisation statistique jamais créée.`,
     },
     {
       titre: "Données : entre objectivité et subjectivité",
-      corps: `On croit souvent que les données sont neutres, objectives, "scientifiques". C'est faux — ou du moins, incomplet.
+      corps: `On croit souvent que les données sont neutres, objectives, "scientifiques". C'est faux - ou du moins, incomplet.
 
 > *"Les données ne sont jamais brutes. Elles sont toujours déjà cuisinées."*
-> — Geoffrey C. Bowker, *Memory Practices in the Sciences* (2005)
+> - Geoffrey C. Bowker, *Memory Practices in the Sciences* (2005)
 
 Deux grandes traditions s'affrontent (et se complètent) :
 
 **Approche rationnelle**
-- **Jacques Bertin** (*Sémiologie graphique*, 1967) : 7 **variables visuelles** — position, taille, valeur, grain, couleur, orientation, forme — comme une grammaire universelle pour encoder l'information sans ambiguïté.
+- **Jacques Bertin** (*Sémiologie graphique*, 1967) : 7 **variables visuelles** - position, taille, valeur, grain, couleur, orientation, forme - comme une grammaire universelle pour encoder l'information sans ambiguïté.
 - **Edward Tufte** (*The Visual Display of Quantitative Information*, 1983) : maximiser le **data-ink ratio** (chaque pixel doit informer), éliminer le **chartjunk** (tout ce qui décore sans informer).
 
 **Approche sensible**
-- **Giorgia Lupi** (Data Humanism) : *"data-driven ne veut pas dire incontestablement vrai"* — les données portent la trace de ceux qui les ont collectées.
-- **Federica Fragapane** : *"les données ne sont pas neutres"* — ses infographies organiques sont au MoMA.
+- **Giorgia Lupi** (Data Humanism) : *"data-driven ne veut pas dire incontestablement vrai"* - les données portent la trace de ceux qui les ont collectées.
+- **Federica Fragapane** : *"les données ne sont pas neutres"* - ses infographies organiques sont au MoMA.
 - **Lupi & Posavec** (*Dear Data*, 2016) : 52 semaines de données personnelles dessinées à la main sur des cartes postales. Collection du MoMA.
-- **Philippe Rekacewicz** : cartographie sensible et décentrée — esquisses, émotions, croquis.
+- **Philippe Rekacewicz** : cartographie sensible et décentrée - esquisses, émotions, croquis.
 
 Ces deux approches ne s'opposent pas : une bonne visualisation **choisit sa posture** selon son audience et son intention.`,
     },
@@ -64,7 +64,7 @@ Une visualisation peut être **exploratoire** (pour soi, itérations rapides, sa
 Et les formes ? Du plus simple au plus riche :
 - **Statique** : infographie imprimée, affiche
 - **Infographie** : combinaison de texte, chiffres, formes
-- **Interactive** : filtres, hover, scroll, animation — ex. NYT "How the Virus Got Out", RTS votations`,
+- **Interactive** : filtres, hover, scroll, animation - ex. NYT "How the Virus Got Out", RTS votations`,
     },
     {
       titre: "Outils et objectifs du cours",
@@ -87,9 +87,9 @@ Dans ce cours, l'outil central est **D3.js** (Data-Driven Documents). Pourquoi D
   essentiel: [
     "La visualisation transforme des **données abstraites** en **formes visuelles** pour révéler structures, tendances et anomalies.",
     "Trois fonctions : **explorer** (Nightingale), **analyser** (Snow), **présenter** (Minard).",
-    "Bertin : 7 **variables visuelles** — position, taille, valeur, grain, couleur, orientation, forme.",
-    "Tufte : maximiser le **data-ink ratio**, éliminer le **chartjunk** — chaque pixel doit informer.",
-    "Lupi (Data Humanism) : les données ne sont jamais neutres — approche rationnelle ET sensible se complètent.",
+    "Bertin : 7 **variables visuelles** - position, taille, valeur, grain, couleur, orientation, forme.",
+    "Tufte : maximiser le **data-ink ratio**, éliminer le **chartjunk** - chaque pixel doit informer.",
+    "Lupi (Data Humanism) : les données ne sont jamais neutres - approche rationnelle ET sensible se complètent.",
     "4 piliers d’une bonne viz (*Information is Beautiful*) : **Information · Fonction · Forme visuelle · Histoire**.",
   ],
 

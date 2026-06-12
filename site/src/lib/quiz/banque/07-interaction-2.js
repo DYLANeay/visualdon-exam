@@ -10,7 +10,7 @@ export default [
       'Le niveau de zoom uniquement (`k`)',
       'Les coordonnées de la souris (`x`, `y`)',
       'Les propriétés `{ x, y, k }` : décalages et facteur d\'échelle',
-      'Un objet vide — la transformation est gérée automatiquement',
+      'Un objet vide - la transformation est gérée automatiquement',
     ],
     correct: 2,
     explication:
@@ -42,7 +42,7 @@ export default [
     question: 'Pourquoi applique-t-on `event.transform` au groupe `<g>` plutôt qu\'au SVG lui-même ?',
     options: [
       'Le SVG ne supporte pas l\'attribut `transform`',
-      'Appliquer la transformation au SVG décalerait aussi les axes et marges — en ciblant le `<g>`, axes et marges restent fixes',
+      'Appliquer la transformation au SVG décalerait aussi les axes et marges - en ciblant le `<g>`, axes et marges restent fixes',
       'D3-zoom n\'autorise pas `.attr()` sur un SVG',
       'C\'est une convention stylistique sans effet fonctionnel',
     ],
@@ -98,7 +98,7 @@ export default [
     question: 'Dans un handler D3 `.on("mouseover", function(event, d) {...})`, remplacer `function` par une arrow function `(event, d) => {...}` ne change rien au comportement de `d3.select(this)`.',
     reponse: false,
     explication:
-      'Faux : dans une **arrow function**, `this` ne pointe **pas** sur l\'élément DOM ciblé — il hérite du contexte lexical. `d3.select(this)` ne fonctionnera pas comme prévu. Il faut utiliser `function(event, d)` pour que `this` soit l\'élément cliqué/survolé.',
+      'Faux : dans une **arrow function**, `this` ne pointe **pas** sur l\'élément DOM ciblé - il hérite du contexte lexical. `d3.select(this)` ne fonctionnera pas comme prévu. Il faut utiliser `function(event, d)` pour que `this` soit l\'élément cliqué/survolé.',
   },
   {
     id: '07-vf-4',

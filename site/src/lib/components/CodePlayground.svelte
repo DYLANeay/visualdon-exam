@@ -21,8 +21,11 @@
     sombre = document.documentElement.classList.contains('dark')
   })
 
+  const langage = code.langage ?? 'js'
+  const besoinD3 = langage !== 'svg' && langage !== 'html'
+
   async function executer() {
-    if (!d3Source) {
+    if (besoinD3 && !d3Source) {
       try {
         d3Source = await chargerD3()
       } catch (e) {
@@ -30,7 +33,7 @@
         return
       }
     }
-    iframeSrc = construireSandbox(source, sombre, d3Source)
+    iframeSrc = construireSandbox(source, sombre, d3Source, langage)
   }
 
   function reinitialiser() {
@@ -92,11 +95,19 @@
 
   <div class="grid md:grid-cols-2">
     <div bind:this={editeur} class="min-h-40 border-border max-md:border-b md:border-r"></div>
-    <iframe
-      title="Aperçu du code"
-      sandbox="allow-scripts"
-      srcdoc={iframeSrc}
-      class="min-h-40 w-full bg-surface"
-    ></iframe>
+    <!-- {#key} : recrée l'iframe à chaque exécution — la mise à jour de srcdoc
+         sur une iframe existante n'est pas fiable (navigation parfois ignorée). -->
+    {#key iframeSrc}
+      {#if iframeSrc}
+        <iframe
+          title="Aperçu du code"
+          sandbox="allow-scripts"
+          srcdoc={iframeSrc}
+          class="min-h-40 w-full bg-surface"
+        ></iframe>
+      {:else}
+        <div class="min-h-40 w-full bg-surface"></div>
+      {/if}
+    {/key}
   </div>
 </div>
