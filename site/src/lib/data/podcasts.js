@@ -10,8 +10,18 @@ const base = import.meta.env.BASE_URL
 // Liste des podcasts effectivement générés (présents dans public/podcasts/).
 // Ajoute un id ici après avoir lancé la génération.
 const disponibles = new Set([
+  'master',
+  '01-introduction',
+  '02-dessiner-avec-du-code',
+  '03-js-dom',
+  '04-donnees',
   '05-echelles-axes',
-  // 'master', '01-introduction', … à compléter au fil des générations
+  '06-interaction-1',
+  '07-interaction-2',
+  '08-intro-cartographie',
+  '09-cartographie-web',
+  '10-ethique-biais',
+  '12-alternatives',
 ])
 
 export const podcastMaster = {
