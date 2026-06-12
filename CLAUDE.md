@@ -45,8 +45,9 @@ Site web de révision gamifié pour l'examen de visualisation de données :
   ouvertes carto/éthique), pour s'entraîner en conditions réelles.
 - **Système de flashcards** (idéalement avec répétition espacée) pour mémoriser
   durablement les notions apprises.
-- **Podcasts par module** : générés hors-ligne avec `notebooklm-py` (NotebookLM, audio
-  en français), MP3 statiques dans le site. Lecteur `<audio>` natif + Media Session API
+- **Podcasts par module + un podcast master** (synthèse de tous les cours évalués,
+  format long) : générés hors-ligne avec `notebooklm-py` (NotebookLM, audio en
+  français), MP3 statiques dans le site. Lecteur `<audio>` natif + Media Session API
   (lecture écran verrouillé) et flux RSS pour s'abonner dans une app de podcasts.
 - **Section « L'essentiel » (synthèse)** : une page qui synthétise l'ensemble des
   supports de cours et n'en retient **que les aspects fondamentaux** — les notions, à

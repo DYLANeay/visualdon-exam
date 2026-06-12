@@ -97,6 +97,9 @@ site/
   module à partir des slides du cours, MP3 commités dans `site/public/podcasts/`.
 - Lecture dans le site via `<audio>` natif + **Media Session API** : la lecture continue
   écran verrouillé, avec contrôles sur l'écran de verrouillage (titre du module, play/pause).
+- **Podcast master** : un épisode de synthèse généré à partir du contenu de **tous les
+  cours évalués** (sources : les 11 slides + la section « L'essentiel »), format long
+  (deep-dive) — idéal pour une révision globale avant l'examen.
 - **Flux RSS podcast** (`feed.xml` servi par Pages) : abonnement possible dans une vraie
   app de podcasts (hors-ligne, reprise, vitesse) — garantie maximale de lecture en
   arrière-plan.
@@ -122,8 +125,8 @@ site/
 5. **Examens blancs** : moteur de tirage au format officiel, chrono, scoring, corrigé.
 6. **Flashcards** : decks + SM-2, intégration à la progression.
 7. **Gamification** : XP, badges, streak, écran profil.
-8. **Podcasts** : génération notebooklm-py par module, lecteur audio + Media Session,
-   flux RSS.
+8. **Podcasts** : génération notebooklm-py par module + podcast master tous cours,
+   lecteur audio + Media Session, flux RSS.
 9. **Polish** : responsive, impression du formulaire A4, enrichissement de la banque.
 
 Chaque étape = commits fréquents poussés directement sur `main` (cf. CLAUDE.md).
