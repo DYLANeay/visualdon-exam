@@ -21,8 +21,15 @@
     sombre = document.documentElement.classList.contains('dark')
   })
 
-  function executer() {
-    if (!d3Source) return
+  async function executer() {
+    if (!d3Source) {
+      try {
+        d3Source = await chargerD3()
+      } catch (e) {
+        iframeSrc = `<p style="font:13px monospace;color:#ef4444;padding:12px">Impossible de charger D3 (${e.message}). Recharge la page (Ctrl+Shift+R).</p>`
+        return
+      }
+    }
     iframeSrc = construireSandbox(source, sombre, d3Source)
   }
 
@@ -36,8 +43,7 @@
     executer()
   }
 
-  onMount(async () => {
-    d3Source = await chargerD3()
+  onMount(() => {
     vue = new EditorView({
       doc: source,
       extensions: [

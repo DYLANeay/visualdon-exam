@@ -10,7 +10,15 @@ const D3_URL = `${import.meta.env.BASE_URL}vendor/d3.min.js`
 let d3SourcePromesse = null
 export function chargerD3() {
   if (!d3SourcePromesse) {
-    d3SourcePromesse = fetch(D3_URL).then((r) => r.text())
+    d3SourcePromesse = fetch(D3_URL)
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`)
+        return r.text()
+      })
+      .catch((e) => {
+        d3SourcePromesse = null // permettre une nouvelle tentative au prochain clic
+        throw e
+      })
   }
   return d3SourcePromesse
 }
