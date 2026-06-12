@@ -2,7 +2,7 @@
   import { get } from 'svelte/store'
   import { modules } from '../data/modules.js'
   import { toutesLesCartes, cartesModule } from '../flashcards/index.js'
-  import { cartesEtat, majCarte } from '../stores/cards.js'
+  import { cartesEtat, majCarte, reinitialiserCartes } from '../stores/cards.js'
   import { reviser, estDue, ETAT_INITIAL } from '../flashcards/sm2.js'
   import { melanger } from '../quiz/index.js'
   import Markdown from '../components/Markdown.svelte'
@@ -16,8 +16,7 @@
   const carteCourante = $derived(file[index] ?? null)
   const restantes = $derived(file.length - index)
 
-  function nbDues(cartes) {
-    const etats = get(cartesEtat)
+  function nbDues(cartes, etats) {
     return cartes.filter((c) => estDue(etats[c.id])).length
   }
 
@@ -59,6 +58,17 @@
   function quitter() {
     deck = null
   }
+
+  function reinitialiser() {
+    if (
+      window.confirm(
+        'Réinitialiser les flashcards ? Tout l’historique de répétition espacée sera effacé et toutes les cartes redeviendront à réviser.',
+      )
+    ) {
+      reinitialiserCartes()
+      deck = null
+    }
+  }
 </script>
 
 <section class="mx-auto max-w-2xl py-12">
@@ -71,7 +81,7 @@
 
     <div class="mt-8 divide-y divide-border">
       {#each decks as d}
-        {@const dues = nbDues(d.cartes)}
+        {@const dues = nbDues(d.cartes, $cartesEtat)}
         <button
           onclick={() => demarrer(d)}
           class="flex w-full items-center justify-between py-4 text-left transition-colors hover:bg-surface"
@@ -83,6 +93,13 @@
         </button>
       {/each}
     </div>
+
+    <button
+      onclick={reinitialiser}
+      class="mt-8 text-sm text-faint underline-offset-2 transition-colors hover:text-red-500 hover:underline"
+    >
+      Réinitialiser les flashcards
+    </button>
   {:else if carteCourante}
     <div class="mb-6 flex items-center justify-between text-sm text-muted">
       <button onclick={quitter} class="hover:text-fg-strong">← Decks</button>
