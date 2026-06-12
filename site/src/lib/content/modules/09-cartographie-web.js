@@ -82,16 +82,27 @@ Le flux de travail est simple : **GeoJSON → projection → geoPath → \`<path
       code: {
         langage: 'js',
         editable: true,
-        source: `import { geoEqualEarth, geoPath } from 'd3-geo'
+        source: `// Mini GeoJSON : trois "pays" fictifs (en vrai, on le charge avec d3.json)
+const geojsonData = {
+  type: 'FeatureCollection',
+  features: [
+    { type: 'Feature', properties: { nom: 'A' }, geometry: { type: 'Polygon',
+      coordinates: [[[-20, 10], [0, 30], [15, 12], [5, -10], [-15, -8], [-20, 10]]] } },
+    { type: 'Feature', properties: { nom: 'B' }, geometry: { type: 'Polygon',
+      coordinates: [[[20, 15], [40, 25], [50, 5], [35, -12], [20, 15]]] } },
+    { type: 'Feature', properties: { nom: 'C' }, geometry: { type: 'Polygon',
+      coordinates: [[[-45, -5], [-30, 8], [-25, -15], [-40, -20], [-45, -5]]] } },
+  ],
+}
 
-const width = 800, height = 500
+const width = 360, height = 220
 
-// 1. Définir la projection
-const projection = geoEqualEarth()
+// 1. Définir la projection (cadrage automatique avec marges)
+const projection = d3.geoEqualEarth()
   .fitExtent([[12, 12], [width - 12, height - 12]], geojsonData)
 
 // 2. Créer le générateur de chemins SVG
-const path = geoPath().projection(projection)
+const path = d3.geoPath().projection(projection)
 
 // 3. Dessiner les features : chaque Feature → un <path>
 svg.selectAll('path')
@@ -100,7 +111,7 @@ svg.selectAll('path')
   .attr('d', path)           // génère l'attribut "d" du chemin SVG
   .attr('fill', '#E92528')
   .attr('stroke', '#fff')
-  .attr('stroke-width', 0.5)`,
+  .attr('stroke-width', 1)`,
       },
     },
     {
@@ -118,7 +129,7 @@ svg.selectAll('path')
 - **OpenFreeMap** : Liberty, Positron, Bright`,
       code: {
         langage: 'js',
-        editable: true,
+        editable: false,
         source: `import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'  // CSS obligatoire !
 

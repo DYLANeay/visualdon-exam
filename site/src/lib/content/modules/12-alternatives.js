@@ -37,7 +37,7 @@ D3 est la référence et la fondation sur laquelle d'autres outils sont construi
 **Chart.js** est simple, basé sur Canvas, avec 8 types de graphiques intégrés (bar, line, pie, scatter, radar, polar, bubble, doughnut). Prise en main rapide, documentation claire, animations intégrées. Limite : flexibilité réduite pour tout ce qui sort des sentiers battus.`,
       code: {
         langage: 'js',
-        editable: true,
+        editable: false,
         source: `// Observable Plot - API déclarative
 import * as Plot from '@observablehq/plot'
 

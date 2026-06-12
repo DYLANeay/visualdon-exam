@@ -116,9 +116,14 @@ select('circle')
       code: {
         langage: "js",
         editable: true,
-        source: `import { select } from 'd3-selection'
+        source: `// Trois cercles à manipuler
+svg.selectAll('circle')
+  .data([60, 170, 280]).join('circle')
+  .attr('cx', d => d).attr('cy', 110)
+  .attr('r', 30).attr('fill', 'steelblue')
 
-select('circle')
+// Clique et survole les cercles dans l'aperçu !
+selectAll('circle')
   .on('click', function(event) {
     select(this).attr('fill', 'green')
   })

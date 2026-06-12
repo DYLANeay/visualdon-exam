@@ -43,7 +43,7 @@ La grosse différence avec JSON : **le CSV retourne tout en chaînes de caractè
 Compare les deux approches : avec du JavaScript vanilla, analyser un CSV à la main, c'est du boulot. Avec D3, c'est une ligne.`,
       code: {
         langage: 'js',
-        editable: true,
+        editable: false,
         source: `import { csv, json } from 'd3-fetch'
 
 // Charger un CSV avec conversion de types
