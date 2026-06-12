@@ -2,7 +2,7 @@ export default {
   id: '09-cartographie-web',
   titre: 'Cartographie web',
   accroche:
-    `Des coordonnées GPS à un beau `<path>` SVG ou une carte vectorielle interactive : ce cours est le **couteau suisse** du cartographe web. GeoJSON, d3-geo, MapLibre, Deck.gl — tu sais maintenant quel outil sortir selon la mission.`,
+    'Des coordonnées GPS à un beau `<path>` SVG ou une carte vectorielle interactive : ce cours est le **couteau suisse** du cartographe web. GeoJSON, d3-geo, MapLibre, Deck.gl — tu sais maintenant quel outil sortir selon la mission.',
 
   sections: [
     {
