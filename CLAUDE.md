@@ -45,6 +45,9 @@ Site web de révision gamifié pour l'examen de visualisation de données :
   ouvertes carto/éthique), pour s'entraîner en conditions réelles.
 - **Système de flashcards** (idéalement avec répétition espacée) pour mémoriser
   durablement les notions apprises.
+- **Podcasts par module** : générés hors-ligne avec `notebooklm-py` (NotebookLM, audio
+  en français), MP3 statiques dans le site. Lecteur `<audio>` natif + Media Session API
+  (lecture écran verrouillé) et flux RSS pour s'abonner dans une app de podcasts.
 - **Section « L'essentiel » (synthèse)** : une page qui synthétise l'ensemble des
   supports de cours et n'en retient **que les aspects fondamentaux** — les notions, à
   retenir absolument pour l'examen (concepts clés, pièges classiques, patterns de code
@@ -79,6 +82,7 @@ markdown/Slidev). Toute explication ou question de quiz doit être fidèle à ce
 
 - **Commits fréquents** : commit à chaque ajout ou avancée d'une feature, sans attendre
   d'avoir tout fini, puis **push directement sur `main`** (pas de branche ni de PR requise).
+- **Ne jamais demander confirmation** pour committer ou pusher : c'est automatique.
 - **Jamais d'accréditation Claude** dans les commits : pas de `Co-Authored-By`, pas de
   mention « Generated with Claude Code » ni équivalent.
 - Messages de commit en français, courts et descriptifs.

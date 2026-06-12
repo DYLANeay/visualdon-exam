@@ -91,7 +91,19 @@ site/
 - **Streak** quotidien et barre de progression globale vers « Prêt pour l'examen ».
 - Tout dans localStorage, export/import JSON pour changer de machine.
 
-### 6. Pipeline de génération (hors-ligne)
+### 6. Podcasts par module
+- Génération **hors-ligne** avec [`notebooklm-py`](https://github.com/teng-lin/notebooklm-py)
+  (automatisation NotebookLM via Playwright, audio en français) : un Audio Overview par
+  module à partir des slides du cours, MP3 commités dans `site/public/podcasts/`.
+- Lecture dans le site via `<audio>` natif + **Media Session API** : la lecture continue
+  écran verrouillé, avec contrôles sur l'écran de verrouillage (titre du module, play/pause).
+- **Flux RSS podcast** (`feed.xml` servi par Pages) : abonnement possible dans une vraie
+  app de podcasts (hors-ligne, reprise, vitesse) — garantie maximale de lecture en
+  arrière-plan.
+- Lib non officielle (APIs Google non documentées) : la génération reste un script
+  ponctuel, jamais une dépendance du site.
+
+### 7. Pipeline de génération (hors-ligne)
 - `scripts/generation/` contient le **schéma JSON** des questions/flashcards et des
   prompts prêts à l'emploi.
 - Enrichissement : lancer opencode ou Claude Code en local → génération de nouvelles
@@ -110,7 +122,9 @@ site/
 5. **Examens blancs** : moteur de tirage au format officiel, chrono, scoring, corrigé.
 6. **Flashcards** : decks + SM-2, intégration à la progression.
 7. **Gamification** : XP, badges, streak, écran profil.
-8. **Polish** : responsive, impression du formulaire A4, enrichissement de la banque.
+8. **Podcasts** : génération notebooklm-py par module, lecteur audio + Media Session,
+   flux RSS.
+9. **Polish** : responsive, impression du formulaire A4, enrichissement de la banque.
 
 Chaque étape = commits fréquents poussés directement sur `main` (cf. CLAUDE.md).
 
