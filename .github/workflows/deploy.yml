@@ -22,9 +22,18 @@ jobs:
       run:
         working-directory: site
     steps:
+      # Checkout sans LFS : on gère le cache des objets audio nous-mêmes pour
+      # économiser la bande passante LFS (1 Go/mois en gratuit). Les .m4a ne
+      # sont retéléchargés que lorsqu'ils changent.
       - uses: actions/checkout@v4
+      - name: Cache des objets LFS (podcasts)
+        uses: actions/cache@v4
         with:
-          lfs: true
+          path: .git/lfs
+          key: lfs-${{ hashFiles('site/public/podcasts/*.m4a') }}
+      - name: Récupérer les fichiers LFS manquants
+        working-directory: ${{ github.workspace }}
+        run: git lfs pull
       - uses: actions/setup-node@v4
         with:
           node-version: 22
