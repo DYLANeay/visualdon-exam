@@ -7,6 +7,7 @@
   import Quiz from './lib/pages/Quiz.svelte'
   import Examen from './lib/pages/Examen.svelte'
   import Flashcards from './lib/pages/Flashcards.svelte'
+  import Erreurs from './lib/pages/Erreurs.svelte'
   import Podcasts from './lib/pages/Podcasts.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
@@ -109,6 +110,8 @@
     <Examen />
   {:else if $route === '/flashcards'}
     <Flashcards />
+  {:else if $route === '/erreurs'}
+    <Erreurs />
   {:else if $route === '/podcasts'}
     <Podcasts />
   {:else}

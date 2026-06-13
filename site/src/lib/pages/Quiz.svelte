@@ -2,6 +2,7 @@
   import { modules } from '../data/modules.js'
   import { questionsModule, melanger } from '../quiz/index.js'
   import { progress } from '../stores/progress.js'
+  import { enregistrerReponse } from '../stores/stats.js'
   import QuizCard from '../components/QuizCard.svelte'
 
   let { id } = $props()
@@ -19,6 +20,7 @@
 
   function noter(q, correct) {
     resultats[q.id] = correct
+    enregistrerReponse(q, correct)
   }
 
   // Marque le module maîtrisé quand le quiz est réussi (≥ 70%).
