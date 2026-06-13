@@ -29,10 +29,14 @@
   ]
 
   let menuOuvert = $state(false)
-  // Referme le menu mobile à chaque changement de page.
+  // À chaque changement de page : referme le menu mobile et revient en haut
+  // (sinon on garde la position de défilement de la page précédente).
   $effect(() => {
     $route
     menuOuvert = false
+    // Après le rendu de la nouvelle page (sinon le reflow écrase le scroll).
+    // Saut instantané : remonter en douceur depuis le bas d'une longue page serait lent.
+    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'instant' }))
   })
 </script>
 
