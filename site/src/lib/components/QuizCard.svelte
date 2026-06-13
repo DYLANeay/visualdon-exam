@@ -7,6 +7,7 @@
 
   let choix = $state(null) // index QCM, ou true/false, ou 'revele' pour ouvert
   let valide = $state(false)
+  let justification = $state('') // texte rédigé par l'élève (vrai/faux)
 
   const estCorrect = $derived(
     q.type === 'qcm'
@@ -81,6 +82,26 @@
         </button>
       {/each}
     </div>
+
+    <!-- Justification : à l'examen, un « faux » sans justification ne rapporte rien. -->
+    {#if !valide}
+      <label class="mt-3 block">
+        <span class="text-xs text-faint">
+          Justifie ta réponse {choix === false ? '(obligatoire à l’examen si c’est faux)' : '(entraîne-toi à rédiger)'}
+        </span>
+        <textarea
+          bind:value={justification}
+          rows="2"
+          placeholder="Pourquoi ? Rédige comme sur ta copie…"
+          class="mt-1 w-full resize-y rounded-md border border-border bg-bg px-3 py-2 text-sm text-fg placeholder:text-faint focus:border-accentfg focus:outline-none"
+        ></textarea>
+      </label>
+    {:else if justification.trim()}
+      <div class="mt-3 rounded-md border border-border p-3 text-sm">
+        <p class="text-xs font-medium uppercase tracking-wide text-faint">Ta justification</p>
+        <p class="mt-1 whitespace-pre-wrap text-fg">{justification}</p>
+      </div>
+    {/if}
   {:else}
     <!-- Question ouverte : on révèle le corrigé puis l'élève s'auto-note -->
     {#if !valide}
@@ -112,6 +133,9 @@
 
     {#if q.explication}
       <div class="mt-2 rounded-md bg-surface p-3 text-sm text-fg">
+        {#if q.type === 'vrai-faux'}
+          <p class="mb-1 text-xs font-medium uppercase tracking-wide text-faint">Justification attendue</p>
+        {/if}
         <Markdown source={q.explication} inline />
       </div>
     {/if}
