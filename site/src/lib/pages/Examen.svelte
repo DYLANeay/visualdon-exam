@@ -1,6 +1,8 @@
 <script>
   import { onDestroy } from 'svelte'
   import { genererExamen } from '../quiz/index.js'
+  import { enregistrerReponse } from '../stores/stats.js'
+  import { examens, enregistrerExamen } from '../stores/examens.js'
   import QuizCard from '../components/QuizCard.svelte'
 
   let examen = $state(null)
@@ -56,12 +58,23 @@
 
   function noter(q, correct) {
     resultats[q.id] = correct
+    enregistrerReponse(q, correct)
   }
 
   function terminer() {
     clearInterval(timer)
     termine = true
+    enregistrerExamen({
+      points: pointsObtenus,
+      max: pointsMax,
+      pct: pointsMax ? Math.round((pointsObtenus / pointsMax) * 100) : 0,
+      repondus: nbRepondus,
+      total: nbQuestions,
+    })
   }
+
+  const dateCourte = (ts) =>
+    new Date(ts).toLocaleDateString('fr-CH', { day: '2-digit', month: '2-digit' })
 
   onDestroy(() => clearInterval(timer))
 </script>
@@ -85,6 +98,48 @@
     >
       Lancer un examen blanc
     </button>
+
+    {#if $examens.length}
+      {@const recents = $examens.slice(0, 12).reverse()}
+      {@const meilleur = Math.max(...$examens.map((e) => e.pct))}
+      <div class="mt-12 border-t border-border pt-8">
+        <div class="flex items-baseline justify-between">
+          <h2 class="text-sm font-semibold text-fg-strong">Tes examens blancs</h2>
+          <span class="text-xs text-faint">meilleur score : {meilleur} %</span>
+        </div>
+
+        {#if recents.length > 1}
+          <!-- Mini-courbe des scores (du plus ancien au plus récent) -->
+          <svg viewBox="0 0 100 30" preserveAspectRatio="none" class="mt-4 h-16 w-full overflow-visible">
+            <line x1="0" y1="15" x2="100" y2="15" stroke="currentColor" stroke-width="0.3" class="text-border" stroke-dasharray="2 2" />
+            <polyline
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linejoin="round"
+              class="text-accentfg"
+              points={recents
+                .map((e, i) => `${(i / (recents.length - 1)) * 100},${30 - (e.pct / 100) * 30}`)
+                .join(' ')}
+            />
+            {#each recents as e, i}
+              <circle cx={(i / (recents.length - 1)) * 100} cy={30 - (e.pct / 100) * 30} r="1" class="fill-accentfg" />
+            {/each}
+          </svg>
+          <p class="mt-1 text-center text-[10px] text-faint">50 % = la moyenne</p>
+        {/if}
+
+        <ul class="mt-4 divide-y divide-border text-sm">
+          {#each $examens.slice(0, 6) as e}
+            <li class="flex items-center justify-between py-2">
+              <span class="text-muted">{dateCourte(e.date)}</span>
+              <span class="text-fg">{e.points} / {e.max}</span>
+              <span class="font-mono {e.pct >= 50 ? 'text-green-600' : 'text-amber-600'}">{e.pct} %</span>
+            </li>
+          {/each}
+        </ul>
+      </div>
+    {/if}
   {:else}
     <!-- Barre fixe : chrono + progression -->
     <div
