@@ -93,6 +93,33 @@ body {
 .prose-vd a {
   @apply text-accentfg underline underline-offset-2;
 }
+
+/* Tableaux : encadré net, en-tête contrasté, lignes zébrées, défilement mobile. */
+.prose-vd table {
+  @apply my-5 block w-full overflow-x-auto border-separate border-spacing-0 text-sm;
+}
+.prose-vd thead th {
+  @apply border-b border-border bg-surface px-3 py-2 text-left font-semibold text-fg-strong;
+}
+.prose-vd tbody td {
+  @apply border-b border-border px-3 py-2 align-top text-fg;
+}
+.prose-vd tbody tr:last-child td {
+  @apply border-b-0;
+}
+.prose-vd tbody tr:nth-child(even) td {
+  @apply bg-surface/50;
+}
+/* La première colonne sert de libellé de ligne : on la met en valeur. */
+.prose-vd tbody td:first-child {
+  @apply font-medium text-fg-strong;
+}
+/* Colonnes centrées (alignement `:---:` du markdown) restent centrées. */
+.prose-vd th[align='center'],
+.prose-vd td[align='center'] {
+  @apply text-center;
+}
+
 .prose-vd--inline p {
   @apply my-0 inline;
 }
