@@ -9,8 +9,11 @@
   import Flashcards from './lib/pages/Flashcards.svelte'
   import Erreurs from './lib/pages/Erreurs.svelte'
   import Podcasts from './lib/pages/Podcasts.svelte'
+  import Compte from './lib/pages/Compte.svelte'
   import Placeholder from './lib/pages/Placeholder.svelte'
   import ThemeToggle from './lib/components/ThemeToggle.svelte'
+  import { syncConfigure } from './lib/sync/supabase.js'
+  import { utilisateur, statutSync } from './lib/sync/sync.js'
 
   // /modules/<id> → détail ; /quiz/<id> → quiz du module
   const moduleId = $derived(
@@ -60,11 +63,42 @@
         </a>
       {/each}
       <div class="mx-2 h-4 w-px bg-border"></div>
+      {#if syncConfigure}
+        <a
+          href="#/compte"
+          aria-label="Compte et synchronisation"
+          title={$utilisateur ? `Connecté (${$statutSync})` : 'Synchroniser mes appareils'}
+          class="relative grid size-8 place-items-center rounded-md text-muted transition-colors hover:bg-surface hover:text-fg-strong"
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+          </svg>
+          {#if $utilisateur}
+            <span
+              class="absolute right-1 top-1 size-2 rounded-full ring-2 ring-bg {$statutSync === 'erreur' ? 'bg-red-500' : $statutSync === 'synchro' ? 'bg-amber-500' : 'bg-green-500'}"
+            ></span>
+          {/if}
+        </a>
+      {/if}
       <ThemeToggle />
     </nav>
 
     <!-- Compact (mobile) -->
     <div class="flex items-center gap-2 md:hidden">
+      {#if syncConfigure}
+        <a
+          href="#/compte"
+          aria-label="Compte et synchronisation"
+          class="relative grid size-8 place-items-center rounded-md text-muted hover:bg-surface hover:text-fg-strong"
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+          </svg>
+          {#if $utilisateur}
+            <span class="absolute right-1 top-1 size-2 rounded-full ring-2 ring-bg {$statutSync === 'erreur' ? 'bg-red-500' : $statutSync === 'synchro' ? 'bg-amber-500' : 'bg-green-500'}"></span>
+          {/if}
+        </a>
+      {/if}
       <ThemeToggle />
       <button
         onclick={() => (menuOuvert = !menuOuvert)}
@@ -116,6 +150,8 @@
     <Flashcards />
   {:else if $route === '/erreurs'}
     <Erreurs />
+  {:else if $route === '/compte'}
+    <Compte />
   {:else if $route === '/podcasts'}
     <Podcasts />
   {:else}

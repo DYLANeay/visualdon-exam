@@ -1,10 +1,14 @@
 import { mount } from 'svelte'
 import './app.css'
 import App from './App.svelte'
+import { initSync } from './lib/sync/sync.js'
 
 const app = mount(App, {
   target: document.getElementById('app'),
 })
+
+// Démarre la synchronisation multi-appareils (no-op si Supabase non configuré).
+initSync()
 
 // Enregistre le service worker (PWA installable + hors-ligne). En dev, on le
 // laisse de côté pour ne pas mettre en cache des modules en cours d'édition.

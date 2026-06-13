@@ -41,6 +41,12 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - run: npm ci
       - run: npm run build
+        # Clés Supabase pour la synchro multi-appareils (variables publiques du
+        # dépôt → Settings → Secrets and variables → Actions → Variables).
+        # Si elles sont absentes, le site se build normalement, synchro désactivée.
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist
