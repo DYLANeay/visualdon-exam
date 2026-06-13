@@ -51,7 +51,7 @@
     </a>
 
     <!-- Nav complète (desktop) -->
-    <nav class="hidden items-center gap-1 text-sm md:flex">
+    <nav class="hidden items-center gap-1 text-sm lg:flex">
       {#each nav as item}
         <a
           href={'#' + item.path}
@@ -84,7 +84,7 @@
     </nav>
 
     <!-- Compact (mobile) -->
-    <div class="flex items-center gap-2 md:hidden">
+    <div class="flex items-center gap-2 lg:hidden">
       {#if syncConfigure}
         <a
           href="#/compte"
@@ -118,7 +118,7 @@
 
   <!-- Menu déroulant mobile -->
   {#if menuOuvert}
-    <nav class="border-t border-border bg-bg md:hidden">
+    <nav class="border-t border-border bg-bg lg:hidden">
       {#each nav as item}
         <a
           href={'#' + item.path}

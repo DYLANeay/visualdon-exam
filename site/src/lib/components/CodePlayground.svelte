@@ -94,12 +94,14 @@
   </div>
 
   <div class="grid md:grid-cols-2">
-    <div bind:this={editeur} class="min-h-40 border-border max-md:border-b md:border-r"></div>
+    <!-- min-w-0 : sans ça, CodeMirror force la colonne à la largeur du code et
+         déborde au lieu de scroller en interne (sur mobile surtout). -->
+    <div bind:this={editeur} class="min-h-40 min-w-0 overflow-hidden border-border max-md:border-b md:border-r"></div>
     <!-- Conteneur relatif : l'iframe en absolu épouse toute la hauteur de la
          cellule (un height:100% direct ne se résout pas dans une rangée auto).
          {#key} : recrée l'iframe à chaque exécution, la mise à jour de srcdoc
          sur une iframe existante n'est pas fiable (navigation parfois ignorée). -->
-    <div class="relative min-h-40 bg-surface">
+    <div class="relative min-h-40 min-w-0 bg-surface">
       {#key iframeSrc}
         {#if iframeSrc}
           <iframe

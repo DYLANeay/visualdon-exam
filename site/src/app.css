@@ -86,6 +86,8 @@ body {
 }
 .prose-vd code {
   @apply rounded bg-surface px-1.5 py-0.5 font-mono text-sm text-accentfg;
+  /* Évite que le code inline (ex. `scaleBand`) déborde sur petits écrans. */
+  overflow-wrap: anywhere;
 }
 .prose-vd strong {
   @apply font-semibold text-fg-strong;

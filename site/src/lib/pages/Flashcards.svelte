@@ -129,9 +129,9 @@
         <div class="flex items-center gap-3 py-3">
           <button
             onclick={() => demarrer(d)}
-            class="group flex flex-1 items-center justify-between rounded-md px-2 py-1.5 text-left transition-colors hover:bg-surface"
+            class="group flex flex-1 items-center justify-between gap-3 rounded-md px-2 py-1.5 text-left transition-colors hover:bg-surface"
           >
-            <span>
+            <span class="min-w-0">
               <span class="font-medium text-fg-strong">{d.titre}</span>
               <!-- mini-barre de maturité -->
               <span class="mt-1 flex h-1 w-32 overflow-hidden rounded-full bg-surface">

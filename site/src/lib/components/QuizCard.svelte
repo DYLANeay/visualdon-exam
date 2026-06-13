@@ -45,7 +45,7 @@
 
 <div class="rounded-lg border border-border p-5">
   <div class="flex items-start justify-between gap-3">
-    <h3 class="font-medium text-fg-strong">
+    <h3 class="min-w-0 font-medium text-fg-strong">
       <Markdown source={q.question} inline />
     </h3>
     <span class="shrink-0 font-mono text-xs text-faint">{q.points} pts</span>
