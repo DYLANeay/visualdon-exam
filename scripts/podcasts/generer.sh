@@ -50,7 +50,7 @@ generer_module() {
   notebooklm generate audio --prompt-file "$PROMPT_MODULE" -n "$nb" \
     --format deep-dive --length default --language fr --wait --timeout 1800
   notebooklm download audio "$OUT_DIR/$id.m4a" -n "$nb"
-  echo "✓ $OUT_DIR/$id.m4a"
+  "$REPO/scripts/podcasts/optimiser.sh" "$OUT_DIR/$id.m4a"
 }
 
 generer_master() {
@@ -67,7 +67,7 @@ generer_master() {
   notebooklm generate audio --prompt-file "$PROMPT_MASTER" -n "$nb" \
     --format deep-dive --length long --language fr --wait --timeout 1800
   notebooklm download audio "$OUT_DIR/master.m4a" -n "$nb"
-  echo "✓ $OUT_DIR/master.m4a"
+  "$REPO/scripts/podcasts/optimiser.sh" "$OUT_DIR/master.m4a"
 }
 
 case "${1:-}" in
