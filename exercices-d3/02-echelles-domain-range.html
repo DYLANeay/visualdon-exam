@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>02 · Échelles : domain & range</title>
+<link rel="stylesheet" href="_style.css" />
+</head>
+<body>
+<header>
+  <h1>02 · Échelles linéaires — <code>domain</code> & <code>range</code></h1>
+  <p>scaleLinear · domain (entrée) → range (sortie) · invert · clamp · nice</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>Résultat</h2>
+    <div id="chart"></div>
+    <p class="note">Survole l'axe : chaque point de donnée est placé grâce à l'échelle.</p>
+  </div>
+  <div class="panel">
+    <h2>Console (valeurs renvoyées par l'échelle)</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const log = (function () {
+  const box = document.querySelector('#log');
+  function log(...args) {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    if (box) box.textContent += line + '\n';
+    console.log(...args);
+  }
+  log.clear = () => { if (box) box.textContent = ''; };
+  return log;
+})();
+
+/* ─────────────────────────────────────────────────────────────────────────
+   L'IDÉE CLÉ (cours 05) : une échelle est une FONCTION qui transforme une
+   valeur des DONNÉES en une valeur VISUELLE (pixel, couleur...).
+
+       valeur de donnée  ──►  échelle  ──►  position en pixel
+
+   • domain([min, max]) : l'étendue des DONNÉES en entrée.
+   • range([min, max])  : l'étendue VISUELLE en sortie (souvent des pixels).
+
+   Métaphore : une recette dit "pour 4 personnes". domain = nb de personnes,
+   range = quantités. L'échelle "convertit" proportionnellement.
+   ───────────────────────────────────────────────────────────────────────── */
+
+const x = d3.scaleLinear()
+  .domain([0, 100])   // mes données vont de 0 à 100
+  .range([0, 800]);   // je veux les afficher de 0 à 800 px
+
+log("x = scaleLinear().domain([0,100]).range([0,800])");
+log("x(0)   =", x(0));      // 0    → début du domain mappé au début du range
+log("x(50)  =", x(50));     // 400  → 50% du domain = 50% du range
+log("x(100) =", x(100));    // 800  → fin du domain mappée à la fin du range
+log("x(25)  =", x(25));     // 200  (linéaire : proportionnel)
+log("");
+
+/* invert : la fonction INVERSE. Donne un pixel, récupère la donnée.
+   Indispensable pour l'interaction (souris → valeur). */
+log("x.invert(400) =", x.invert(400), "  (pixel → donnée)");
+log("");
+
+/* domain() / range() SANS argument = des GETTERS : ils LISENT la config. */
+log("x.domain() =", x.domain());   // [0, 100]
+log("x.range()  =", x.range());    // [0, 800]
+log("");
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ASTUCE D'EXAMEN n°1 — l'axe Y est "à l'envers".
+   En SVG, y=0 est EN HAUT. Pour qu'une grande valeur soit dessinée EN HAUT,
+   on inverse le range : range([height, 0]) au lieu de [0, height].
+   ───────────────────────────────────────────────────────────────────────── */
+const height = 200;
+const y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+log("y = scaleLinear().domain([0,100]).range([height,0])  // INVERSÉ");
+log("y(0)   =", y(0),   " → en bas (height)");
+log("y(100) =", y(100), " → en haut (0)");
+log("");
+
+/* ─────────────────────────────────────────────────────────────────────────
+   .clamp(true) : "borne" les valeurs hors domaine au lieu d'extrapoler.
+   .nice()      : arrondit le domaine à des bornes "rondes" (jolis axes).
+   ───────────────────────────────────────────────────────────────────────── */
+const xClamp = d3.scaleLinear().domain([0, 100]).range([0, 800]).clamp(true);
+log("Sans clamp : x(150)      =", x(150),       " (extrapole au-delà de 800)");
+log("Avec clamp : xClamp(150) =", xClamp(150), " (borné à 800)");
+log("");
+const xNice = d3.scaleLinear().domain([3, 97]).nice();
+log("domain([3,97]).nice() =", xNice.domain(), " (arrondi pour de jolis ticks)");
+
+/* ─────────────────────────────────────────────────────────────────────────
+   DÉMO VISUELLE : on place des points avec l'échelle x, puis on dessine l'axe.
+   On utilise d3.extent(data) pour calculer automatiquement [min, max].
+   ───────────────────────────────────────────────────────────────────────── */
+const data = [5, 23, 42, 67, 71, 88, 95];
+const W = 840, H = 120, m = 30;
+
+const xs = d3.scaleLinear()
+  .domain(d3.extent(data))   // extent = [min, max] = [5, 95]
+  .range([m, W - m]);
+
+const svg = d3.select("#chart").append("svg").attr("width", W).attr("height", H);
+
+svg.selectAll("circle")
+  .data(data)
+  .join("circle")
+  .attr("cx", d => xs(d))       // ← l'échelle place chaque point
+  .attr("cy", H / 2)
+  .attr("r", 8)
+  .attr("fill", "#E92528");
+
+svg.append("g")
+  .attr("class", "axis")
+  .attr("transform", `translate(0, ${H / 2 + 20})`)
+  .call(d3.axisBottom(xs));
+
+log("");
+log("d3.extent([5,23,...,95]) =", d3.extent(data), " → domaine auto");
+
+/* À RETENIR : domain = données, range = pixels. Axe Y → range inversé.
+   d3.extent(data) calcule [min, max] pour remplir le domain automatiquement. */
+</script>
+</body>
+</html>

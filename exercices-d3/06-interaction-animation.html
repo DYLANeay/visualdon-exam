@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>06 · Interaction & animation</title>
+<link rel="stylesheet" href="_style.css" />
+</head>
+<body>
+<header>
+  <h1>06 · Interaction & animation</h1>
+  <p>.on(event) · event & datum · .transition() · .duration() · .delay() · .ease()</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>Résultat</h2>
+    <div id="chart"></div>
+    <p class="note"><strong>Survole</strong> un cercle (il grossit), <strong>clique</strong>
+      (il change de couleur). Le bouton lance une <strong>transition</strong> animée.</p>
+    <button id="btn">Animer (transition)</button>
+  </div>
+  <div class="panel">
+    <h2>Console</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const log = (function () {
+  const box = document.querySelector('#log');
+  function log(...args) {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    if (box) box.textContent += line + '\n';
+    console.log(...args);
+  }
+  log.clear = () => { if (box) box.textContent = ''; };
+  return log;
+})();
+
+const W = 500, H = 260;
+const svg = d3.select("#chart").append("svg").attr("width", W).attr("height", H);
+
+const data = d3.range(6).map(i => ({ id: i, x: 50 + i * 75, r: 18 }));
+//        ↑ d3.range(6) = [0,1,2,3,4,5] (pratique pour générer des données)
+
+const circles = svg.selectAll("circle")
+  .data(data, d => d.id)            // key function : id stable → bon suivi au join
+  .join("circle")
+  .attr("cx", d => d.x)
+  .attr("cy", H / 2)
+  .attr("r", d => d.r)
+  .attr("fill", "#1a1a1a")
+  .style("cursor", "pointer");
+
+/* ═══════════════════════════════════════════════════════════════════════
+   1) INTERACTION : .on("event", handler)
+
+   Le handler reçoit DEUX arguments en D3 v6+ :
+       (event, d)
+   • event = l'événement DOM natif (event.pageX, event.target...).
+   • d     = la DONNÉE liée à l'élément (le datum).
+   ⚠ PIÈGE D'EXAMEN : en D3 v6+, l'ordre est (event, d).
+     Avant la v6 c'était (d, i) avec `this`. Le cours utilise v6+.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+circles
+  .on("mouseover", function (event, d) {
+    // `this` = l'élément DOM survolé → d3.select(this) pour le manipuler.
+    d3.select(this).transition().duration(150).attr("r", d.r * 1.6);
+    log(`mouseover cercle #${d.id} (datum =`, d, ")");
+  })
+  .on("mouseout", function (event, d) {
+    d3.select(this).transition().duration(150).attr("r", d.r);
+  })
+  .on("click", function (event, d) {
+    const nouvelle = d3.schemeCategory10[d.id % 10];
+    d3.select(this).attr("fill", nouvelle);
+    log(`click cercle #${d.id} → couleur ${nouvelle}`);
+  });
+
+/* ═══════════════════════════════════════════════════════════════════════
+   2) ANIMATION : .transition()
+
+   .transition() insère une transition : les attributs qui suivent ne sautent
+   plus à leur valeur, ils sont INTERPOLÉS progressivement.
+   • .duration(ms) : durée.
+   • .delay(ms)    : retard avant de démarrer (peut dépendre de (d,i) !).
+   • .ease(fn)     : courbe de vitesse (d3.easeCubic, d3.easeBounce...).
+
+   D3 sait interpoler nombres, couleurs, transforms, chemins...
+   ═══════════════════════════════════════════════════════════════════════ */
+
+let enHaut = false;
+document.querySelector("#btn").addEventListener("click", () => {
+  enHaut = !enHaut;
+  log("→ transition : duration 800ms, delay décalé par index, ease bounce");
+  circles.transition()
+    .duration(800)
+    .delay((d, i) => i * 120)          // effet "cascade" : chaque cercle part + tard
+    .ease(d3.easeCubicInOut)
+    .attr("cy", enHaut ? 60 : H - 60)  // monte / descend
+    .attr("fill", enHaut ? "#E92528" : "#1a1a1a");
+});
+
+log("Survole / clique les cercles, puis clique 'Animer'.");
+log("");
+log("À RETENIR :");
+log("• .on('click', (event, d) => ...)  → (event, d) en D3 v6+ (pas (d,i)).");
+log("• function(event,d){ d3.select(this) }  pour cibler l'élément courant.");
+log("• .transition().duration().delay((d,i)=>...).ease()  → animation fluide.");
+log("• Mettre .transition() AVANT les .attr() qu'on veut animer.");
+</script>
+</body>
+</html>

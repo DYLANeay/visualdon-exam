@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>05 · Manipulation de données (d3-array)</title>
+<link rel="stylesheet" href="_style.css" />
+</head>
+<body>
+<header>
+  <h1>05 · Données — <code>d3-array</code> & méthodes de tableaux</h1>
+  <p>max · min · extent · mean · sum · group · map · filter · sort · reduce</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>À quoi ça sert</h2>
+    <p>Avant de dessiner, il faut <strong>préparer les données</strong> :
+       calculer un min/max (pour le <code>domain</code>), filtrer, trier, regrouper.
+       D3 fournit <code>d3-array</code>, mais les méthodes natives JS
+       (<code>map</code>, <code>filter</code>, <code>sort</code>...) restent essentielles.</p>
+    <div class="tip">Ces fonctions reviennent dans presque chaque exercice :
+       le <code>domain</code> d'une échelle vient quasi toujours d'un
+       <code>d3.max</code> ou <code>d3.extent</code>.</div>
+  </div>
+  <div class="panel">
+    <h2>Console</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const log = (function () {
+  const box = document.querySelector('#log');
+  function log(...args) {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    if (box) box.textContent += line + '\n';
+    console.log(...args);
+  }
+  log.clear = () => { if (box) box.textContent = ''; };
+  return log;
+})();
+
+// Jeu de données : des villes (catégorie + valeur numérique).
+const villes = [
+  { nom: "Lausanne", canton: "VD", pop: 140 },
+  { nom: "Genève",   canton: "GE", pop: 200 },
+  { nom: "Nyon",     canton: "VD", pop: 21  },
+  { nom: "Carouge",  canton: "GE", pop: 22  },
+  { nom: "Morges",   canton: "VD", pop: 16  },
+];
+
+/* ── d3-array : STATISTIQUES ──────────────────────────────────────────────
+   Ces fonctions prennent un tableau + un ACCESSEUR (d => d.champ) qui dit
+   quelle valeur regarder. Renvoient un nombre (ou un couple pour extent). */
+log("=== d3-array (statistiques) ===");
+log("d3.max(villes, d => d.pop)   =", d3.max(villes, d => d.pop));    // 200
+log("d3.min(villes, d => d.pop)   =", d3.min(villes, d => d.pop));    // 16
+log("d3.extent(villes, d => d.pop)=", d3.extent(villes, d => d.pop)); // [16, 200]
+log("d3.mean(villes, d => d.pop)  =", d3.mean(villes, d => d.pop).toFixed(1));
+log("d3.sum(villes, d => d.pop)   =", d3.sum(villes, d => d.pop));
+log("d3.median(villes, d=>d.pop)  =", d3.median(villes, d => d.pop));
+log("");
+log("→ extent sert directement de domain : .domain(d3.extent(data, d=>d.pop))");
+log("");
+
+/* ── d3.group / d3.rollup : REGROUPER (équivalent GROUP BY en SQL) ─────────*/
+log("=== Regroupement ===");
+const parCanton = d3.group(villes, d => d.canton);       // Map { 'VD'=>[...], 'GE'=>[...] }
+log("d3.group par canton → clés :", [...parCanton.keys()]);
+const popParCanton = d3.rollup(villes, v => d3.sum(v, d => d.pop), d => d.canton);
+log("d3.rollup (somme pop par canton) :", [...popParCanton]); // [['VD',177],['GE',222]]
+log("");
+
+/* ── MÉTHODES NATIVES JS (à connaître par cœur) ───────────────────────────
+   Elles ne modifient PAS le tableau d'origine (sauf sort qui trie en place). */
+log("=== Méthodes de tableaux (JS natif) ===");
+
+// map : transforme chaque élément → nouveau tableau de MÊME longueur
+const noms = villes.map(d => d.nom);
+log("map  → noms :", noms);
+
+// filter : garde les éléments qui passent le test → tableau plus court
+const vaudoises = villes.filter(d => d.canton === "VD");
+log("filter (canton VD) →", vaudoises.map(d => d.nom));
+
+// sort : trie. ⚠ il faut un COMPARATEUR (a,b)=>a-b, sinon tri alphabétique !
+const triees = [...villes].sort((a, b) => b.pop - a.pop); // décroissant par pop
+log("sort (pop décroissante) →", triees.map(d => d.nom));
+
+// reduce : "réduit" le tableau à UNE valeur (accumulateur)
+const total = villes.reduce((acc, d) => acc + d.pop, 0);
+log("reduce (total pop) =", total);
+
+// includes / find / some / every
+log("noms.includes('Nyon') =", noms.includes("Nyon"));
+log("find (pop > 150) →", villes.find(d => d.pop > 150).nom);
+log("");
+
+/* ── CHARGEMENT (d3-fetch) — pour info, commenté car nécessite un serveur ──
+   D3 charge les fichiers de façon ASYNCHRONE (renvoie une Promise).
+   d3.csv convertit chaque ligne en objet ; on en profite pour typer les nombres.
+
+   const data = await d3.csv("villes.csv", d => ({
+     nom: d.nom,
+     pop: +d.pop,        // le "+" convertit la chaîne "140" en nombre 140
+   }));
+   // ⚠ un CSV est TOUJOURS du texte : sans le "+", les calculs seraient faux.
+   // d3.json("data.json") pour du JSON.                                      */
+log("Chargement : await d3.csv('f.csv', d => ({ pop: +d.pop }))  // +  = convertit en nombre");
+log("⚠ Piège classique : oublier le '+' → '10' + '2' = '102' (concaténation).");
+</script>
+</body>
+</html>

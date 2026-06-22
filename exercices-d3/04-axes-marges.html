@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>04 · Axes & convention des marges</title>
+<link rel="stylesheet" href="_style.css" />
+</head>
+<body>
+<header>
+  <h1>04 · Axes (<code>axisBottom/Left</code>) & convention des marges</h1>
+  <p>axisBottom · axisLeft · .call() · ticks · margin convention</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>Résultat</h2>
+    <div id="chart"></div>
+    <p class="note">La zone grisée = la zone de dessin <code>width × height</code>,
+      décalée par <code>translate(margin.left, margin.top)</code>.</p>
+  </div>
+  <div class="panel">
+    <h2>Console</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const log = (function () {
+  const box = document.querySelector('#log');
+  function log(...args) {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    if (box) box.textContent += line + '\n';
+    console.log(...args);
+  }
+  log.clear = () => { if (box) box.textContent = ''; };
+  return log;
+})();
+
+/* ═══════════════════════════════════════════════════════════════════════
+   2 IDÉES À MAÎTRISER POUR L'EXAMEN
+
+   (A) Un AXE se construit À PARTIR D'UNE ÉCHELLE :
+         d3.axisBottom(scale)  → ligne + graduations (ticks) + nombres.
+       Mais un axe n'est qu'un GÉNÉRATEUR : il faut l'"appeler" sur un <g>
+       avec .call(axis) pour qu'il dessine dedans.
+
+   (B) La CONVENTION DES MARGES réserve de la place pour les axes :
+         on crée un <g> décalé de (margin.left, margin.top),
+         et on dessine TOUT à l'intérieur dans un repère width × height "propre".
+   ═══════════════════════════════════════════════════════════════════════ */
+
+// 1) Les marges : de la place pour les axes autour de la zone de dessin.
+const margin = { top: 20, right: 20, bottom: 40, left: 50 };
+const width  = 600 - margin.left - margin.right;   // largeur INTÉRIEURE
+const height = 300 - margin.top  - margin.bottom;  // hauteur INTÉRIEURE
+
+log("SVG total : 600 × 300");
+log("margin =", margin);
+log("→ zone de dessin : width =", width, "× height =", height);
+log("");
+
+// 2) Le <svg> à sa taille totale, puis un <g> décalé : tout se dessine dans g.
+const svg = d3.select("#chart").append("svg")
+  .attr("width",  width  + margin.left + margin.right)
+  .attr("height", height + margin.top  + margin.bottom);
+
+const g = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+// Repère visuel de la zone de dessin (juste pédagogique)
+g.append("rect").attr("width", width).attr("height", height)
+  .attr("fill", "#f0f0f0");
+
+// 3) Les échelles (range = la zone INTÉRIEURE).
+const data = [
+  { x: 1, y: 30 }, { x: 2, y: 80 }, { x: 3, y: 45 },
+  { x: 4, y: 60 }, { x: 5, y: 20 }, { x: 6, y: 90 },
+];
+const x = d3.scaleLinear().domain([1, 6]).range([0, width]);
+const y = d3.scaleLinear().domain([0, 100]).range([height, 0]); // inversé
+
+// 4) Les points
+g.selectAll("circle").data(data).join("circle")
+  .attr("cx", d => x(d.x)).attr("cy", d => y(d.y)).attr("r", 6)
+  .attr("fill", "#E92528");
+
+/* 5) LES AXES.
+   - axisBottom(x) : ticks dessous → on place ce <g> EN BAS (translate y=height).
+   - axisLeft(y)   : ticks à gauche → <g> à x=0 (déjà calé par g).
+   .call(axis) exécute le générateur d'axe SUR la sélection <g>. */
+g.append("g")
+  .attr("class", "axis")
+  .attr("transform", `translate(0, ${height})`)  // descendre l'axe X en bas
+  .call(d3.axisBottom(x).ticks(6));
+
+g.append("g")
+  .attr("class", "axis")
+  .call(d3.axisLeft(y).ticks(5));  // .ticks(n) = nombre INDICATIF de graduations
+
+log("Axe X : g.append('g').attr('transform','translate(0,height)').call(axisBottom(x))");
+log("Axe Y : g.append('g').call(axisLeft(y))");
+log("");
+log(".ticks(n) suggère n graduations (D3 arrondit pour des valeurs 'rondes').");
+log("Variantes utiles : .tickFormat(d3.format('.0%')), .tickSize(...), .tickValues([...]).");
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ERREURS CLASSIQUES À ÉVITER (souvent testées) :
+   • Oublier translate(0, height) → l'axe X se dessine tout en haut.
+   • Passer l'ÉCHELLE à .call() au lieu de l'AXE → rien ne s'affiche.
+     ✅ .call(d3.axisBottom(x))     ❌ .call(x)
+   • Range Y non inversé → le graphique est "tête en bas".
+   ───────────────────────────────────────────────────────────────────────── */
+</script>
+</body>
+</html>

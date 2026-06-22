@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Exercices D3 — méthodes fondamentales</title>
+<link rel="stylesheet" href="_style.css" />
+<style>
+  main { max-width: 760px; margin: 0 auto; padding: 2rem; }
+  .card { display:block; text-decoration:none; color:inherit; margin:.75rem 0;
+          padding:1rem 1.25rem; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  .card:hover { border-color: var(--accent); }
+  .card h3 { margin:0 0 .25rem; }
+  .card p { margin:0; color: var(--muted); font-size:.9rem; }
+  .num { color: var(--accent); font-weight:700; margin-right:.4rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Exercices D3.js — méthodes fondamentales</h1>
+  <p>Ouvre chaque fichier dans le navigateur, lis les commentaires, modifie les valeurs et observe.</p>
+</header>
+<main>
+  <div class="tip">
+    <strong>Comment t'entraîner :</strong> ouvre un fichier, lis le code de haut en bas
+    (tout est commenté), puis <strong>change les valeurs</strong> (domain, range, données…)
+    et recharge la page. La « Console » à droite affiche ce que renvoie chaque méthode.
+  </div>
+
+  <a class="card" href="01-selections-join.html">
+    <h3><span class="num">01</span>Sélections & data binding</h3>
+    <p>select · selectAll · append · attr · <strong>data().join()</strong> · enter / update / exit</p>
+  </a>
+  <a class="card" href="02-echelles-domain-range.html">
+    <h3><span class="num">02</span>Échelles : domain & range</h3>
+    <p>scaleLinear · domain (données) → range (pixels) · invert · clamp · nice · range inversé (axe Y)</p>
+  </a>
+  <a class="card" href="03-types-echelles.html">
+    <h3><span class="num">03</span>Les types d'échelles</h3>
+    <p>scaleBand · scaleOrdinal · scaleTime · scaleQuantize · scaleThreshold</p>
+  </a>
+  <a class="card" href="04-axes-marges.html">
+    <h3><span class="num">04</span>Axes & convention des marges</h3>
+    <p>axisBottom · axisLeft · .call() · .ticks() · margin convention</p>
+  </a>
+  <a class="card" href="05-donnees-array.html">
+    <h3><span class="num">05</span>Manipulation de données</h3>
+    <p>d3.max · min · extent · mean · group · rollup · map · filter · sort · reduce · chargement CSV</p>
+  </a>
+  <a class="card" href="06-interaction-animation.html">
+    <h3><span class="num">06</span>Interaction & animation</h3>
+    <p>.on(event, (event, d)) · this · .transition() · .duration() · .delay() · .ease()</p>
+  </a>
+  <a class="card" href="07-mega-exemple-barchart.html">
+    <h3><span class="num">07</span>Méga-exemple : bar chart complet</h3>
+    <p>La synthèse du formulaire A4 : données → marges → échelles → axes → data binding → labels → interaction, en 7 étapes commentées</p>
+  </a>
+
+  <p class="note" style="margin-top:1.5rem">
+    D3 v7 est chargé depuis un CDN (connexion internet requise au 1er chargement).
+    Couvre la section <strong>D3.js</strong> de l'examen type (sélections & binding,
+    échelles & axes, manipulation de données, interaction & animation).
+  </p>
+</main>
+</body>
+</html>

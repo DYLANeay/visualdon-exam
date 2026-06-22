@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>07 · Méga-exemple D3 (bar chart complet)</title>
+<link rel="stylesheet" href="_style.css" />
+<style>
+  /* Le tooltip : une simple <div> positionnée en absolu, cachée par défaut
+     (opacity 0) et déplacée sous le curseur au survol (voir étape 7). */
+  #tooltip {
+    position: absolute;
+    opacity: 0;                 /* invisible tant qu'on ne survole rien */
+    pointer-events: none;       /* le tooltip ne "vole" jamais le survol à la barre */
+    background: #1a1a1a;
+    color: #fff;
+    padding: .4rem .6rem;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: opacity .15s;   /* fondu doux (côté CSS, distinct des transitions D3) */
+    z-index: 10;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>07 · Méga-exemple D3 — bar chart complet</h1>
+  <p>Le « méga-exemple » du formulaire A4 : il couvre TOUTE la partie D3 de l'examen
+     en un seul graphique (données → marges → échelles → axes → data binding → labels → interaction).</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>Résultat</h2>
+    <!-- D3 va injecter le <svg> ici (voir étape 2). -->
+    <div id="chart"></div>
+    <p class="note"><strong>Survole</strong> une barre : elle devient orange (transition
+      animée) et un tooltip suit le curseur. Les 7 étapes ci-dessous sont exactement
+      celles du formulaire.</p>
+  </div>
+  <div class="panel">
+    <h2>Plan du code (les 7 étapes)</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<!-- Le tooltip vit en dehors du SVG, dans le <body> : on le positionne en
+     coordonnées de PAGE (event.pageX / pageY). -->
+<div id="tooltip"></div>
+
+<!-- D3 v7 complet par CDN. Dans un vrai projet bundlé on importerait plutôt
+     les modules séparés (voir le bloc de commentaire "IMPORTS" plus bas). -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+/* Petit logger pour le panneau de droite (n'a rien à voir avec D3). */
+const log = (function () {
+  const box = document.querySelector('#log');
+  return (...a) => { box.textContent += a.join(' ') + '\n'; console.log(...a); };
+})();
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   IMPORTS (rappel du formulaire — version modulaire avec un bundler)
+
+       import { select }                from 'd3-selection'  // sélection / DOM
+       import { scaleBand, scaleLinear} from 'd3-scale'      // échelles
+       import { axisBottom, axisLeft }  from 'd3-axis'       // axes
+       import { max }                   from 'd3-array'      // stats sur tableaux
+       import { transition }            from 'd3-transition' // animations
+
+   D3 est MODULAIRE : on n'importe que ce dont on a besoin.
+   Ici, via le CDN, tout est sous le namespace global `d3.` :
+       d3.select(...), d3.scaleBand(...), d3.axisBottom(...), d3.max(...)
+   → mentalement, `select(...)` du formulaire == `d3.select(...)` ici.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÉTAPE 1 — LES DONNÉES
+   ───────────────────────────────────────────────────────────────────────────
+   Un tableau d'objets : chaque objet = une barre.
+   ⚠ PIÈGE CSV : si ces données venaient d'un d3.csv(), TOUS les champs seraient
+     des CHAÎNES de caractères. Il faudrait convertir avec le `+` unaire :
+         accidents: +d.accidents
+     Sinon "203" + "310" donnerait "203310" (concaténation) au lieu de 513.
+   Ici les données sont déjà en dur, donc les nombres sont de vrais nombres.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const data = [
+  { categorie: 'Vélo',    accidents: 142 },
+  { categorie: 'Moto',    accidents: 203 },
+  { categorie: 'Voiture', accidents: 310 },
+];
+log('1 · Données :', data.length, 'catégories');
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÉTAPE 2 — LA CONVENTION DES MARGES
+   ───────────────────────────────────────────────────────────────────────────
+   width/height = taille TOTALE du SVG.
+   margin = espace réservé AUTOUR de la zone de dessin (pour les axes/labels).
+   innerW / innerH = la zone de dessin RÉELLE (là où vont les barres).
+
+   Astuce mnémonique : on décale un groupe <g> de (margin.left, margin.top),
+   puis on dessine TOUT à l'intérieur en coordonnées (0,0) → (innerW, innerH).
+   Le <g> agit comme une "feuille" posée à l'intérieur des marges.
+   ═══════════════════════════════════════════════════════════════════════════ */
+const margin = { top: 20, right: 20, bottom: 50, left: 60 };
+//                                       ↑ bottom=50 : place pour les étiquettes de l'axe X
+//                                                 ↑ left=60 : place pour les nombres de l'axe Y
+const width  = 500, height = 350;
+const innerW = width  - margin.left - margin.right;
+const innerH = height - margin.top  - margin.bottom;
+
+// 2a. On crée le <svg> dans #chart.
+const svg = d3.select('#chart').append('svg')
+  .attr('width', width)
+  .attr('height', height);
+
+// 2b. Le groupe <g> = la zone de dessin, décalée dans les marges.
+const g = svg.append('g')
+  .attr('transform', `translate(${margin.left},${margin.top})`);
+//                    ↑ translate(60,20) : tout ce qui est dans <g> est décalé d'autant.
+log('2 · Marges : zone de dessin', innerW + '×' + innerH, 'px');
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÉTAPE 3 — LES ÉCHELLES (domain = données  →  range = pixels)
+   ───────────────────────────────────────────────────────────────────────────
+   Une échelle est une FONCTION : on lui donne une valeur de donnée, elle
+   renvoie une position/taille en pixels. C'est le cœur de D3.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+// X : des CATÉGORIES (texte) → des bandes réparties sur la largeur.
+//     scaleBand calcule automatiquement la largeur de chaque barre + les espaces.
+const x = d3.scaleBand()
+  .domain(data.map(d => d.categorie))   // ['Vélo','Moto','Voiture']
+  .range([0, innerW])                   // de gauche (0) à droite (innerW)
+  .padding(0.25);                       // 25% d'espace entre les barres.
+//   ⚠ PIÈGE : un padding PLUS GRAND rend les barres PLUS FINES (0.25 → 0.7 = + fin).
+
+// Y : une valeur CONTINUE (0…310) → une position verticale en pixels.
+const y = d3.scaleLinear()
+  .domain([0, d3.max(data, d => d.accidents)])  // TOUJOURS partir de 0 (sinon axe trompeur, cours 10)
+  .range([innerH, 0]);                          // ⚠ INVERSÉ : grande valeur → petit y (haut).
+//   En SVG, y=0 est EN HAUT et y augmente vers le BAS. Pour qu'une grande valeur
+//   soit dessinée HAUT, le range doit être [innerH, 0] et pas [0, innerH].
+log('3 · Échelles : x=scaleBand, y=scaleLinear, max =', d3.max(data, d => d.accidents));
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÉTAPE 4 — LES AXES
+   ───────────────────────────────────────────────────────────────────────────
+   axisBottom(x) / axisLeft(y) sont des GÉNÉRATEURS : ils savent dessiner un axe
+   à partir d'une échelle. On les "exécute" dans un <g> avec .call(...).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+// Axe X : en bas → on descend le <g> de innerH, puis on appelle axisBottom.
+g.append('g')
+  .attr('class', 'axis')
+  .attr('transform', `translate(0,${innerH})`)
+  .call(d3.axisBottom(x));
+
+// Axe Y : à gauche (déjà en x=0) → axisLeft.
+g.append('g')
+  .attr('class', 'axis')
+  .call(d3.axisLeft(y));
+log('4 · Axes : axisBottom(x) en bas, axisLeft(y) à gauche, via .call()');
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÉTAPE 5 — DATA BINDING + LES BARRES
+   ───────────────────────────────────────────────────────────────────────────
+   selectAll('rect').data(data).join('rect') = le pattern central de D3 :
+   il LIE le tableau de données aux éléments <rect> et gère les 3 cas :
+     • ENTER  : donnée sans <rect>  → en crée un.
+     • UPDATE : donnée avec <rect>  → le met à jour.
+     • EXIT   : <rect> sans donnée  → le supprime.
+   .join('rect') gère les trois automatiquement (donc retirer un élément du
+   tableau ne lève PAS d'erreur : exit s'en occupe).
+   ═══════════════════════════════════════════════════════════════════════════ */
+g.selectAll('rect')
+  .data(data)
+  .join('rect')
+  .attr('x', d => x(d.categorie))                 // position horizontale = échelle X
+  .attr('y', d => y(d.accidents))                 // HAUT de la barre (souviens-toi : range inversé)
+  .attr('width', x.bandwidth())                   // largeur d'UNE bande, calculée par scaleBand
+  .attr('height', d => innerH - y(d.accidents))   // hauteur = du haut de la barre jusqu'au bas
+  .attr('fill', 'steelblue');
+//   ⚠ La hauteur, c'est `innerH - y(valeur)`, pas `y(valeur)` :
+//     y(valeur) donne la position du HAUT ; la barre descend jusqu'à innerH.
+log('5 · Barres : selectAll/data/join → enter/update/exit');
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÉTAPE 6 — LES LABELS (valeur au-dessus de chaque barre)
+   ───────────────────────────────────────────────────────────────────────────
+   Même pattern de data binding, mais avec des <text>.
+   On utilise un sélecteur de classe 'text.val' pour ne PAS confondre ces
+   labels avec les <text> déjà créés par les axes.
+   ═══════════════════════════════════════════════════════════════════════════ */
+g.selectAll('text.val')
+  .data(data)
+  .join('text')
+  .attr('class', 'val')
+  .attr('x', d => x(d.categorie) + x.bandwidth() / 2)  // centré sur la barre
+  .attr('y', d => y(d.accidents) - 5)                  // 5px AU-DESSUS du haut de la barre
+  .attr('text-anchor', 'middle')                       // texte centré sur son point d'ancrage
+  .attr('font-size', 12)
+  .text(d => d.accidents);
+log('6 · Labels : <text> centrés au-dessus des barres');
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ÉTAPE 7 — INTERACTION + TRANSITION (le survol)
+   ───────────────────────────────────────────────────────────────────────────
+   On attache des écouteurs aux barres avec .on('event', handler).
+   ⚠ DEUX PIÈGES CLASSIQUES D'EXAMEN :
+     • Le handler reçoit (event, d) en D3 v6+ : event = événement DOM, d = donnée.
+     • On utilise `function` et PAS une arrow `=>`, car on a besoin de `this`
+       (= l'élément <rect> survolé). Avec une arrow, `this` ne serait pas la barre.
+   .transition().duration(150) → le changement de couleur est ANIMÉ (pas instantané).
+   Plus la durée est COURTE, plus c'est RAPIDE (150ms < 1000ms).
+   ═══════════════════════════════════════════════════════════════════════════ */
+const tooltip = d3.select('#tooltip');
+
+g.selectAll('rect')
+  .on('mouseover', function (event, d) {
+    // `this` = la barre survolée → d3.select(this) pour la cibler.
+    d3.select(this).transition().duration(150).attr('fill', 'orange');
+
+    tooltip
+      .style('opacity', 1)
+      .style('left', event.pageX + 12 + 'px')   // 12px à DROITE du curseur
+      .style('top',  event.pageY - 30 + 'px')   // 30px AU-DESSUS du curseur
+      .html(`<strong>${d.categorie}</strong><br>${d.accidents} accidents`);
+    //   ⚠ .html() interprète les balises (<strong>, <br>) ; .text() les afficherait littéralement.
+  })
+  .on('mouseout', function (event, d) {
+    d3.select(this).transition().duration(150).attr('fill', 'steelblue');
+    tooltip.style('opacity', 0);
+  });
+log('7 · Interaction : .on("mouseover"), function(event,d), transition 150ms, tooltip');
+log('');
+log('→ Survole les barres pour voir l\'étape 7 en action.');
+</script>
+</body>
+</html>

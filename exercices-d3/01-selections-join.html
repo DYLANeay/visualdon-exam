@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>01 · Sélections & data binding (join)</title>
+<link rel="stylesheet" href="_style.css" />
+</head>
+<body>
+<header>
+  <h1>01 · Sélections, data binding et <code>.join()</code></h1>
+  <p>select · selectAll · append · attr · <strong>data().join()</strong> · Enter / Update / Exit</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>Résultat</h2>
+    <div id="chart"></div>
+    <div class="tip">
+      Clique sur <button id="btn">Nouvelles données aléatoires</button>
+      pour voir le <strong>join</strong> en action : certaines barres apparaissent
+      (enter), d'autres changent (update), d'autres disparaissent (exit).
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Console (ce que renvoie le code)</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<!-- D3 complet depuis un CDN (variable globale `d3`) : ouvre juste ce fichier. -->
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+// Mini "console à l'écran" : affiche dans #log ce que renvoie le code.
+const log = (function () {
+  const box = document.querySelector('#log');
+  function log(...args) {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    if (box) box.textContent += line + '\n';
+    console.log(...args);
+  }
+  log.clear = () => { if (box) box.textContent = ''; };
+  return log;
+})();
+
+/* ─────────────────────────────────────────────────────────────────────────
+   1) UNE SÉLECTION = une "poignée" sur un ou plusieurs éléments du DOM.
+
+   d3.select(sel)     → sélectionne le PREMIER élément qui correspond.
+   d3.selectAll(sel)  → sélectionne TOUS les éléments qui correspondent.
+
+   Sur une sélection, on enchaîne (method chaining) :
+   .append(tag) ajoute un enfant, .attr(nom, val) pose un attribut,
+   .style(...), .text(...). Chaque méthode RENVOIE une sélection → on chaîne.
+   ───────────────────────────────────────────────────────────────────────── */
+
+const width = 480, height = 260;
+
+// On crée le <svg>. select renvoie la sélection du <div>, append renvoie le <svg>.
+const svg = d3.select("#chart")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
+
+log("d3.select('#chart') a renvoyé 1 élément. svg est maintenant la poignée sur le <svg>.");
+
+/* ─────────────────────────────────────────────────────────────────────────
+   2) LE DATA BINDING : associer un TABLEAU de données à des éléments du DOM.
+
+   selection.data(monTableau)  → "il devrait y avoir 1 élément par donnée".
+   D3 compare alors le tableau aux éléments existants et fabrique 3 groupes :
+
+     • ENTER  : données SANS élément  → il faut en CRÉER
+     • UPDATE : données AVEC élément   → il faut METTRE À JOUR
+     • EXIT   : éléments SANS donnée   → il faut SUPPRIMER
+
+   .join("rect") fait les 3 d'un coup (création + maj + suppression) : c'est
+   la forme moderne et recommandée par le cours. La forme longue serait
+   .enter().append(...) / merge / .exit().remove().
+   ───────────────────────────────────────────────────────────────────────── */
+
+const barWidth = 36, gap = 8;
+
+function render(data) {
+  log.clear();
+  log("Nouvelles données :", data);
+  log("→ on demande 1 <rect> par valeur, soit " + data.length + " rect.");
+
+  // Le 2e argument de data() est la KEY FUNCTION : elle dit à D3 "comment
+  // reconnaître qu'une donnée correspond au même élément qu'avant".
+  // Ici on indexe par valeur ; en pratique on utilise souvent un id stable.
+  svg.selectAll("rect")
+    .data(data)
+    .join(
+      // ENTER : appelé pour chaque donnée nouvelle → on crée le rect
+      enter => enter.append("rect")
+        .attr("fill", "#E92528")
+        .attr("y", height)       // on part du bas...
+        .attr("height", 0)       // ...avec une hauteur 0 (pour l'animation)
+        .call(e => log("ENTER : " + e.size() + " rect créé(s)")),
+      // UPDATE : appelé pour les rect qui existaient déjà
+      update => update
+        .attr("fill", "#1a1a1a")
+        .call(u => log("UPDATE : " + u.size() + " rect mis à jour")),
+      // EXIT : appelé pour les rect qui n'ont plus de donnée → on les enlève
+      exit => exit
+        .call(x => log("EXIT : " + x.size() + " rect supprimé(s)"))
+        .transition().duration(500)
+        .attr("height", 0).attr("y", height)
+        .remove()
+    )
+    // Ce qui suit s'applique à ENTER + UPDATE (le résultat fusionné du join).
+    // Les fonctions (d, i) reçoivent la DONNÉE liée et son INDEX :
+    .transition().duration(600)
+    .attr("x", (d, i) => i * (barWidth + gap) + 10)
+    .attr("width", barWidth)
+    .attr("y", d => height - d)
+    .attr("height", d => d);
+}
+
+// Données de départ
+let data = [120, 60, 200, 90, 160];
+render(data);
+
+document.querySelector("#btn").addEventListener("click", () => {
+  // Tableau de longueur aléatoire (3 à 7) → tu verras enter ET exit.
+  const n = 3 + Math.floor(Math.random() * 5);
+  data = Array.from({ length: n }, () => 30 + Math.floor(Math.random() * 200));
+  render(data);
+});
+
+/* ─────────────────────────────────────────────────────────────────────────
+   À RETENIR POUR L'EXAMEN
+   • .data() lie un tableau ; .join() applique enter/update/exit.
+   • Les attributs acceptent une fonction (d, i) : d = la donnée, i = l'index.
+   • Sans key function, D3 associe par INDEX (position dans le tableau).
+   • .join("rect") (forme courte) = même résultat que enter().append() + exit().remove().
+   ───────────────────────────────────────────────────────────────────────── */
+</script>
+</body>
+</html>

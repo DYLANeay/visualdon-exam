@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>03 · Les types d'échelles</title>
+<link rel="stylesheet" href="_style.css" />
+</head>
+<body>
+<header>
+  <h1>03 · Tous les types d'échelles</h1>
+  <p>scaleBand · scaleOrdinal · scaleTime · scaleQuantize · scaleThreshold</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>Résultat (bar chart avec scaleBand)</h2>
+    <div id="chart"></div>
+    <p class="note"><code>scaleBand</code> répartit l'espace pour des barres ;
+       <code>scaleOrdinal</code> donne une couleur par catégorie.</p>
+  </div>
+  <div class="panel">
+    <h2>Console</h2>
+    <div id="log"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const log = (function () {
+  const box = document.querySelector('#log');
+  function log(...args) {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    if (box) box.textContent += line + '\n';
+    console.log(...args);
+  }
+  log.clear = () => { if (box) box.textContent = ''; };
+  return log;
+})();
+
+/* ═══════════════════════════════════════════════════════════════════════
+   RÈGLE GÉNÉRALE : on choisit l'échelle selon le TYPE de donnée.
+
+   QUANTITATIF CONTINU  → scaleLinear / scaleTime      (vu au fichier 02)
+   CATÉGORIQUE (barres) → scaleBand                    (positions + largeur)
+   CATÉGORIQUE (couleur)→ scaleOrdinal                 (1 sortie par catégorie)
+   CONTINU → DISCRET    → scaleQuantize / scaleThreshold (cartes choroplèthes)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── 1) scaleBand : pour les BAR CHARTS ───────────────────────────────────
+   domain = liste des catégories ; range = espace dispo en px.
+   D3 découpe le range en bandes égales, avec un padding entre elles.
+   .bandwidth() te donne la LARGEUR d'une barre. */
+const cats = ["Pomme", "Banane", "Cerise", "Datte"];
+const xBand = d3.scaleBand()
+  .domain(cats)
+  .range([0, 600])
+  .padding(0.2);   // 20% d'espace = "vide" entre les barres
+
+log("scaleBand .domain(['Pomme','Banane','Cerise','Datte']).range([0,600]).padding(0.2)");
+log("xBand('Pomme')  =", xBand("Pomme"),  " (x de la barre)");
+log("xBand('Cerise') =", xBand("Cerise"));
+log("xBand.bandwidth() =", xBand.bandwidth().toFixed(1), " (largeur d'UNE barre)");
+log("");
+
+/* ── 2) scaleOrdinal : une COULEUR (ou valeur discrète) par catégorie ──────
+   domain = catégories ; range = liste de sorties. D3 associe 1↔1, dans l'ordre. */
+const color = d3.scaleOrdinal()
+  .domain(cats)
+  .range(["#e41a1c", "#ffcc00", "#984ea3", "#4daf4a"]);
+
+log("scaleOrdinal : color('Banane') =", color("Banane"));
+log("scaleOrdinal : color('Datte')  =", color("Datte"));
+log("(D3 propose aussi des palettes prêtes : d3.schemeCategory10)");
+log("");
+
+/* ── 3) scaleTime : comme scaleLinear mais le domain est en DATES ──────────*/
+const t = d3.scaleTime()
+  .domain([new Date("2020-01-01"), new Date("2025-01-01")])
+  .range([0, 800]);
+log("scaleTime : t(2022-06-01) =", t(new Date("2022-06-01")).toFixed(0), "px (≈ milieu)");
+log("");
+
+/* ── 4) scaleQuantize : domaine CONTINU → quelques classes DISCRÈTES ───────
+   Découpe le domaine en intervalles ÉGAUX, un par valeur du range.
+   Très utilisé pour les cartes choroplèthes. */
+const q = d3.scaleQuantize()
+  .domain([0, 100])
+  .range(["#f0f0f0", "#bdbdbd", "#636363"]); // 3 classes → 3 tiers égaux
+log("scaleQuantize .domain([0,100]).range([3 gris]) :");
+log("q(10) =", q(10), "  q(50) =", q(50), "  q(90) =", q(90));
+log("(0–33 → clair, 33–66 → moyen, 66–100 → foncé)");
+log("");
+
+/* ── 5) scaleThreshold : SEUILS choisis À LA MAIN ──────────────────────────
+   Le domain donne les SÉPARATEURS ; le range a 1 valeur de PLUS (les zones). */
+const th = d3.scaleThreshold()
+  .domain([30, 70])                              // 2 seuils → 3 zones
+  .range(["#d73027", "#fee08b", "#1a9850"]);     // <30 | 30–70 | >=70
+log("scaleThreshold .domain([30,70]) (seuils) .range([3 couleurs]) :");
+log("th(20) =", th(20), "  th(50) =", th(50), "  th(80) =", th(80));
+log("");
+log("⚠ quantize = intervalles ÉGAUX automatiques ; threshold = seuils CHOISIS.");
+
+/* ─────────────────────────────────────────────────────────────────────────
+   DÉMO VISUELLE : bar chart utilisant scaleBand (x), scaleLinear (y) et
+   scaleOrdinal (couleur) — exactement le combo d'un bar chart d'examen.
+   ───────────────────────────────────────────────────────────────────────── */
+const data = [{ f: "Pomme", v: 30 }, { f: "Banane", v: 80 },
+              { f: "Cerise", v: 45 }, { f: "Datte", v: 60 }];
+const W = 600, H = 240, pad = 30;
+
+const x = d3.scaleBand().domain(cats).range([pad, W - pad]).padding(0.2);
+const y = d3.scaleLinear().domain([0, 100]).range([H - pad, pad]); // inversé !
+
+const svg = d3.select("#chart").append("svg").attr("width", W).attr("height", H);
+
+svg.selectAll("rect")
+  .data(data)
+  .join("rect")
+  .attr("x", d => x(d.f))
+  .attr("y", d => y(d.v))
+  .attr("width", x.bandwidth())
+  .attr("height", d => (H - pad) - y(d.v))  // du haut de la barre jusqu'au bas
+  .attr("fill", d => color(d.f));
+
+svg.append("g").attr("class", "axis")
+  .attr("transform", `translate(0, ${H - pad})`).call(d3.axisBottom(x));
+svg.append("g").attr("class", "axis")
+  .attr("transform", `translate(${pad}, 0)`).call(d3.axisLeft(y).ticks(5));
+</script>
+</body>
+</html>
